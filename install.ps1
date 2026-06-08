@@ -17,25 +17,35 @@ $ClaudeSkills = Join-Path $env:USERPROFILE ".claude\skills"
 function Safe-Symlink {
     param([string]$Src, [string]$Dst)
 
-    if (Test-Path $Dst) {
-        $item = Get-Item $Dst -Force
-        $isSymlink = $item.Attributes -band [System.IO.FileAttributes]::ReparsePoint
-        if ($isSymlink) {
-            Remove-Item $Dst -Force
-        } else {
-            $backup = $Dst + ".backup." + (Get-Date -Format "yyyyMMddHHmmss")
-            Write-Host "[!] Backup $Dst -> $backup" -ForegroundColor Yellow
-            Move-Item $Dst $backup
+    try {
+        if (Test-Path $Dst -ErrorAction Stop) {
+            $item = Get-Item $Dst -Force
+            $isSymlink = $item.Attributes -band [System.IO.FileAttributes]::ReparsePoint
+            if ($isSymlink) {
+                Remove-Item $Dst -Force
+            } else {
+                $backup = $Dst + ".backup." + (Get-Date -Format "yyyyMMddHHmmss")
+                Write-Host "[!] Backup $Dst -> $backup" -ForegroundColor Yellow
+                Move-Item $Dst $backup
+            }
         }
+    } catch {
+        Write-Host "[!] Cannot access $Dst, skipping..." -ForegroundColor Yellow
+        return
     }
 
-    $parent = Split-Path $Dst -Parent
-    if (!(Test-Path $parent)) {
-        New-Item -ItemType Directory -Path $parent -Force | Out-Null
-    }
+    try {
+        $parent = Split-Path $Dst -Parent
+        if (!(Test-Path $parent)) {
+            New-Item -ItemType Directory -Path $parent -Force | Out-Null
+        }
 
-    New-Item -ItemType Junction -Path $Dst -Target $Src | Out-Null
-    Write-Host "[OK] $Dst -> $Src" -ForegroundColor Green
+        New-Item -ItemType Junction -Path $Dst -Target $Src | Out-Null
+        Write-Host "[OK] $Dst -> $Src" -ForegroundColor Green
+    } catch {
+        Write-Host "[!] Failed to create symlink: $Dst -> $Src" -ForegroundColor Red
+        Write-Host "    $_" -ForegroundColor DarkRed
+    }
 }
 
 Write-Host "============================================================"
@@ -69,11 +79,24 @@ if (Test-Path $Shared) {
 Write-Host "--- Project-level skills ---"
 $Workspace = Join-Path $MacHome "Desktop\量化投资程序"
 if (Test-Path $Project) {
-    Get-ChildItem $Project -Directory | ForEach-Object {
-        $agentsDst = Join-Path (Join-Path $Workspace ".agents\skills") $_.Name
-        $skillsDst = Join-Path (Join-Path $Workspace "skills") $_.Name
-        Safe-Symlink -Src $_.FullName -Dst $agentsDst
-        Safe-Symlink -Src $_.FullName -Dst $skillsDst
+    # 先检查工作区路径是否可访问
+    $wsAccessible = $false
+    try {
+        $wsAccessible = Test-Path $Workspace -ErrorAction Stop
+    } catch {
+        Write-Host "[!] Cannot access project workspace: $Workspace" -ForegroundColor Yellow
+        Write-Host "    Project-level skills will be skipped on this machine" -ForegroundColor DarkGray
+    }
+
+    if ($wsAccessible) {
+        Get-ChildItem $Project -Directory | ForEach-Object {
+            $agentsDst = Join-Path (Join-Path $Workspace ".agents\skills") $_.Name
+            $skillsDst = Join-Path (Join-Path $Workspace "skills") $_.Name
+            Safe-Symlink -Src $_.FullName -Dst $agentsDst
+            Safe-Symlink -Src $_.FullName -Dst $skillsDst
+        }
+    } else {
+        Write-Host "[!] Project skills skipped (workspace not accessible)" -ForegroundColor DarkGray
     }
 }
 
