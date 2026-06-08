@@ -70,8 +70,10 @@ Write-Host "--- Project-level skills ---"
 $Workspace = Join-Path $MacHome "Desktop\量化投资程序"
 if (Test-Path $Project) {
     Get-ChildItem $Project -Directory | ForEach-Object {
-        Safe-Symlink -Src $_.FullName -Dst (Join-Path $Workspace ".agents\skills" -ChildPath $_.Name)
-        Safe-Symlink -Src $_.FullName -Dst (Join-Path $Workspace "skills" -ChildPath $_.Name)
+        $agentsDst = Join-Path (Join-Path $Workspace ".agents\skills") $_.Name
+        $skillsDst = Join-Path (Join-Path $Workspace "skills") $_.Name
+        Safe-Symlink -Src $_.FullName -Dst $agentsDst
+        Safe-Symlink -Src $_.FullName -Dst $skillsDst
     }
 }
 
