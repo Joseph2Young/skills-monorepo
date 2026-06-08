@@ -6,7 +6,7 @@
 
 ```
 ~/skills-monorepo/
-├── shared/          # Codex + Claude Code 共用的 skills（54个）
+├── shared/          # Codex + Claude Code 共用的 skills（79个）
 ├── project/         # 项目级 skills（如 sop-factory）
 ├── codex-system/    # Codex 内置 skills 的备份（仅供参考，不由本仓库管理）
 ├── install.sh       # macOS 一键安装
