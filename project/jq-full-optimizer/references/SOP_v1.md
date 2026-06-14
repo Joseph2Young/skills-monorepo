@@ -419,6 +419,50 @@ jqcli backtest show {bt_id}
 
 **检查点 CP-4.2**：回测是否成功提交并 running？
 
+### 4.2a 上传验证门控（关键）
+
+**问题**：`jqcli strategy edit` 可能不生效——返回的 ID 可能不是实际更新的策略（`_find_strategy_by_name` 会找同名策略）。
+
+**必须执行以下验证步骤**：
+
+1. 上传代码后，从编辑页重新读取代码（GET /algorithm/index/edit）
+2. 用 `parse_strategy_edit_html()` 解析返回的 `save_id`
+3. 比对上传代码的前 20 行和重新读取的前 20 行
+4. **用原始 strategy_id（非返回 ID）提交回测**
+5. 如果比对不一致 → 警告用户，暂停流程
+
+```python
+def upload_with_verify(client, strategy_id, code):
+    """上传策略代码并验证生效（read-back verify）"""
+    # 1. 获取编辑页面
+    html = client.get_text('/algorithm/index/edit', params={'algorithmId': strategy_id})
+    detail = parse_strategy_edit_html(html, requested_id=strategy_id)
+    payload = dict(detail['_form'])
+    payload['algorithm[algorithmId]'] = str(detail['save_id'])
+    payload['algorithm[code]'] = base64.b64encode(code.encode('utf-8')).decode('ascii')
+    payload['encrType'] = 'base64'
+
+    # 2. 上传
+    client.post('/algorithm/index/save', data=payload,
+                headers={'Referer': f'{client.api_base}/algorithm/index/edit?algorithmId={strategy_id}'})
+
+    # 3. 验证（read-back）
+    html2 = client.get_text('/algorithm/index/edit', params={'algorithmId': strategy_id})
+    detail2 = parse_strategy_edit_html(html2, requested_id=strategy_id)
+    saved_code = base64.b64decode(detail2['_form']['algorithm[code]']).decode('utf-8')
+
+    # 4. 比对关键行
+    uploaded_lines = code.strip().split('\n')[:20]
+    saved_lines = saved_code.strip().split('\n')[:20]
+    if uploaded_lines != saved_lines:
+        raise ValueError("⚠️ 上传验证失败：代码不匹配！请检查策略 ID 是否正确。")
+
+    print(f"✅ 上传验证通过 (strategy_id={strategy_id})")
+    return strategy_id  # 用原始 ID，非 save_id
+```
+
+**检查点 CP-4.2a**：上传代码是否通过 read-back 验证？
+
 ### 4.3 监控与异常处理
 
 **正常运行标志**：
@@ -458,6 +502,69 @@ print(f'event_log 条数: {len(meta["event_log"])}')
 ---
 
 ## 阶段五：择时有效性验证
+
+### 5.0 择时条件开发子流程（可选）
+
+> **适用场景**：需要**新增或替换**一个择时条件时，在 5.1 之前执行此子流程。如果只是验证现有条件的有效性，直接跳到 5.1。
+
+#### 5.0.1 独立信号研究
+
+**步骤**：
+1. 编写独立研究脚本（不修改主策略），在聚宽平台运行
+2. 在研究脚本中同时计算**新信号**和**旧信号**，对比触发时机
+3. 标记关键极端时段（如大跌、大涨）的信号表现差异
+4. 输出对比报告：信号触发次数、触发时段、极端期表现
+
+**关键原则**：
+- 独立脚本使用 `schedule` / `run_daily` 而非 `handle_data`，避免分钟级重复调用
+- 独立脚本可以自由访问聚宽 API，不受主策略缓存层约束
+- 独立脚本的结果仅作研究参考，不直接用于实盘
+
+#### 5.0.2 信号参数预筛选
+
+**步骤**：
+1. 用独立脚本进行粗粒度参数扫描（4-8 组核心参数）
+2. 确定参数大致合理区间
+3. 避免在阶段六做全量搜索时范围过大
+
+#### 5.0.3 集成到主策略
+
+使用**集成清单**追踪主策略中所有需要修改的位置：
+
+```markdown
+## 集成清单模板
+
+| # | 文件 | 行号 | 修改内容 | 状态 |
+|---|------|------|---------|------|
+| 1 | {strategy}.py | L{N} | 新增 `{condition}_enabled` 参数到 PARAMS | ⬜ |
+| 2 | {strategy}.py | L{N} | 替换旧参数为新参数组 | ⬜ |
+| 3 | {strategy}.py | L{N} | 新增 `{condition_name}()` 函数 | ⬜ |
+| 4 | {strategy}.py | L{N} | 更新调用点引用（如 evaluate_morning_risk） | ⬜ |
+| 5 | {strategy}.py | L{N} | 更新 _bull_to_bear() 中的引用 | ⬜ |
+| 6 | {strategy}.py | L{N} | 更新 _bear_to_bull() 中的引用 | ⬜ |
+| 7 | {strategy}.py | L{N} | 更新日志标签 | ⬜ |
+| 8 | {strategy}.py | L{N} | 更新 schedule() 调用 | ⬜ |
+```
+
+**集成方法**：
+1. 用 `grep` 搜索旧函数名，列出所有引用位置
+2. 逐一修改并标注完成
+3. 每处修改必须保持代码风格一致
+
+#### 5.0.4 集成验证
+
+- 修改后跑一次 sweep 回测，确认收益与独立脚本结果趋势一致
+- 如果不一致 → 用集成清单逐项排查遗漏
+- 特别检查：旧函数的所有引用是否都已替换
+
+#### 5.0.5 同步更新扫描脚本
+
+如果策略有配套的 sweep 扫描脚本，同步更新：
+- 参数名变更（如 `old_param_enabled` → `new_param_enabled`）
+- 新增参数的扫描定义
+- 扫描脚本的 STRATEGY_ID 是否正确
+
+**检查点 CP-5.0**：新择时条件是否已完成独立验证 + 集成 + 集成验证？（如跳过此步骤则不适用）
 
 ### 5.1 择时条件开关验证
 
@@ -543,16 +650,17 @@ for period in [1, 3, 5, 10, 20, 30]:
 - 避免维度灾难（总组合数 < 200）
 
 ```python
+# 示例：均线择时策略的参数搜索空间
 PARAM_GRID = {
-    'jsg_lookback': [20, 30, 40, 60],
-    'jsg_forward': [1, 2, 3, 5],
-    'jsg_min_samples': [2, 3],
-    'jsg_count': [3, 5, 7],
+    'ma_window': [10, 20, 30, 60],      # 均线窗口
+    'threshold': [0.01, 0.03, 0.05],    # 信号阈值
+    'hold_days': [3, 5, 10],            # 持仓天数
 }
 
-# 约束条件
+# 约束条件（根据策略逻辑自定义）
+# 示例：持仓天数不应超过均线窗口的一半
 def is_valid(params):
-    return params['jsg_lookback'] >= params['jsg_min_samples'] * 2
+    return params['hold_days'] <= params['ma_window'] / 2
 ```
 
 **检查点 CP-6.1**：参数搜索空间是否经过预筛选？
@@ -985,10 +1093,531 @@ python sweep_script.py     # 运行扫描脚本
 
 ---
 
+## 附录 D：API 返回值防御模板
+
+### D.1 问题
+
+聚宽 API（如 `get_backtest_result`）经常返回 `None`，直接使用 `f"{None:.4f}"` 会报 `TypeError`。
+
+### D.2 通用防御函数
+
+```python
+def safe_fmt(val, fmt='.4f', default='N/A'):
+    """安全格式化数值，None → 'N/A'"""
+    return f"{val:{fmt}}" if val is not None else default
+
+def safe_pct(val, default='N/A'):
+    """安全百分比格式化"""
+    return f"{val:.2f}%" if val is not None else default
+
+def safe_int(val, default='N/A'):
+    """安全整数格式化"""
+    return str(int(val)) if val is not None else default
+```
+
+### D.3 使用示例
+
+```python
+# 提取回测指标
+metrics = extract_metrics(bt_id)
+
+# ❌ 危险：None 会触发 TypeError
+print(f"Sharpe={metrics['sharpe']:.4f}")
+
+# ✅ 安全：None → "N/A"
+print(f"Sharpe={safe_fmt(metrics.get('sharpe'))}")
+print(f"Return={safe_pct(metrics.get('total_return'))}")
+print(f"MaxDD={safe_pct(metrics.get('max_drawdown'))}")
+```
+
+### D.4 提取函数模板
+
+```python
+def extract_metrics(bt_id):
+    """从回测结果中提取指标（None 安全）"""
+    rd = get_backtest_result(client, bt_id)
+    data = rd.get('response', {}).get('data', rd.get('data', {}))
+
+    ret_vals = data.get('result', {}).get('overallReturn', {}).get('value', [])
+    sharpe_vals = data.get('result', {}).get('sharpe', {}).get('value', [])
+    dd_vals = data.get('result', {}).get('maxDrawdown', {}).get('value', [])
+
+    return {
+        'total_return': ret_vals[-1] * 100 if ret_vals else None,
+        'sharpe': sharpe_vals[-1] if sharpe_vals else None,
+        'max_drawdown': abs(max(dd_vals)) * 100 if dd_vals else None,
+    }
+```
+
+### D.5 结果 JSON 中的 None 处理规则
+
+- 结果 JSON 中**允许 None 值存在**，不强制填充默认值
+- None 表示"数据不可用"，比填充 0 更准确
+- 排序时 None 排在最后：`sorted(results, key=lambda x: x.get('sharpe') or float('-inf'), reverse=True)`
+
+---
+
+## 附录 E：标准化扫描脚本骨架
+
+### E.1 设计理念
+
+每次扫描（消融实验、参数寻优等）都需要：并发控制、断点续跑、None 防御、结果持久化。本骨架将这些标准化为**填空式开发**——用户只需修改 CUSTOMIZE 区域（约 20 行），标准模块（约 100 行）自动处理一切。
+
+### E.2 骨架代码
+
+```python
+"""
+标准化扫描脚本骨架 v1.0
+使用方法：复制本文件，修改 CUSTOMIZE 区域的变量即可
+"""
+import sys, json, time, base64, re
+sys.path.insert(0, r'PATH_TO_JQCLI')
+from jqcli.config import load_config, resolve_credentials
+from jqcli.api.client import ApiClient
+from jqcli.api.strategy import parse_strategy_edit_html
+from jqcli.api.backtest import run_backtest, get_backtest_result, get_backtest_logs
+
+# ============================================================
+# CUSTOMIZE 区域 — 每次扫描只改这里
+# ============================================================
+STRATEGY_ID = 'YOUR_STRATEGY_ID'
+BASE_CODE_PATH = r'PATH_TO_STRATEGY.py'
+RESULTS_FILE = r'PATH_TO_results.json'  # 建议: jq_optimizer_workspace/phase{N}_xxx/results.json
+BATCH_SIZE = 8           # 并发上限（聚宽限制 10，留 2 个缓冲）
+POLL_INTERVAL = 60       # 轮询间隔（秒）
+BACKTEST_START = '2017-01-01'
+BACKTEST_END = '2026-05-31'
+BACKTEST_CAPITAL = 1000000
+BACKTEST_FREQ = 'minute'
+
+# 扫描任务定义（按需修改）
+# 格式：('结果 key', '描述', 参数修改函数)
+TASKS = [
+    # ('baseline', '基准', lambda code: code),
+    # ('close_{cond}', '关闭{条件}', lambda code: modify_param(code, '{cond}_enabled', False)),
+]
+
+# ============================================================
+# 标准模块（一般不用改）
+# ============================================================
+config = load_config()
+token, cookie = resolve_credentials(config)
+client = ApiClient(config.api_base, token=token, cookie=cookie, timeout=60)
+
+
+def safe_fmt(val, fmt='.4f', default='N/A'):
+    """安全格式化数值"""
+    return f"{val:{fmt}}" if val is not None else default
+
+
+def modify_param(code, key, value):
+    """修改 PARAMS 字典中的布尔参数"""
+    val_str = 'True' if value else 'False'
+    lines = code.split('\n')
+    new_lines = []
+    for line in lines:
+        if f"'{key}': " in line and line.strip().startswith("'"):
+            new_lines.append(re.sub(rf"'{key}':\s*(True|False)", f"'{key}': {val_str}", line))
+        else:
+            new_lines.append(line)
+    return '\n'.join(new_lines)
+
+
+def modify_numeric_param(code, key, value):
+    """修改 PARAMS 字典中的数值参数"""
+    import re as _re
+    lines = code.split('\n')
+    new_lines = []
+    for line in lines:
+        if f"'{key}': " in line and line.strip().startswith("'"):
+            new_lines.append(_re.sub(rf"'{key}':\s*[\d.]+", f"'{key}': {value}", line))
+        else:
+            new_lines.append(line)
+    return '\n'.join(new_lines)
+
+
+def retry(fn, *args, max_retries=3, **kwargs):
+    """重试包装器"""
+    for attempt in range(max_retries):
+        try:
+            return fn(*args, **kwargs)
+        except Exception as e:
+            if attempt < max_retries - 1:
+                time.sleep(15 * (attempt + 1))
+            else:
+                raise
+
+
+def upload_and_submit(code, label):
+    """上传代码（含 read-back 验证）+ 提交回测"""
+    html = retry(client.get_text, '/algorithm/index/edit',
+                 params={'algorithmId': STRATEGY_ID})
+    detail = parse_strategy_edit_html(html, requested_id=STRATEGY_ID)
+    payload = dict(detail['_form'])
+    payload['algorithm[algorithmId]'] = str(detail['save_id'])
+    payload['algorithm[code]'] = base64.b64encode(code.encode('utf-8')).decode('ascii')
+    payload['encrType'] = 'base64'
+    retry(client.post, '/algorithm/index/save', data=payload,
+          headers={'Referer': f'{client.api_base}/algorithm/index/edit?algorithmId={STRATEGY_ID}'})
+
+    # read-back 验证（可选，如需严格验证可取消注释）
+    # html2 = retry(client.get_text, '/algorithm/index/edit',
+    #               params={'algorithmId': STRATEGY_ID})
+    # detail2 = parse_strategy_edit_html(html2, requested_id=STRATEGY_ID)
+    # saved = base64.b64decode(detail2['_form']['algorithm[code]']).decode('utf-8')
+    # if code.strip().split('\n')[:20] != saved.strip().split('\n')[:20]:
+    #     raise ValueError(f"上传验证失败: {label}")
+
+    result = retry(run_backtest, client, strategy_id=STRATEGY_ID,
+                   start_date=BACKTEST_START, end_date=BACKTEST_END,
+                   capital=BACKTEST_CAPITAL, frequency=BACKTEST_FREQ)
+    bt_id = (result.get('backtest_id') or result.get('id')
+             or result.get('response', {}).get('data', {}).get('backtestId')
+             or result.get('response', {}).get('data', {}).get('id'))
+    print(f'  [{label}] BT ID: {bt_id}', flush=True)
+    return bt_id
+
+
+def extract_metrics(bt_id):
+    """从回测结果中提取指标（None 安全）"""
+    rd = retry(get_backtest_result, client, bt_id)
+    data = rd.get('response', {}).get('data', rd.get('data', {}))
+    ret_vals = data.get('result', {}).get('overallReturn', {}).get('value', [])
+    sharpe_vals = data.get('result', {}).get('sharpe', {}).get('value', [])
+    dd_vals = data.get('result', {}).get('maxDrawdown', {}).get('value', [])
+    return {
+        'total_return': ret_vals[-1] * 100 if ret_vals else None,
+        'sharpe': sharpe_vals[-1] if sharpe_vals else None,
+        'max_drawdown': abs(max(dd_vals)) * 100 if dd_vals else None,
+    }
+
+
+# ============================================================
+# 主流程（断点续传 + 并发控制）
+# ============================================================
+# 加载已有结果（断点续跑）
+completed = {}
+try:
+    with open(RESULTS_FILE, 'r') as f:
+        saved = json.load(f)
+        results_list = saved.get('results', saved) if isinstance(saved, dict) else saved
+        for r in results_list:
+            completed[r['key']] = r
+        print(f"Loaded {len(completed)} existing results")
+except Exception:
+    pass
+
+all_results = list(completed.values())
+remaining = [(k, d, f) for k, d, f in TASKS if k not in completed]
+total_tasks = len(TASKS)
+print(f"Total: {total_tasks}, Completed: {len(completed)}, Remaining: {len(remaining)}")
+
+# 分批提交 + 轮询
+for batch_idx in range(0, len(remaining), BATCH_SIZE):
+    batch = remaining[batch_idx:batch_idx + BATCH_SIZE]
+    batch_num = batch_idx // BATCH_SIZE + 1
+    total_batches = (len(remaining) + BATCH_SIZE - 1) // BATCH_SIZE
+    print(f"\n{'='*60}")
+    print(f"Batch {batch_num}/{total_batches}: {len(batch)} backtests")
+    print(f"{'='*60}")
+
+    submitted = []
+    with open(BASE_CODE_PATH, 'r', encoding='utf-8') as f:
+        base_code = f.read()
+
+    for key, desc, modifier in batch:
+        code = modifier(base_code)
+        try:
+            bt_id = upload_and_submit(code, desc)
+            submitted.append((key, desc, bt_id))
+            time.sleep(3)
+        except Exception as e:
+            print(f'  FAILED [{desc}]: {e}')
+
+    # 轮询等待
+    pending = list(submitted)
+    while pending:
+        still = []
+        for key, desc, bt_id in pending:
+            try:
+                logs = retry(get_backtest_logs, client, bt_id, offset=0)
+                state = str(logs.get('state', '?'))
+                if state in ('2', '4'):
+                    metrics = extract_metrics(bt_id)
+                    result = {'key': key, 'desc': desc, 'bt_id': bt_id, **metrics}
+                    all_results.append(result)
+                    with open(RESULTS_FILE, 'w') as f:
+                        json.dump({'results': all_results}, f, indent=2, ensure_ascii=False)
+                    ret_str = f"{metrics['total_return']:.0f}%" if metrics['total_return'] else "N/A"
+                    print(f'  DONE [{desc}] Ret={ret_str} Sharpe={safe_fmt(metrics.get("sharpe"))}')
+                elif state == '3':
+                    all_results.append({'key': key, 'desc': desc, 'bt_id': bt_id,
+                                        'total_return': None, 'sharpe': None, 'max_drawdown': None})
+                    with open(RESULTS_FILE, 'w') as f:
+                        json.dump({'results': all_results}, f, indent=2, ensure_ascii=False)
+                    print(f'  FAILED [{desc}]')
+                else:
+                    still.append((key, desc, bt_id))
+            except Exception:
+                still.append((key, desc, bt_id))
+        pending = still
+        if pending:
+            print(f'  {len(all_results)}/{total_tasks} done, {len(pending)} pending...')
+            time.sleep(POLL_INTERVAL)
+
+# 最终报告
+print(f"\n{'='*70}")
+print(f"FINAL REPORT — {len(all_results)} results")
+print(f"{'='*70}")
+for r in sorted(all_results, key=lambda x: x.get('total_return') or float('-inf'), reverse=True):
+    ret_str = f"{r['total_return']:.0f}%" if r.get('total_return') else "N/A"
+    sharpe_str = safe_fmt(r.get('sharpe'))
+    print(f"  {r.get('desc', r['key']):<20} Ret={ret_str:>10} Sharpe={sharpe_str}")
+```
+
+### E.3 使用示例
+
+**消融实验**：
+
+```python
+TASKS = [
+    ('baseline', '基准(全开)', lambda code: code),
+    ('close_signal_score', '关闭信号评分',
+     lambda code: modify_param(code, 'signal_score_enabled', False)),
+    ('close_market_widen', '关闭市场宽度',
+     lambda code: modify_param(code, 'market_widen_enabled', False)),
+]
+```
+
+**参数扫描**：
+
+```python
+TASKS = []
+for td in [2, 3, 4, 5]:
+    for chg in [1.0, 2.0, 3.0, 5.0]:
+        for pct in [50, 60, 70, 80]:
+            key = f"td{td}_chg{chg}_pct{pct}"
+            def make_modifier(t, c, p):
+                def mod(code):
+                    code = modify_numeric_param(code, 'trend_days', t)
+                    code = modify_numeric_param(code, 'change_threshold', c)
+                    code = modify_numeric_param(code, 'percentile', p)
+                    return code
+                return mod
+            TASKS.append((key, f"td={td},chg={chg},pct={pct}", make_modifier(td, chg, pct)))
+```
+
+---
+
+## 附录 F：数据流与 Workspace 文件管理规范
+
+### F.1 Workspace 目录结构
+
+所有过程产物统一保存到策略文件同目录下的 `jq_optimizer_workspace/`：
+
+```
+{策略文件同目录}/jq_optimizer_workspace/
+├── manifest.json                     # 📋 总索引
+├── phase1_deconstruct.md             # 阶段 1 报告
+├── phase2_refactor.md                # 阶段 2 报告
+├── phase3_cache_design.md            # 阶段 3 报告
+├── phase4_collect/
+│   ├── phase4_report.md              # 阶段 4 报告
+│   └── cache_status.json             # 缓存完整性检查
+├── phase5_validation/
+│   ├── phase5_report.md              # 阶段 5 报告
+│   ├── ablation_results.json         # 消融实验结果
+│   └── sensitivity_results.json      # 敏感性分析结果
+├── phase6_sweep/
+│   ├── phase6_report.md              # 阶段 6 报告
+│   └── sweep_results.json            # 参数扫描结果
+├── phase7_robustness/
+│   ├── phase7_report.md              # 阶段 7 报告
+│   └── robustness_results.json       # 稳健性检验结果
+├── phase8_report/
+│   └── final_report.md               # 最终交付报告
+└── scripts/                          # 扫描脚本存档
+    ├── ablation_scan.py
+    └── param_sweep.py
+```
+
+### F.2 manifest.json 总索引
+
+```json
+{
+  "strategy_name": "策略文件名",
+  "strategy_file": "策略文件完整路径",
+  "algo_id": "聚宽策略ID",
+  "created_at": "ISO8601时间",
+  "current_phase": 6,
+  "phases": {
+    "1": {"status": "completed", "report": "phase1_deconstruct.md", "completed_at": "..."},
+    "2": {"status": "completed", "report": "phase2_refactor.md", "completed_at": "..."},
+    "3": {"status": "completed", "report": "phase3_cache_design.md", "completed_at": "..."},
+    "4": {"status": "completed", "report": "phase4_collect/phase4_report.md", "completed_at": "..."},
+    "5": {"status": "completed", "report": "phase5_validation/phase5_report.md", "completed_at": "..."},
+    "6": {"status": "in_progress", "report": null, "completed_at": null}
+  },
+  "artifacts": [
+    {"path": "phase4_collect/cache_status.json", "phase": 4, "type": "result", "description": "缓存完整性检查"},
+    {"path": "phase5_validation/ablation_results.json", "phase": 5, "type": "result", "description": "消融实验结果"},
+    {"path": "phase6_sweep/sweep_results.json", "phase": 6, "type": "result", "description": "参数扫描结果"}
+  ]
+}
+```
+
+### F.3 文件命名规范
+
+| 类型 | 命名规则 | 示例 |
+|------|---------|------|
+| 阶段报告 | `phase{N}_report.md` | `phase5_report.md` |
+| 结果文件 | `{experiment}_results.json` | `ablation_results.json` |
+| 断点文件 | `{experiment}_checkpoint.json` | `sweep_checkpoint.json` |
+| 扫描脚本 | `scripts/{purpose}_scan.py` | `scripts/param_sweep.py` |
+| 状态文件 | `{experiment}_status.json` | `cache_status.json` |
+
+### F.4 文件生命周期
+
+| 阶段 | 产物 | 保留策略 |
+|------|------|---------|
+| 1-3 | 阶段报告 | 永久保留 |
+| 4 | cache_status.json | 永久保留 |
+| 5 | ablation/sensitivity JSON | 永久保留 |
+| 6 | sweep_results.json | 永久保留 |
+| 6 | sweep_checkpoint.json | 阶段完成后可清理 |
+| 7 | robustness_results.json | 永久保留 |
+| 8 | final_report.md | 永久保留（最终交付物） |
+| all | scripts/*.py | 永久保留（存档，便于复现） |
+
+### F.5 断点恢复流程
+
+```
+1. 读取 manifest.json → 确定 current_phase
+2. 读取最近完成的 phase{N}_report.md → 了解上一阶段产出
+3. 检查当前阶段的中间产物：
+   ├── 有 *_results.json → 统计已完成数，从断点续跑
+   ├── 有 *_checkpoint.json → 恢复 active/pending/remaining 状态
+   └── 什么都没有 → 从头开始当前阶段
+4. 向用户报告恢复状态，确认后继续
+```
+
+---
+
+## 附录 G：阶段报告模板
+
+每个阶段完成时生成标准化报告，既是交付物也是断点恢复的可视化标记。
+
+```markdown
+# 阶段 {N}：{阶段名称}
+
+> 生成时间: {YYYY-MM-DD HH:MM}
+> 策略: {策略文件名}
+> 状态: {completed | skipped | failed}
+
+## 关键产出
+
+- 产出 1
+- 产出 2
+- ...
+
+## 关键数据
+
+| 指标 | 值 |
+|------|-----|
+| {指标名} | {值} |
+| ... | ... |
+
+## 遇到的问题
+
+1. {问题描述} → {解决方案}
+2. ...
+
+## 下一阶段输入
+
+- 阶段 {N+1} 需要的前置条件: {条件}
+- 关键参数/配置: {参数}
+
+## 产物文件
+
+- `{相对路径}` — {用途说明}
+- `{相对路径}` — {用途说明}
+
+## 检查点状态
+
+- [x] CP-{N}.1: {描述}
+- [x] CP-{N}.2: {描述}
+- [ ] CP-{N}.3: {描述}（如有未通过项）
+```
+
+### 各阶段报告的关键产出要求
+
+| 阶段 | 报告中必须包含的产出 |
+|------|-------------------|
+| 1 | API 调用清单、模块依赖图、可调参数表 |
+| 2 | PARAMS 字典、开关列表、函数解构图 |
+| 3 | 缓存键列表、拦截点列表、meta 数据结构 |
+| 4 | 缓存文件数 vs 交易日数、meta 数据摘要 |
+| 5 | 消融实验结果表（贡献度排序）、敏感性曲线数据 |
+| 6 | 参数扫描结果表（Top N）、最优参数是否在边界 |
+| 7 | 样本内外对比、参数扰动结果、极端行情表现 |
+| 8 | 完整报告（最终交付物） |
+
+---
+
+## 附录 H：通用使用建议
+
+### H.1 参数修改工具函数
+
+骨架脚本提供了两个参数修改函数，适用于不同场景：
+
+| 函数 | 适用场景 | 示例 |
+|------|---------|------|
+| `modify_param(code, key, bool_value)` | 修改布尔开关 | `modify_param(code, 'signal_score_enabled', False)` |
+| `modify_numeric_param(code, key, num_value)` | 修改数值参数 | `modify_numeric_param(code, 'lookback', 30)` |
+
+对于更复杂的参数修改（如列表、字典），可以自定义修改函数：
+
+```python
+def modify_list_param(code, key, value):
+    """修改 PARAMS 字典中的列表参数"""
+    import re
+    pattern = rf"'{key}':\s*\[.*?\]"
+    replacement = f"'{key}': {value}"
+    return re.sub(pattern, replacement, code)
+```
+
+### H.2 并发控制最佳实践
+
+1. **MAX_CONCURRENT 永远设为 8**，不是 10——留 2 个缓冲槽避免边界情况
+2. **提交间隔 3 秒**——避免短时间内大量请求被聚宽限流
+3. **轮询间隔 60 秒**——sweep 回测 3-10 分钟，60 秒粒度足够
+4. **指数退避**——遇到"超过 10 个"错误时，30s → 60s → 120s → 300s
+5. **队列满 ≠ 失败**——放回 pending 队列，不记录为 error
+
+### H.3 结果分析建议
+
+```python
+# 按收益排序（None 排最后）
+sorted_results = sorted(all_results,
+    key=lambda x: x.get('total_return') or float('-inf'), reverse=True)
+
+# 计算贡献度（消融实验）
+baseline_ret = next(r['total_return'] for r in all_results if r['key'] == 'baseline')
+for r in all_results:
+    if r['key'] != 'baseline' and r.get('total_return') is not None:
+        r['contribution'] = r['total_return'] - baseline_ret
+
+# 筛选有效结果（非 None）
+valid_results = [r for r in all_results if r.get('total_return') is not None]
+```
+
+---
+
 ## 版本历史
 
 | 版本 | 日期 | 修改内容 |
 |------|------|---------|
+| v2.0 | 2026-06-13 | 重大更新：新增上传验证门控(CP-4.2a)、择时条件开发子流程(5.0)、API防御模板(附录D)、扫描脚本骨架(附录E)、Workspace文件管理(附录F)、阶段报告模板(附录G)、通用建议(附录H) |
 | v1.3 | 2026-05-28 | 修复并发控制：阶段五/六增加队列满处理、重试策略、断点续跑；MAX_CONCURRENT 从 10 改为 8 |
 | v1.2 | 2026-05-27 | 移除 IC 检验，阶段五简化为择时条件开关验证+参数敏感性 |
 | v1.1 | 2026-05-27 | 新增复权规则(3.2a)、参数无关/相关原则(3.3a)、实战陷阱附录(B) |
