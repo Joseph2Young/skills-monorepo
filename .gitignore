@@ -1,0 +1,15 @@
+# Python 字节码缓存（skill 的 scripts/ 被执行后生成）
+__pycache__/
+*.py[cod]
+*.pyo
+
+# install.sh 的 safe_symlink 备份副作用残留
+*.backup.*
+
+# macOS 文件系统元数据
+.DS_Store
+
+# 编辑器临时文件
+*.swp
+*.swo
+*~
