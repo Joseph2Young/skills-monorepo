@@ -159,6 +159,25 @@ jqcli auth login
 2. **聚宽 algo_id**：用户直接提供，或通过 `jqcli strategy ls` 查找
 3. **回测参数**：起止日期、初始资金、回测频率（day/minute）
 
+### Step 4a：确认策略部署方式
+
+**必须先询问主人**：这个策略是上传到聚宽**现有的策略**（提供链接或 algo_id），还是**新建一个回测策略**？
+
+| 场景 | 做法 | 风险 |
+|------|------|------|
+| 已有 algo_id 的策略 | `jqcli strategy edit {algo_id} --file strategy.py` + 4.2a read-back 验证 | 覆盖该 algo_id 下的旧代码 + 历史回测 |
+| 全新策略 | 主人先在聚宽网页 https://www.joinquant.com/algorithm/index 手动新建 → 拿到 algo_id → 再用 edit | 需要主人额外操作一次 |
+| 复用别人策略 | 同"全新策略"流程，但要在 manifest.json 标注来源 + 脱敏处理 | 版权/凭据风险 |
+
+**询问模板**（直接发给主人）：
+
+> 主人，请确认这个策略怎么部署？
+> 1. **上传到现有策略**（请提供聚宽 algo_id 或策略链接，例如 `https://www.joinquant.com/algorithm/index/edit?algorithmId=xxxx`）
+> 2. **新建一个回测策略**（我会引导您在聚宽网页手动创建后取 algo_id）
+> 注意：选 1 会覆盖该 algo_id 下的现有代码，请确认是无用版本
+
+**CP-4a** ✅ 主人明确选择"上传现有"或"新建"，并提供对应 algo_id 或已新建完成
+
 ### Step 5：初始化 Workspace
 
 在策略文件同目录下创建 `jq_optimizer_workspace/` 目录和 `manifest.json`：
