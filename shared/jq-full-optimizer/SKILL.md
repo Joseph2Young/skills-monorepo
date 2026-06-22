@@ -795,7 +795,7 @@ aic_bic_score = aic_bic_score_multi  # 单窗口调用传 [sharpe] 即可
 2. 阶段六报告 `phase6_report.md` 必须把两列都列出来，让人类能一眼看到"夏普涨了但 AIC/BIC 跌了"的过拟合信号
 3. `params_count` = 本轮 sweep **实际改动**的参数数量（不是策略总参数数）
 4. `training_days` 默认 1222（对应 2016-2020 主训练期），可在 `params_schema.json` 的 `backtest_period.training` 字段自动推算
-5. AIC/BIC 评分为负时，必须在报告里打 ⚠️ 警告（提示可能过拟合）
+5. ~~AIC/BIC 评分为负时，必须在报告里打 ⚠️ 警告~~ — **已删除** (REVIEW1 P1-1 验证: 原项目 6 轮 aic_bic 全为负,该警告等于每轮都打,无信号作用)。改为: aic_bic 用作排序指标, 不做阈值判断。
 
 **回退规则**：用户明确说"我就要看原始夏普，不用扣分"时，可以关闭 AIC/BIC 排序，但必须在阶段六报告里标注 `aic_bic_disabled: true` 并说明原因。
 
@@ -812,10 +812,10 @@ aic_bic_score = aic_bic_score_multi  # 单窗口调用传 [sharpe] 即可
 **每行字段**（直接复用 quant-auto-research 的 schema）：
 
 ```json
-{"round": 1, "timestamp": "2026-06-22T10:30:00", "git_commit": "abc1234567", "params_changed": [{"name": "stop_ratio", "before": 0.1, "after": 0.15}], "params_count": 1, "sharpe": 1.13, "aic_bic_score": -5.98, "max_drawdown": 0.18, "annual_return": 0.21, "status": "improved", "rationale": "调紧止损，减少单次损失"}
+{"round": 1, "timestamp": "2026-06-22T10:30:00", "git_commit": "$(git rev-parse --short=7 HEAD)"  # 真实 hash, REVIEW5 C-8, "params_changed": [{"name": "stop_ratio", "before": 0.1, "after": 0.15}], "params_count": 1, "sharpe": 1.13, "aic_bic_score": -5.98, "max_drawdown": 0.18, "annual_return": 0.21, "status": "improved", "rationale": "调紧止损，减少单次损失"}
 ```
 
-**强制字段（10 项，对齐 quant-auto-research schema）**：`round / timestamp / git_commit / params_changed / params_count / sharpe / aic_bic_score / max_drawdown / annual_return / status / rationale`
+**强制字段（11 项，对齐 quant-auto-research schema + §6.5 stop_reason）**：`round / timestamp / git_commit / params_changed / params_count / sharpe / aic_bic_score / max_drawdown / annual_return / status / rationale / stop_reason`
 
 > **字段作用**：
 > - `sharpe` / `aic_bic_score` — §6.3 排序（主 + 次）
@@ -853,7 +853,7 @@ tail -1 phase6_sweep/results.jsonl | jq .
 grep '"status": "improved"' phase6_sweep/results.jsonl | jq .
 ```
 
-### 6.5 实验生命周期（4 停止条件状态机）
+### 6.5 实验生命周期（6 停止条件状态机）(REVIEW5 C-10)
 
 把"什么情况算优化结束"明确写成状态机，避免优化器死循环或人工手动监控。
 
@@ -902,7 +902,7 @@ class ExperimentState:
         # 3. 连续 N 轮 AIC/BIC 无提升 (盯主指标, 不是 Sharpe)
         if len(history_aic_bic) >= self.consecutive_no_improvement_limit:
             recent = history_aic_bic[-self.consecutive_no_improvement_limit:]
-            if max(recent) == min(recent):  # 完全无提升
+            if max(recent) - min(recent) < 0.01:  # 差 0.01 分以内算无提升 (REVIEW5 P0-2)
                 return True, StopReason.NO_IMPROVEMENT
 
         # 4. §5.3 多窗口准则: 至少 N 个窗口 Sharpe > 0 才算稳定
@@ -926,7 +926,7 @@ history = []
 
 for round_n in range(state.max_rounds):
     state.current_round = round_n
-    score = aic_bic_score(sharpe=1.5, params_count=2)
+    score = aic_bic_score_multi(sharpes=[1.5], params_count=2)  # (REVIEW5 C-9) 签名修复
     history.append(score)
 
     should_stop, reason = state.check_stop(score, history)
@@ -943,7 +943,7 @@ for round_n in range(state.max_rounds):
 |---|------|-------|---------|
 | 1 | 测试期 Sharpe 达标 | ≥ 2.0 | 用户在 `params_schema.json` 改 `target_sharpe` |
 | 2 | 连续 N 轮 AIC/BIC 无提升 | N=3 | 用户在阶段六报告里写明 override |
-| 3 | 参数空间耗尽（轮数上限） | max=100 | 同上 |
+| 3 | 参数空间耗尽（轮数上限） | max=500 | 同上 (与 §6.1 Optuna n_trials 对齐, REVIEW5 C-11) |
 | 4 | 人工干预（用户主动 stop） | — | 用户随时可触发 |
 
 **在 results.jsonl 里记录**：每轮追加 `stop_reason` 字段，让 AI 复盘时能直接看到"为什么这轮停了"。
