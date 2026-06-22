@@ -660,9 +660,60 @@ TASKS = [
 
 ## 阶段六：参数寻优
 
-### 6.1 搜索空间
+### 6.1 搜索空间与 HPO 方法选择
 
-基于阶段五的敏感性分析确定搜索范围。总组合数 < 200。
+**核心原则：参数优化是 HPO（超参数优化）问题，不只是枚举问题。** 11 个参数 × 5 step = 5^11 = 4883 万组合；11 参数 × 2 step × 多周期 × 多标的 = 226 亿组合（P0-3 漏洞）。Grid search 在 7.5 min/次 × 8 并发下需要 4 万年，必须用 HPO 框架。
+
+**方法选择决策树**（按预算/维度数选）：
+
+| 搜索空间 | 推荐方法 | 预算（trials） | 适用场景 |
+|---------|---------|--------------|---------|
+| < 500 组合 | 全量 Grid | 1 次跑完 | 阶段五敏感性已缩到 1-2 参数 |
+| 500 - 5 万 | TPE（贝叶斯） | 200-1000 | **默认推荐**：维度 ≤ 8 性价比最高 |
+| 5 万 - 100 万 | Hyperband / BOHB | 500-2000 | 预算紧、要 early stopping |
+| > 100 万 | 进化策略 / 异步 TPE | 1000+ | 高维（≥ 12 参数）且预算充裕 |
+
+**推荐实现：Optuna + TPE**
+
+```python
+import optuna
+from optuna.samplers import TPESampler
+
+def objective(trial: optuna.Trial) -> float:
+    params = {
+        "stop_ratio": trial.suggest_float("stop_ratio", 0.05, 0.20, step=0.01),
+        "hold_days":  trial.suggest_int("hold_days", 3, 15),
+    }
+    sharpe, aic_bic = submit_sweep_backtest(params)
+    return aic_bic
+
+study = optuna.create_study(
+    direction="maximize",
+    sampler=TPESampler(seed=42, n_startup_trials=20),
+)
+study.optimize(objective, n_trials=500, n_jobs=4)
+```
+
+**为什么用 TPE 不用 Grid**：
+- 8 维 × 5 step = 39 万组合，Grid 跑 4.5 万小时，TPE 用 500 trials 即可逼近最优
+- TPE 自适应：第 100 次 trial 时已经知道调紧止损有用、放宽窗口没用，会集中预算到有希望的维度
+- 原 quant-auto-research 的 6 轮结果中 5/6 用了相同参数 = grid 搜不到 ≠ 真最优，TPE 会探索
+
+**关键约束（与 sweep 协调）**：
+1. **n_trials ≤ sweep_max / 8**（避免单策略霸占 sweep 通道）
+2. **n_jobs ≤ 4**（sweep 上限 8，预留 4 给基线/重试）
+3. **断点续跑**：Optuna study 持久化到 SQLite (study.db)，重启自动接续
+4. **随机种子固定**：seed=42 保证 500 trials 跑完的最优可复现
+
+**回退到 Grid 的合法场景**：
+- 阶段五 ablation 证明只剩 1-2 个有效参数（其余 9 个不敏感）→ Grid 总组合 < 500
+- 调试 / 验证 sweep 脚本本身 → 手动指定 3-5 个点
+
+**禁止**：
+- 维度 ≥ 5 还用全量 Grid
+- 不写 n_trials 让 Optuna 跑到 sweep 排队炸掉
+
+**CP-6.1** HPO 方法已选型 | **CP-6.1b** TPE sampler + 种子固定 | **CP-6.1c** 并发预算协调
 
 ### 6.2 Sweep 并发扫描
 
