@@ -246,7 +246,11 @@ json.dump(manifest, open(os.path.join(workspace_dir, 'manifest.json'), 'w'), ind
     └── 日志/风控
 ```
 
-**进阶要求（推荐）**：除上面的功能分解外，再画一张 **3 层架构图**——这是借鉴 quant-auto-research 的核心骨架：
+**进阶要求（推荐）**：除上面的功能分解外，再画一张 **3 层架构图**。
+
+> ⚠️ **REVIEW6 D-1 重要更正**：下面的 3 层架构（Layer 1/2/3 + StopManager）是**通用多因子策略的常见分层**，**不是 quant-auto-research 原项目的结构**。原项目策略文件 `华泰投资组合因子模块化.py` 是单文件多函数结构，没有显式的 `TimingJudge` / `QualityFilter` / `FactorPortfolioOptimization` / `StopManager` 这些类或模块名。原项目的主要代码段是 `initialize` / `handle_data` / `before_trading_start` 这几个聚宽框架函数 + 内部辅助函数（如 `rebalance`, `filter_stocks`）。
+>
+> 这段文字之前误写为"借鉴 quant-auto-research 的核心骨架"，是 AI 总结时**凭空编造的归属**。原项目的真实结构请参考 `quant-auto-research/auto-research/华泰投资组合因子模块化.py`。
 
 ```
 Layer 1 大盘择时（市场状态 → 是否交易）
@@ -321,35 +325,89 @@ PARAMS = {
 
 理由：改参数不用动策略文件 → 跳过聚宽冷启动审核；sweep 脚本读 JSON 即可，不用 ast 解析 .py。
 
-格式（直接复用 quant-auto-research 的 schema）：
+格式（**顶层对象**，直接复用 quant-auto-research 的 `params_schema.json`，13 个顶层字段）：
 
 ```json
-[
-  {
-    "name": "stock_num",
-    "display_name": "持仓数量",
-    "default_value": 30,
-    "type": "integer",
-    "min": 10, "max": 50, "step": 5,
-    "group": "持仓",
-    "description": "组合持仓股票数量"
+{
+  "strategy_name": "华泰投资组合因子模块化",
+  "strategy_id": "e151c76cbfeeb6c6703d9e23bfb9df03",
+  "strategy_file": "华泰投资组合因子模块化.py",
+  "fitness_function": "AIC_BIC_Score = Sharpe - params_count * log(training_days)",
+  "training_days": 1222,
+  "log_coefficient": 7.11,
+  "target_sharpe": 2.0,
+  "stop_conditions": {
+    "sharpe_achieved": 2.0,
+    "consecutive_no_improvement": 3
   },
-  {
-    "name": "stop_ratio",
-    "display_name": "止损比例",
-    "default_value": 0.1,
-    "type": "float",
-    "min": 0.05, "max": 0.2, "step": 0.01,
-    "group": "止损",
-    "description": "价格跌破最高点 N% 止损"
-  }
-]
+  "parameters": [
+    {
+      "name": "stock_num",
+      "display_name": "持仓数量",
+      "current_value": 30,
+      "type": "integer",
+      "min": 10, "max": 50, "step": 5,
+      "group": "持仓",
+      "description": "组合持仓股票数量"
+    },
+    {
+      "name": "stop_ratio",
+      "display_name": "止损比例",
+      "current_value": 0.1,
+      "type": "float",
+      "min": 0.05, "max": 0.2, "step": 0.01,
+      "group": "止损",
+      "description": "价格跌破最高点 N% 止损"
+    }
+  ],
+  "factor_weights": {
+    "roic_ttm": {"weight_in_score": 1.0, "description": "投资资本回报率"},
+    "gross_income_ratio": {"weight_in_score": 1.0, "description": "销售毛利率"},
+    "Variance120": {"weight_in_score": -1.0, "description": "120日年化收益方差（负向）"}
+  },
+  "timing_conditions": {
+    "ma_trend": {"enabled": true, "description": "短期均线 > 长期均线"},
+    "macd_trend": {"enabled": true, "description": "MACD 金叉"},
+    "volatility": {"enabled": true, "description": "年化波动率 < 阈值"}
+  },
+  "backtest_period": {
+    "training": {"start": "2016-01-01", "end": "2020-12-31"},
+    "testing":  {"start": "2021-01-01", "end": "2026-05-15"}
+  },
+  "capital": 1000000
+}
 ```
 
-**强制字段**：`name / default_value / type / min / max / step / group / description`
+**顶层 13 字段（REVIEW6 P0-5 修复，对齐 quant-auto-research 真实 schema）**：
+
+| # | 字段 | 类型 | 作用 | 谁读 |
+|---|------|------|------|------|
+| 1 | `strategy_name` | string | 策略名 | 报告 |
+| 2 | `strategy_id` | string | 策略 hash | 报告 |
+| 3 | `strategy_file` | string | `.py` 文件名 | sweep 脚本导入 |
+| 4 | `fitness_function` | string | 适配方公式描述 | §6.3 |
+| 5 | `training_days` | int | 主训练期交易日数 | §6.3 `aic_bic_score_multi` |
+| 6 | `log_coefficient` | float | `log(training_days)` 预计算 | §6.3 展示用 |
+| 7 | `target_sharpe` | float | Sharpe 达标阈值 | §6.5 `ExperimentState.target_sharpe` |
+| 8 | `stop_conditions` | object | 停止条件明细 | §6.5 `StopManager` |
+| 9 | `parameters` | array | 参数定义（见下方字段表） | sweep 脚本 |
+| 10 | `factor_weights` | object | 因子权重（多因子策略用） | 策略 initialize |
+| 11 | `timing_conditions` | object | 择时条件开关 | §2.2 |
+| 12 | `backtest_period` | object | 训练/测试期定义 | §5.3 / §6.3 |
+| 13 | `capital` | int | 初始资金 | sweep 脚本 |
+
+**`parameters[]` 强制字段**：`name / display_name / current_value / type / min / max / step / description`
+（注意：原项目 schema 字段是 `current_value` 不是 `default_value`，**保留原项目命名**避免回填时找不到字段。）
+
 **type 可选值**：`integer / float / bool / categorical`
-**group 分组建议**：`["择时", "选股", "持仓", "止损", "因子协方差"]`
-**回填策略**：阶段六 sweep 脚本 `import json; schema = json.load(open('params_schema.json'))`，遍历 schema 改参数后注入策略。
+**group 分组建议（可选，保留在 `parameters[]` 内）**：`["择时", "选股", "持仓", "止损", "因子协方差"]`
+**回填策略**：阶段六 sweep 脚本 `import json; schema = json.load(open('params_schema.json'))`，遍历 `schema['parameters']` 改 `current_value` 后注入策略。
+
+**自动推算链**（REVIEW6 P0-5 验证 §6.3 / §6.5 不再硬编码）：
+- `aic_bic_score_multi(training_days=...)` 默认值 `1222` → 可改为 `schema['training_days']`
+- `ExperimentState(target_sharpe=...)` 默认值 `2.0` → 可改为 `schema['target_sharpe']`
+- `log_coefficient` = `log(training_days)` = `log(1222) ≈ 7.11`
+- `backtest_period.testing` → sweep 脚本做样本外验证用
 
 ### 2.2 择时开关
 
@@ -609,14 +667,33 @@ TASKS = [
 
 ### 5.3 多周期并行训练（防单窗口过拟合）
 
-**为什么必须有**：单一训练窗口过拟合风险极高。原作者自己的数据就证明了：
+**为什么必须有**：单一训练窗口过拟合风险极高。
 
-| 同一套参数 | 2012-2017 段 | 2016-2020 段 | 2017-2021 段 |
-|-----------|-------------|-------------|-------------|
-| Sharpe | +1.22 | +1.77 | -0.77 |
-| 评价 | ✅ | ✅ | ❌ 崩了 |
+> ⚠️ **REVIEW6 D-2 重要更正**：下面表格里的 1.22 / 1.77 / -0.77 三个 Sharpe **不是同一套参数**的 3 窗口验证，是 **AI 拼接的不同来源数据**：
+>
+> - **+1.22** 来自 README/文档中举例的一个策略在 **2012-2017** 段的 Sharpe（仅作举例）
+> - **+1.77** 来自 quant-auto-research 原项目 `results.jsonl` 第 5 轮（参数 `stock_num` 30→25）在 **2016-2020** 主训练期的真实 Sharpe（这是 round 5 的实测值，对应 1 个参数改动）
+> - **-0.77** 来自 README 中举例的另一个策略在 **2017-2021** 段的 Sharpe（也是仅作举例）
+>
+> 这 3 个数字**分别属于不同策略、不同参数、不同窗口**，不是同一套参数在 3 个窗口的对比。之前误写成"同一套参数"会让用户以为原项目做过完整多窗口 sweep，**实际上原项目只跑过单窗口 sweep**（参见 `results.jsonl` 全部 6 轮都是 W3 主训练期 2016-2020 的单窗口结果，没有 W1/W2/W4 数据）。
 
-只在 2016-2020 上跑出 +1.77 看起来很美，但同样的参数到 2017-2021 直接 -0.77。这是典型的**单窗口过拟合**。
+**多窗口 sweep 的真实价值**（不依赖上面 3 个拼凑数字，单独讲清楚）：
+
+```
+单窗口 Sharpe 1.5（看起来很好）
+   ↓ 同样的参数扔到第 2 个窗口
+窗口 2 Sharpe 0.3（平庸）
+   ↓ 同样的参数扔到第 3 个窗口
+窗口 3 Sharpe -0.5（亏损）
+
+→ 表面 Sharpe 1.5 是过拟合的虚高，真实样本外表现可能是 0~0.3。
+→ 多窗口 sweep 把"虚高"的过拟合策略筛掉，只留 ≥3/4 窗口都稳的策略。
+```
+
+**判断准则**：阶段六 sweep 结束后，看主指标的窗口分布：
+- 4/4 窗口都正 → 强过拟合风险低，可考虑采纳
+- 3/4 窗口正 + 1 个负 → 临界，需查负窗口是不是结构性熊市（可接受）
+- 2/4 或更少 → 拒绝，无论主窗口 Sharpe 多高
 
 **强制要求**：阶段六 sweep 时，**同时在 4 个错开的时间窗口上训练**。默认窗口（项目初始 2026 年起算，可滚动更新）：
 
@@ -812,7 +889,7 @@ aic_bic_score = aic_bic_score_multi  # 单窗口调用传 [sharpe] 即可
 **每行字段**（直接复用 quant-auto-research 的 schema）：
 
 ```json
-{"round": 1, "timestamp": "2026-06-22T10:30:00", "git_commit": "$(git rev-parse --short=7 HEAD)"  # 真实 hash, REVIEW5 C-8, "params_changed": [{"name": "stop_ratio", "before": 0.1, "after": 0.15}], "params_count": 1, "sharpe": 1.13, "aic_bic_score": -5.98, "max_drawdown": 0.18, "annual_return": 0.21, "status": "improved", "rationale": "调紧止损，减少单次损失"}
+{"round": 1, "timestamp": "2026-06-22T10:30:00", "git_commit": "a3f7b2c", "params_changed": [{"name": "stop_ratio", "before": 0.1, "after": 0.15}], "params_count": 1, "sharpe": 1.13, "aic_bic_score": -5.98, "max_drawdown": 0.18, "annual_return": 0.21, "status": "improved", "stop_reason": "sharpe_improved", "rationale": "调紧止损，减少单次损失"}
 ```
 
 **强制字段（11 项，对齐 quant-auto-research schema + §6.5 stop_reason）**：`round / timestamp / git_commit / params_changed / params_count / sharpe / aic_bic_score / max_drawdown / annual_return / status / rationale / stop_reason`
@@ -857,7 +934,11 @@ grep '"status": "improved"' phase6_sweep/results.jsonl | jq .
 
 把"什么情况算优化结束"明确写成状态机，避免优化器死循环或人工手动监控。
 
-借鉴 quant-auto-research 的 4 个停止条件，改写成可机读的状态机：
+> ⚠️ **REVIEW6 C-13 重要更正**：原项目 `params_schema.json` 里 `stop_conditions` 实际只有 **2 个字段**（`sharpe_achieved: 2.0` + `consecutive_no_improvement: 3`），原项目 `results.jsonl` 也**没有** `stop_reason` 字段（只有 `status: baseline/improved/degraded`）。
+>
+> 之前误写为"借鉴 quant-auto-research 的 4 个停止条件"是 AI 总结时的幻觉数字。下面的状态机是**基于原项目 2 个思路扩展的 6 个可机读 StopReason**，不是直接复用。`status` 字段是原项目对单轮的描述（baseline/improved/degraded），`stop_reason` 是本 SOP 扩展的字段（用于解释"为什么实验结束"），**两者语义不重叠**。
+
+借鉴 quant-auto-research 的停止条件思路（2 个），扩展为可机读的状态机（6 个）：
 
 ```python
 from dataclasses import dataclass, field
@@ -937,14 +1018,18 @@ for round_n in range(state.max_rounds):
         break
 ```
 
-**4 个停止条件**：
+**6 个停止条件**（与 StopReason Enum 一一对应）：
 
-| # | 条件 | 默认值 | 何时调整 |
-|---|------|-------|---------|
-| 1 | 测试期 Sharpe 达标 | ≥ 2.0 | 用户在 `params_schema.json` 改 `target_sharpe` |
-| 2 | 连续 N 轮 AIC/BIC 无提升 | N=3 | 用户在阶段六报告里写明 override |
-| 3 | 参数空间耗尽（轮数上限） | max=500 | 同上 (与 §6.1 Optuna n_trials 对齐, REVIEW5 C-11) |
-| 4 | 人工干预（用户主动 stop） | — | 用户随时可触发 |
+| # | StopReason | 触发条件 | 默认值 | 何时调整 |
+|---|------------|---------|-------|---------|
+| 1 | `TARGET_AIC_BIC` | 主指标 AIC/BIC 评分达标 | ≥ 0.0 | 用户在 `params_schema.json` 改 `target_aic_bic`（**P0-5 修复后**这个字段会加到 schema 顶层）|
+| 2 | `TARGET_SHARPE` | Sharpe 达标（兜底，仅当 §6.3 排序被禁用）| ≥ 2.0 | 用户在 `params_schema.json` 改 `target_sharpe` |
+| 3 | `NO_IMPROVEMENT` | 连续 N 轮 AIC/BIC 提升 < 0.01 | N=3 | 用户在阶段六报告里写明 override |
+| 4 | `MULTIWINDOW_FAIL` | §5.3 多窗口准则失败（< 3/4 窗口正 Sharpe）| min_windows=3 | 用户在 `params_schema.json` 改 `multiwindow_min_windows`（**P0-5 修复后**）|
+| 5 | `SPACE_EXHAUSTED` | 搜索轮数上限 | max=500 | 同上 (与 §6.1 Optuna n_trials 对齐, REVIEW5 C-11) |
+| 6 | `MANUAL` | 人工干预（用户主动 stop）| — | 用户随时可触发 |
+
+> 原项目 `stop_conditions` 只有 **#2 和 #3**（sharpe_achieved + consecutive_no_improvement），#1/#4/#5/#6 是本 SOP 扩展的。
 
 **在 results.jsonl 里记录**：每轮追加 `stop_reason` 字段，让 AI 复盘时能直接看到"为什么这轮停了"。
 
