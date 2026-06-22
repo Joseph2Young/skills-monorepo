@@ -5,6 +5,95 @@ description: 聚宽策略全流程优化器。涵盖策略解构、架构重构�
 
 # 聚宽策略全流程优化器
 
+## 运行简介（Quick Start）
+
+### 一句话说明
+
+把聚宽策略从「原始 .py」优化到「稳健参数集 + 完整交付报告」的 **8 阶段 SOP**。
+**逐阶段推进,每阶段末尾有检查点(CP),通过后立即生成阶段报告**(既是交付物也是断点恢复标记)。
+
+### 怎么触发
+
+输入 `/jq-full-optimizer` 即可。AI 会自动按 8 阶段顺序工作,**每阶段结束会问你是否进入下一阶段**。
+
+### 启动前 3 步前置准备
+
+| # | 步骤 | 命令 / 操作 | 没装怎么办 |
+|---|------|------------|-----------|
+| 1 | 检测 jqcli | `jqcli --version` | `pip install git+https://github.com/breakhearts/jqcli.git` |
+| 2 | 配置认证 | `jqcli auth status` | 浏览器 F12 抓 Cookie 写到 `~/.config/jqcli/cp/config.json` 的 `JQCLI_COOKIE` 字段 |
+| 3 | 准备策略 | 提供 `.py` 路径 + Algo ID | 用户手动在聚宽网页创建策略后把 Algo ID 给 AI |
+
+### 8 阶段一览
+
+| # | 阶段名 | 关键产物 | 默认跳过条件 |
+|---|--------|---------|------------|
+| 1 | 策略解构 | `phase1_deconstruct.md` | 永不跳过 |
+| 2 | 架构重构 | `phase2_refactor.md` + `params_schema.json` | 已有 PARAMS + 函数解耦 |
+| 3 | 缓存层设计 | `phase3_cache_design.md` | 已有 collect/sweep 模式 |
+| 4 | Collect 模式运行 | `phase4_collect/cache_status.json` | 缓存文件已存在且完整 |
+| 5 | 择时有效性验证 | `phase5_validation/{ablation,sensitivity}_results.json` | 用户明确不要 |
+| 6 | 参数寻优 | `phase6_sweep/sweep_results.json` + `results.jsonl` | 用户明确不要 |
+| 7 | 稳健性检验 | `phase7_robustness/robustness_results.json` | 用户明确不要 |
+| 8 | 报告撰写 | `phase8_report/final_report.md` | 永不跳过 |
+
+### 工作区结构（所有产物都在这里）
+
+```
+{策略文件同目录}/jq_optimizer_workspace/
+├── manifest.json               ← 总索引,看 current_phase 知道进度
+├── phase1_deconstruct.md
+├── phase2_refactor.md
+├── phase3_cache_design.md
+├── phase4_collect/             ← phase4_report.md + cache_status.json
+├── phase5_validation/          ← phase5_report.md + 消融/敏感性结果
+├── phase6_sweep/               ← phase6_report.md + sweep_results.json + results.jsonl
+├── phase7_robustness/          ← phase7_report.md + robustness_results.json
+└── phase8_report/              ← final_report.md(最终交付)
+```
+
+### 怎么一步步推进
+
+```
+阶段开始 → 读 SKILL.md 当前阶段小节 → 按指令产出文件 → 通过 CP 检查点
+    ↓
+写 phase{N}_report.md → 更新 manifest.json → 询问用户 → 进入下一阶段
+```
+
+### 断点恢复（重新对话时怎么续跑）
+
+1. AI 先读 `jq_optimizer_workspace/manifest.json` 的 `current_phase` 字段
+2. 读 `phase{N}_report.md`(N = current_phase)了解进度
+3. 检查是否有 `*_checkpoint.json` → 恢复 active/pending 状态
+4. 告诉用户当前在哪一阶段、做了什么、下一步做什么,**等用户确认后继续**
+
+### 5 个关键约定（避免常见坑）
+
+| # | 约定 | 为什么 |
+|---|------|--------|
+| 1 | **改参数用 `params_schema.json` 回填**,不动策略 .py 文件 | 跳过聚宽冷启动审核;sweep 脚本读 JSON 即可 |
+| 2 | **每轮 sweep 追加一行 `results.jsonl`** | 断点恢复毫秒级;`tail -1` 拿最新轮 |
+| 3 | **§6.3 AIC/BIC 评分**是核心防过拟合机制 | 公式: `Sharpe - params_count × log(training_days)`,**默认 log(1222)≈7.11**,训练期变它就变 |
+| 4 | **§6.5 6 停止条件状态机** | Sharpe/AIC-BIC 达标 / 连续无提升 / 多窗口失败 / 空间耗尽 / 人工干预,任一触发即停 |
+| 5 | **§5.3 多窗口 sweep**(W1/W2/W3/W4 错开训练期) | 防单窗口过拟合,默认要求 **≥3/4 窗口 Sharpe 正向**才接受 |
+
+### 一段话讲清楚整体逻辑
+
+> 阶段一拆策略,阶段二重构成 PARAMS + schema,
+> 阶段三加缓存让 sweep 零 API 调用,阶段四跑一遍 collect 把数据存下来,
+> 阶段五用 ablation + sensitivity 看哪些择时条件/参数真的有用,
+> 阶段六用 Optuna TPE 做多窗口 sweep + AIC/BIC 排序防过拟合,
+> 阶段七做样本外验证 + 参数扰动 + 极端行情检验,
+> 阶段八把所有产物汇总成一份给人类看的报告。
+
+### 不确定下一步做什么?
+
+- 跑完整 8 阶段 → 直接说 `/jq-full-optimizer`
+- 只想做某一阶段 → 说 `/jq-full-optimizer 阶段 6`(只跑阶段六)
+- 想恢复中断的进度 → 让 AI 读 `jq_optimizer_workspace/manifest.json` 看 `current_phase`
+
+---
+
 当用户输入 `/jq-full-optimizer` 时，按以下 8 阶段工作流推进。每个阶段末尾有检查点（CP），必须通过才能进入下一阶段。**通过后立即生成阶段报告**，作为交付物和断点恢复的可视化标记。
 
 > 详细参考文档：[SOP 正文](references/SOP_v1.md) | [流程图](references/SOP_流程图.md)
