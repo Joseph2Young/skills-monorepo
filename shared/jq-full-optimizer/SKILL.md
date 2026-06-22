@@ -499,7 +499,7 @@ def upload_with_verify(client, strategy_id, code):
     payload['algorithm[algorithmId]'] = str(detail['save_id'])
     payload['algorithm[code]'] = base64.b64encode(code.encode('utf-8')).decode('ascii')
     payload['encrType'] = 'base64'
-    client.post('/algorithm/index/save', data=payload, ...)
+    client.post('/algorithm/index/save', data=payload)  # 其余 payload 字段略
 
     # 2. 验证（read-back）
     html2 = client.get_text('/algorithm/index/edit', params={'algorithmId': strategy_id})
@@ -645,7 +645,20 @@ TASKS = [
 }
 ```
 
-**代价估算**：每个窗口 × sweep 一次 ≈ 5-10 分钟。4 窗口 × 8 并发 ≈ 实际 25-50 分钟。可以接受。
+**代价估算**（与 §6.1 Optuna 协调）：
+
+| 阶段 | 单 trial | n_trials | 并发 | 总耗时 |
+|------|---------|---------|------|--------|
+| 单窗口 sweep | 7.5 min | 500 | 4 | ≈ 16 h |
+| 4 窗口 sweep（强制）| 30 min | 500 | 4 | ≈ 62.5 h ≈ **2.6 天** |
+| 4 窗口 + TPE 500 trials（实际）| 30 min | 500 | 4 | ≈ **7-10 天**（含失败重跑、缓存 miss、人工审查） |
+
+**预算提示**：TPE 默认 500 trials × 4 窗口 = 62.5 小时纯计算时间。叠加失败重跑、collect 缓存 miss、人工审查 ≈ **7-10 天实际工作日**。
+
+**降级选项**（预算紧时）：
+- n_trials=200 → ≈ 1.2 天（仍能用 TPE）
+- n_trials=50 → ≈ 7 h（仅作 debug 验证）
+- 4 窗口关到 1 窗口 → 7.5 min/trial（**禁用**：丧失 §5.3 多窗口防过拟合核心机制）
 
 **回退规则**：用户明确说"我只要主训练期"时，可以关闭多周期训练，但必须在阶段五报告里标注 `multi_window_disabled: true` 并说明原因。
 
@@ -697,7 +710,7 @@ study.optimize(objective, n_trials=500, n_jobs=4)
 **为什么用 TPE 不用 Grid**：
 - 8 维 × 5 step = 39 万组合，Grid 跑 4.5 万小时，TPE 用 500 trials 即可逼近最优
 - TPE 自适应：第 100 次 trial 时已经知道调紧止损有用、放宽窗口没用，会集中预算到有希望的维度
-- 原 quant-auto-research 的 6 轮结果中 5/6 用了相同参数 = grid 搜不到 ≠ 真最优，TPE 会探索
+- 原 quant-auto-research 的 6 轮手动调参结果中 5/6 用了相同参数 = 人工每轮微调 1-2 个参数也只在小范围试探，TPE 自适应采样会比这覆盖更广
 
 **关键约束（与 sweep 协调）**：
 1. **n_trials ≤ sweep_max / 8**（避免单策略霸占 sweep 通道）
@@ -737,20 +750,42 @@ study.optimize(objective, n_trials=500, n_jobs=4)
 
 排序指标：**AIC/BIC 评分（主）** → 夏普（次）→ 年化收益（再次）→ 回撤约束（< 30%）。
 
-**AIC/BIC 评分公式**（借鉴 quant-auto-research，核心防过拟合机制）：
+**AIC/BIC 评分公式**（借鉴 quant-auto-research，核心防过拟合机制，**多窗口版本**）：
 
 ```python
 import math
+from typing import Literal
 
-def aic_bic_score(sharpe: float, params_count: int, training_days: int = 1222) -> float:
-    """每多调一个参数就扣分，逼着优化器用最少参数换最稳提升。
+def aic_bic_score_multi(
+    sharpes: list[float],
+    params_count: int,
+    training_days: int = 1222,
+    agg: Literal['min', 'mean', 'median'] = 'min',
+) -> float:
+    """多窗口 AIC/BIC 评分（与 §5.3 的 4 窗口配套）。
 
-    大白话：你改 1 个参数但夏普只涨了 5 分 < 7.11 扣分 → 不及格，拒绝。
-    改 3 个参数夏普涨 20 分 → 扣 21.33 分 → 还是负分 → 拒绝。
-    这就是防止"加参数=涨分"的过拟合陷阱。
+    大白话：你改 1 个参数但 4 窗口里最差那个 Sharpe 只涨了 5 分 < 7.11 扣分 → 不及格，拒绝。
+    改 3 个参数 4 窗口最差那个 Sharpe 涨 20 分 → 扣 21.33 分 → 还是负分 → 拒绝。
+    
+    关键：默认 agg='min'（用最差窗口的 Sharpe 算扣分），让 §5.3 强制 ≥3/4 周期
+    一致提升的接受准则真正进入评分。如果用 mean，主训练期 W3 虚高会拉高均值，
+    掩盖 W4 熊市崩盘——那就又退化成单窗口过拟合。
     """
+    if not sharpes:
+        raise ValueError('sharpes 不能为空')
+    if agg == 'min':
+        worst = min(sharpes)
+    elif agg == 'mean':
+        worst = sum(sharpes) / len(sharpes)
+    elif agg == 'median':
+        worst = sorted(sharpes)[len(sharpes) // 2]
+    else:
+        raise ValueError(f'未知聚合方式: {agg}')
     penalty = params_count * math.log(training_days)  # 默认训练期 ≈ 5 年，log(1222) ≈ 7.11
-    return sharpe - penalty
+    return worst - penalty
+
+# 单窗口别名（向后兼容 quant-auto-research 单调参代码）
+aic_bic_score = aic_bic_score_multi  # 单窗口调用传 [sharpe] 即可
 ```
 
 **强制要求**：
@@ -884,7 +919,7 @@ for round_n in range(state.max_rounds):
 
 **在 results.jsonl 里记录**：每轮追加 `stop_reason` 字段，让 AI 复盘时能直接看到"为什么这轮停了"。
 
-**CP-6.1** ✅ 搜索空间预筛选 | **CP-6.2** ✅ 并发脚本就绪 | **CP-6.3** ✅ 最优参数不在边界
+**CP-6.1** ✅ HPO 方法已选型 | **CP-6.1b** ✅ TPE sampler + 种子固定 | **CP-6.1c** ✅ 并发预算协调（见 §6.1）；补充：最优参数不在边界（CP-6.1d，由 §6.4 jsonl + §6.5 状态机自动验证）
 
 > **恢复指令**：读取 `phase6_sweep/phase6_report.md`，检查 sweep_results.json 中已完成数 / 总数。如有未完成的组合，用骨架脚本续跑。
 > **退出条件**：用户明确不需要参数寻优时跳过，记录原因。
