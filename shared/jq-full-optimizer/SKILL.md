@@ -677,6 +677,8 @@ TASKS = [
 
 **核心原则：参数优化是 HPO（超参数优化）问题，不只是枚举问题。** 11 个参数 × 5 step = 5^11 = 4883 万组合；11 参数 × 2 step × 多周期 × 多标的 = 226 亿组合（P0-3 漏洞）。Grid search 在 7.5 min/次 × 8 并发下需要 4 万年，必须用 HPO 框架。
 
+> **与 §5.3 协调**：阶段六每个 Optuna **trial = §5.3 规定的 4 窗口 sweep（W1/W2/W3/W4）**。`objective()` 函数提交的不是 1 次 sweep 而是 4 次（每窗口 1 次），回报的 Sharpe 是 4 窗口列表（喂给 §6.3 `aic_bic_score_multi`）。单窗口 trial 是 §5.3 多窗口防御失效的特例，**禁止**（除非显式 `multi_window_disabled: true`）。
+
 **方法选择决策树**（按预算/维度数选）：
 
 | 搜索空间 | 推荐方法 | 预算（trials） | 适用场景 |
@@ -734,8 +736,8 @@ study.optimize(objective, n_trials=500, n_jobs=4)
 
 ```
 1. 加载已有结果（断点续跑）
-2. 修改策略参数 → 上传（含验证）→ 提交 sweep 回测
-3. 轮询等待 → 提取指标（含 None 防御）→ 保存结果
+2. 修改策略参数 → 上传（含验证）→ 对 §5.3 的 4 个训练窗口各提交 1 次 sweep（同一份策略）
+3. 轮询等待 → 提取每窗口指标（含 None 防御）→ 4 窗口 Sharpe 喂给 aic_bic_score_multi
 4. 补充新回测到并发上限（MAX_CONCURRENT = 8）
 ```
 
@@ -813,7 +815,13 @@ aic_bic_score = aic_bic_score_multi  # 单窗口调用传 [sharpe] 即可
 {"round": 1, "timestamp": "2026-06-22T10:30:00", "git_commit": "abc1234567", "params_changed": [{"name": "stop_ratio", "before": 0.1, "after": 0.15}], "params_count": 1, "sharpe": 1.13, "aic_bic_score": -5.98, "max_drawdown": 0.18, "annual_return": 0.21, "status": "improved", "rationale": "调紧止损，减少单次损失"}
 ```
 
-**强制字段**：`round / timestamp / git_commit / params_changed / params_count / sharpe / aic_bic_score / status`
+**强制字段（10 项，对齐 quant-auto-research schema）**：`round / timestamp / git_commit / params_changed / params_count / sharpe / aic_bic_score / max_drawdown / annual_return / status / rationale`
+
+> **字段作用**：
+> - `sharpe` / `aic_bic_score` — §6.3 排序（主 + 次）
+> - `max_drawdown` — §6.3 回撤约束 < 30% 的 jsonl 取数源（缺失则无法触发拒绝）
+> - `annual_return` — §6.3 排序的第三级（再次）
+> - `rationale` — 人类写自然语言，改参数的解释，AI 复盘时直接读（**必填**, 空字符串 = "未记录"）
 **status 取值**：`baseline / improved / degraded / rejected`
 **git_commit 字段**：必须用 `git rev-parse HEAD` 拿真实 hash 写入，不要手填（quant-auto-research 的 jsonl 这里就有假 hash，`git checkout` 会失败）
 **rationale 字段**：人类写的自然语言，解释为什么改这个参数，AI 复盘时直接读
@@ -852,37 +860,58 @@ grep '"status": "improved"' phase6_sweep/results.jsonl | jq .
 借鉴 quant-auto-research 的 4 个停止条件，改写成可机读的状态机：
 
 ```python
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 
 class StopReason(Enum):
-    RUNNING = "running"                # 未结束
-    TARGET_SHARPE = "target_sharpe"    # 达标
-    NO_IMPROVEMENT = "no_improvement"  # 连续无提升
-    SPACE_EXHAUSTED = "space_exhausted"  # 搜索空间耗尽
-    MANUAL = "manual"                  # 人工干预
+    RUNNING = "running"                     # 未结束
+    TARGET_AIC_BIC = "target_aic_bic"       # 达标 (主指标, 与 §6.3 排序主指标对齐)
+    TARGET_SHARPE = "target_sharpe"         # 达标 (次指标)
+    NO_IMPROVEMENT = "no_improvement"       # 连续无提升
+    MULTIWINDOW_FAIL = "multiwindow_fail"   # 4 窗口一致准则不满足 (§5.3)
+    SPACE_EXHAUSTED = "space_exhausted"     # 搜索空间耗尽
+    MANUAL = "manual"                       # 人工干预
 
 @dataclass
 class ExperimentState:
-    target_sharpe: float = 2.0
+    # 主指标阈值 (§6.3 排序主指标 = AIC/BIC 评分)
+    target_aic_bic: float = 0.0             # AIC/BIC >= 0 视为不欠拟合 (默认)
+    target_sharpe: float = 2.0              # Sharpe 阈值 (次要, 仅当主指标先到)
     consecutive_no_improvement_limit: int = 3
-    max_rounds: int = 100
+    multiwindow_min_windows: int = 3         # §5.3 准则: >= 3/4 窗口 Sharpe 提升
+    max_rounds: int = 500                    # 与 §6.1 TPE n_trials 对齐
 
     consecutive_no_improvement_count: int = 0
     current_round: int = 0
 
-    def check_stop(self, current_sharpe: float, history: list[float]) -> tuple[bool, StopReason]:
-        # 1. Sharpe 达标
+    def check_stop(
+        self,
+        current_sharpe: float,
+        current_aic_bic: float,
+        per_window_sharpes: list[float],
+        history_aic_bic: list[float],
+    ) -> tuple[bool, StopReason]:
+        # 1. 主指标 AIC/BIC 达标 (与 §6.3 排序主指标对齐, 优先于 Sharpe)
+        if current_aic_bic >= self.target_aic_bic:
+            return True, StopReason.TARGET_AIC_BIC
+
+        # 2. Sharpe 也达标 (兜底, 当 §6.3 排序被禁用时)
         if current_sharpe >= self.target_sharpe:
             return True, StopReason.TARGET_SHARPE
 
-        # 2. 连续 N 轮 AIC/BIC 无提升
-        if len(history) >= self.consecutive_no_improvement_limit:
-            recent = history[-self.consecutive_no_improvement_limit:]
+        # 3. 连续 N 轮 AIC/BIC 无提升 (盯主指标, 不是 Sharpe)
+        if len(history_aic_bic) >= self.consecutive_no_improvement_limit:
+            recent = history_aic_bic[-self.consecutive_no_improvement_limit:]
             if max(recent) == min(recent):  # 完全无提升
                 return True, StopReason.NO_IMPROVEMENT
 
-        # 3. 参数空间耗尽
+        # 4. §5.3 多窗口准则: 至少 N 个窗口 Sharpe > 0 才算稳定
+        if len(per_window_sharpes) >= 4:
+            positive = sum(1 for s in per_window_sharpes if s > 0)
+            if positive < self.multiwindow_min_windows:
+                return True, StopReason.MULTIWINDOW_FAIL
+
+        # 5. 参数空间耗尽
         if self.current_round >= self.max_rounds:
             return True, StopReason.SPACE_EXHAUSTED
 
