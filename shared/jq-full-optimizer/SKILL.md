@@ -246,6 +246,37 @@ json.dump(manifest, open(os.path.join(workspace_dir, 'manifest.json'), 'w'), ind
     └── 日志/风控
 ```
 
+**进阶要求（推荐）**：除上面的功能分解外，再画一张 **3 层架构图**——这是借鉴 quant-auto-research 的核心骨架：
+
+```
+Layer 1 大盘择时（市场状态 → 是否交易）
+   输入：沪深300历史价 + 波动率
+   输出：market_regime ∈ {long, short}
+   模块：TimingJudge
+
+Layer 2 质量过滤（股票池 → 候选股）
+   输入：全 A 股 + 财务数据
+   输出：quality_stocks（每日缓存）
+   模块：QualityFilter
+
+Layer 3 组合优化（候选股 + 因子 → 权重）
+   输入：候选股 + 因子值
+   输出：目标权重矩阵
+   模块：FactorPortfolioOptimization
+
+跨层 止损（持仓监控 → 卖出信号）
+   输入：当前持仓 + 实时价
+   输出：止损单
+   模块：StopManager
+```
+
+**为什么强调 3 层架构**：
+- 每层可以**独立运行、独立验证**：能单独跑消融实验、看每一层到底贡献多少
+- 每层可以**独立替换**：择时模块写坏了可以单独换，不动选股和组合优化
+- 3 层之间是**单向数据流**：Layer 1 输出 → Layer 2 输入 → Layer 3 输入，依赖关系一目了然
+
+**判断准则**：如果你的策略能清楚画出这 3 层 + 1 跨层（止损），说明结构清晰；画不出来说明耦合严重，需要先重构再优化。
+
 ### 1.4 识别可调参数
 
 输出参数表：
@@ -285,6 +316,40 @@ PARAMS = {
 ```
 
 在 `initialize()` 中：`g.params = PARAMS.copy()`
+
+**进阶做法（推荐）**：除 PARAMS 字典外，额外产出 `params_schema.json`，把参数定义从代码里拆出来。
+
+理由：改参数不用动策略文件 → 跳过聚宽冷启动审核；sweep 脚本读 JSON 即可，不用 ast 解析 .py。
+
+格式（直接复用 quant-auto-research 的 schema）：
+
+```json
+[
+  {
+    "name": "stock_num",
+    "display_name": "持仓数量",
+    "default_value": 30,
+    "type": "integer",
+    "min": 10, "max": 50, "step": 5,
+    "group": "持仓",
+    "description": "组合持仓股票数量"
+  },
+  {
+    "name": "stop_ratio",
+    "display_name": "止损比例",
+    "default_value": 0.1,
+    "type": "float",
+    "min": 0.05, "max": 0.2, "step": 0.01,
+    "group": "止损",
+    "description": "价格跌破最高点 N% 止损"
+  }
+]
+```
+
+**强制字段**：`name / default_value / type / min / max / step / group / description`
+**type 可选值**：`integer / float / bool / categorical`
+**group 分组建议**：`["择时", "选股", "持仓", "止损", "因子协方差"]`
+**回填策略**：阶段六 sweep 脚本 `import json; schema = json.load(open('params_schema.json'))`，遍历 schema 改参数后注入策略。
 
 ### 2.2 择时开关
 
@@ -542,6 +607,48 @@ TASKS = [
 
 单边扫描核心参数，绘制参数值 vs 收益/夏普曲线。判断是否单调/单峰。
 
+### 5.3 多周期并行训练（防单窗口过拟合）
+
+**为什么必须有**：单一训练窗口过拟合风险极高。原作者自己的数据就证明了：
+
+| 同一套参数 | 2012-2017 段 | 2016-2020 段 | 2017-2021 段 |
+|-----------|-------------|-------------|-------------|
+| Sharpe | +1.22 | +1.77 | -0.77 |
+| 评价 | ✅ | ✅ | ❌ 崩了 |
+
+只在 2016-2020 上跑出 +1.77 看起来很美，但同样的参数到 2017-2021 直接 -0.77。这是典型的**单窗口过拟合**。
+
+**强制要求**：阶段六 sweep 时，**同时在 4 个错开的时间窗口上训练**。默认窗口（项目初始 2026 年起算，可滚动更新）：
+
+| 训练周期 | 时间范围 | 交易日数 | 用途 |
+|---------|---------|---------|------|
+| W1 | 2012-01-01 → 2017-12-31 | ~1500 | 老牛市验证 |
+| W2 | 2014-01-01 → 2019-12-31 | ~1500 | 中长期验证 |
+| W3 | 2016-01-01 → 2020-12-31 | ~1222 | **主训练期** |
+| W4 | 2017-01-01 → 2021-12-31 | ~1200 | 熊市/转折验证 |
+
+**接受准则**：参数组合必须在 **≥3/4 周期**上 Sharpe 一致提升才接受；否则即便主训练期 W3 看起来好也**拒绝**。
+
+**在 `params_schema.json` 里定义窗口**（参考 quant-auto-research 格式）：
+
+```json
+{
+  "backtest_period": {
+    "training_windows": [
+      {"name": "W1", "start": "2012-01-01", "end": "2017-12-31"},
+      {"name": "W2", "start": "2014-01-01", "end": "2019-12-31"},
+      {"name": "W3", "start": "2016-01-01", "end": "2020-12-31", "is_primary": true},
+      {"name": "W4", "start": "2017-01-01", "end": "2021-12-31"}
+    ],
+    "testing": {"start": "2021-01-01", "end": "2026-05-15"}
+  }
+}
+```
+
+**代价估算**：每个窗口 × sweep 一次 ≈ 5-10 分钟。4 窗口 × 8 并发 ≈ 实际 25-50 分钟。可以接受。
+
+**回退规则**：用户明确说"我只要主训练期"时，可以关闭多周期训练，但必须在阶段五报告里标注 `multi_window_disabled: true` 并说明原因。
+
 **CP-5.1** ✅ 择时条件贡献量化 | **CP-5.2** ✅ 敏感性曲线已绘制
 
 > **恢复指令**：读取 `phase5_validation/phase5_report.md`，检查 ablation_results.json 和 sensitivity_results.json 是否完整。
@@ -577,7 +684,154 @@ TASKS = [
 
 ### 6.3 结果排序
 
-排序指标：夏普（主）→ 年化收益（次）→ 回撤约束（< 30%）。
+排序指标：**AIC/BIC 评分（主）** → 夏普（次）→ 年化收益（再次）→ 回撤约束（< 30%）。
+
+**AIC/BIC 评分公式**（借鉴 quant-auto-research，核心防过拟合机制）：
+
+```python
+import math
+
+def aic_bic_score(sharpe: float, params_count: int, training_days: int = 1222) -> float:
+    """每多调一个参数就扣分，逼着优化器用最少参数换最稳提升。
+
+    大白话：你改 1 个参数但夏普只涨了 5 分 < 7.11 扣分 → 不及格，拒绝。
+    改 3 个参数夏普涨 20 分 → 扣 21.33 分 → 还是负分 → 拒绝。
+    这就是防止"加参数=涨分"的过拟合陷阱。
+    """
+    penalty = params_count * math.log(training_days)  # 默认训练期 ≈ 5 年，log(1222) ≈ 7.11
+    return sharpe - penalty
+```
+
+**强制要求**：
+1. sweep 脚本每跑完一组参数，**两个指标都必须保存**：`sharpe` 和 `aic_bic_score`
+2. 阶段六报告 `phase6_report.md` 必须把两列都列出来，让人类能一眼看到"夏普涨了但 AIC/BIC 跌了"的过拟合信号
+3. `params_count` = 本轮 sweep **实际改动**的参数数量（不是策略总参数数）
+4. `training_days` 默认 1222（对应 2016-2020 主训练期），可在 `params_schema.json` 的 `backtest_period.training` 字段自动推算
+5. AIC/BIC 评分为负时，必须在报告里打 ⚠️ 警告（提示可能过拟合）
+
+**回退规则**：用户明确说"我就要看原始夏普，不用扣分"时，可以关闭 AIC/BIC 排序，但必须在阶段六报告里标注 `aic_bic_disabled: true` 并说明原因。
+
+### 6.4 结果记录格式（JSONL 追加式）
+
+**强制要求**：阶段六 sweep 结果除 `sweep_results.json` 外，**同步追加一行**到 `jq_optimizer_workspace/phase6_sweep/results.jsonl`。
+
+**为什么用 JSONL 而不是 JSON 数组**：
+- 追加写一行 ≈ 毫秒级；改 JSON 数组要重写整个文件
+- `tail -1 results.jsonl` 拿最新轮，断点恢复超快
+- `grep '"status": "improved"'` 命令行直接过滤
+- AI 复盘时一行就是一轮决策，自然语言字段 `rationale` 直接读
+
+**每行字段**（直接复用 quant-auto-research 的 schema）：
+
+```json
+{"round": 1, "timestamp": "2026-06-22T10:30:00", "git_commit": "abc1234567", "params_changed": [{"name": "stop_ratio", "before": 0.1, "after": 0.15}], "params_count": 1, "sharpe": 1.13, "aic_bic_score": -5.98, "max_drawdown": 0.18, "annual_return": 0.21, "status": "improved", "rationale": "调紧止损，减少单次损失"}
+```
+
+**强制字段**：`round / timestamp / git_commit / params_changed / params_count / sharpe / aic_bic_score / status`
+**status 取值**：`baseline / improved / degraded / rejected`
+**git_commit 字段**：必须用 `git rev-parse HEAD` 拿真实 hash 写入，不要手填（quant-auto-research 的 jsonl 这里就有假 hash，`git checkout` 会失败）
+**rationale 字段**：人类写的自然语言，解释为什么改这个参数，AI 复盘时直接读
+
+**sweep 脚本骨架**：
+
+```python
+import json, subprocess
+from pathlib import Path
+
+def append_round(result: dict, jsonl_path: Path = Path("results.jsonl")) -> None:
+    """每跑完一组参数就追加一行。"""
+    result["git_commit"] = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
+    result["timestamp"] = subprocess.check_output(["date", "-Iseconds"]).decode().strip()
+    with jsonl_path.open("a") as f:
+        f.write(json.dumps(result, ensure_ascii=False) + "\n")
+```
+
+**快速查询命令**（给人类用）：
+
+```bash
+# 看总轮数
+wc -l phase6_sweep/results.jsonl
+
+# 看最新一轮
+tail -1 phase6_sweep/results.jsonl | jq .
+
+# 只看成功的轮
+grep '"status": "improved"' phase6_sweep/results.jsonl | jq .
+```
+
+### 6.5 实验生命周期（4 停止条件状态机）
+
+把"什么情况算优化结束"明确写成状态机，避免优化器死循环或人工手动监控。
+
+借鉴 quant-auto-research 的 4 个停止条件，改写成可机读的状态机：
+
+```python
+from dataclasses import dataclass
+from enum import Enum
+
+class StopReason(Enum):
+    RUNNING = "running"                # 未结束
+    TARGET_SHARPE = "target_sharpe"    # 达标
+    NO_IMPROVEMENT = "no_improvement"  # 连续无提升
+    SPACE_EXHAUSTED = "space_exhausted"  # 搜索空间耗尽
+    MANUAL = "manual"                  # 人工干预
+
+@dataclass
+class ExperimentState:
+    target_sharpe: float = 2.0
+    consecutive_no_improvement_limit: int = 3
+    max_rounds: int = 100
+
+    consecutive_no_improvement_count: int = 0
+    current_round: int = 0
+
+    def check_stop(self, current_sharpe: float, history: list[float]) -> tuple[bool, StopReason]:
+        # 1. Sharpe 达标
+        if current_sharpe >= self.target_sharpe:
+            return True, StopReason.TARGET_SHARPE
+
+        # 2. 连续 N 轮 AIC/BIC 无提升
+        if len(history) >= self.consecutive_no_improvement_limit:
+            recent = history[-self.consecutive_no_improvement_limit:]
+            if max(recent) == min(recent):  # 完全无提升
+                return True, StopReason.NO_IMPROVEMENT
+
+        # 3. 参数空间耗尽
+        if self.current_round >= self.max_rounds:
+            return True, StopReason.SPACE_EXHAUSTED
+
+        return False, StopReason.RUNNING
+```
+
+**使用方式**：
+
+```python
+state = ExperimentState(target_sharpe=2.0, max_rounds=50)
+history = []
+
+for round_n in range(state.max_rounds):
+    state.current_round = round_n
+    score = aic_bic_score(sharpe=1.5, params_count=2)
+    history.append(score)
+
+    should_stop, reason = state.check_stop(score, history)
+    append_round({"round": round_n, "score": score, "stop_reason": reason.value})
+
+    if should_stop:
+        log.info(f"实验结束: {reason.value}")
+        break
+```
+
+**4 个停止条件**：
+
+| # | 条件 | 默认值 | 何时调整 |
+|---|------|-------|---------|
+| 1 | 测试期 Sharpe 达标 | ≥ 2.0 | 用户在 `params_schema.json` 改 `target_sharpe` |
+| 2 | 连续 N 轮 AIC/BIC 无提升 | N=3 | 用户在阶段六报告里写明 override |
+| 3 | 参数空间耗尽（轮数上限） | max=100 | 同上 |
+| 4 | 人工干预（用户主动 stop） | — | 用户随时可触发 |
+
+**在 results.jsonl 里记录**：每轮追加 `stop_reason` 字段，让 AI 复盘时能直接看到"为什么这轮停了"。
 
 **CP-6.1** ✅ 搜索空间预筛选 | **CP-6.2** ✅ 并发脚本就绪 | **CP-6.3** ✅ 最优参数不在边界
 
