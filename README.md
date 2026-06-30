@@ -69,3 +69,25 @@ bash ~/skills-monorepo/uninstall.sh
 git clone <repo-url> ~/skills-monorepo
 bash ~/skills-monorepo/install.sh
 ```
+
+## 最近添加（2026-06-30）
+
+| Skill | 说明 |
+|-------|------|
+| **wind-find-finance-skill** | 万得金融能力发现与路由入口（路由到 MCP skill） |
+| **wind-mcp-skill** | ⭐ 万得 AIFinMarket 金融数据 MCP 路由器（A股/基金/期货/衍生品指标字典 + CLI 直调） |
+
+调用铁律（不可协商）：
+
+```bash
+cd ~/.codex/skills/wind-mcp-skill && \
+  node scripts/cli.mjs call stock_data get_stock_price_indicators \
+  '{"windcode":"600519.SH","indexes":"最新成交价"}'
+```
+
+- 必须先 `cd` 到 skill 目录（CLI 加载 references/ 相对路径）
+- JSON 参数用 zsh 单引号包，避免 `$` 展开
+- `indexes` 字段名必须查 `references/indicators.md` 逐字抄
+- API Key 在 `~/.wind-aifinmarket/config`（chmod 600），**禁止**入代码或 git
+- 端到端已验证：`600519.SH` 最新成交价 → `1179.23` 元
+- 三入口共享：`~/.agents/skills/`、`~/.claude/skills/`、`~/.codex/skills/`，源在 `~/skills-monorepo/shared/`
