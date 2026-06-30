@@ -1,0 +1,23 @@
+{
+  "date": "2026-06-30",
+  "scope": "project",
+  "lockFile": "/Users/yangjingsong/.agents/.skill-lock.json",
+  "lockFound": false,
+  "command": "npx skills add git@gitee.com:wind_info/wind-skills.git --skill wind-mcp-skill -y",
+  "method": "add",
+  "sourceType": null,
+  "updatedAt": "2026-06-30T02:22:24.941Z",
+  "status": "failed",
+  "finishedAt": "2026-06-30T02:22:24.939Z",
+  "exitCode": 1,
+  "usedFallback": true,
+  "fallbackReason": "lock entry missing or update did not find installed skill",
+  "error": "npx skills update reported failure",
+  "remoteHead": null,
+  "remoteChanged": false,
+  "lastAppliedRemoteHead": null,
+  "changed": false,
+  "beforeHash": "83baa94260cf8b91aa02e0664b1ca9131793d4fe4357e525343cf31c3de4473c",
+  "afterHash": "83baa94260cf8b91aa02e0664b1ca9131793d4fe4357e525343cf31c3de4473c",
+  "output": "loning repository.\u001b[999D\u001b[J◓  Cloning repository.\u001b[999D\u001b[J◑  Cloning repository.\u001b[999D\u001b[J◒  Cloning repository.\u001b[999D\u001b[J◐  Cloning repository.\u001b[999D\u001b[J◓  Cloning repository.\u001b[999D\u001b[J◑  Cloning repository..\u001b[999D\u001b[J◒  Cloning repository..\u001b[999D\u001b[J◐  Cloning repository..\u001b[999D\u001b[J◓  Cloning repository..\u001b[999D\u001b[J◑  Cloning repository..\u001b[999D\u001b[J◒  Cloning repository..\u001b[999D\u001b[J◐  Cloning repository..\u001b[999D\u001b[J◓  Cloning repository..\u001b[999D\u001b[J◑  Cloning repository...\u001b[999D\u001b[J◒  Cloning repository...\u001b[999D\u001b[J◐  Cloning repository...\u001b[999D\u001b[J◓  Cloning repository...\u001b[999D\u001b[J◑  Cloning repository...\u001b[999D\u001b[J◒  Cloning repository...\u001b[999D\u001b[J◐  Cloning repository...\u001b[999D\u001b[J◓  Cloning repository...\u001b[999D\u001b[J◑  Cloning repository...\u001b[999D\u001b[J◒  Cloning repository│\n■  Failed to clone repository\n│\n│  Failed to clone https://github.com/Wind-Information-Co-Ltd/wind-skills.git: Cloning into '/var/folders/_l/x4bpjgt57sq7qt5js6mzm1ph0000gn/T/skills-zSiRed'...\n│\n│  fatal: unable to access 'https://github.com/Wind-Information-Co-Ltd/wind-skills.git/': Failed to connect to github.com port 443 after 75014 ms: Couldn't connect to server\n│\n│\n│  Tip: use the --yes (-y) and --global (-g) flags to install without prompts.\n│\n└  Installation failed\n\n\u001b[999D\u001b[J■  Canceled\n\u001b[?25h\n\n--- fallback: npx skills add ---\n\n│\n●   codex  Agent detected — installing non-interactively\n\u001b[?25l│\n◇  Source: git@gitee.com:wind_info/wind-skills.git\n\u001b[?25h\u001b[?25l│\n◒  Cloning repository\u001b[999D\u001b[J◐  Cloning repository\u001b[999D\u001b[J◓  Cloning repository│\n■  Failed to clone repository\n│\n│  Failed to clone git@gitee.com:wind_info/wind-skills.git: Cloning into '/var/folders/_l/x4bpjgt57sq7qt5js6mzm1ph0000gn/T/skills-k5kKTl'...\n│\n│  Host key verification failed.\r\n│\n│  fatal: Could not read from remote repository.\n│\n│\n│  Please make sure you have the correct access rights\n│\n│  and the repository exists.\n│\n│\n│  Tip: use the --yes (-y) and --global (-g) flags to install without prompts.\n│\n└  Installation failed\n\n\u001b[999D\u001b[J■  Canceled\n\u001b[?25h"
+}
