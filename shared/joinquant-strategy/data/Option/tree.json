@@ -1,0 +1,120 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "2213",
+        "section": "1",
+        "fSection": "0",
+        "title": "<a href=\"#获取期权数据\">获取期权数据</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "2227",
+            "section": "1.1",
+            "fSection": "1",
+            "title": "<a href=\"#获取期权合约资料\">获取期权合约资料</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2241",
+            "section": "1.2",
+            "fSection": "1",
+            "title": "<a href=\"#获取期权合约调整记录\">获取期权合约调整记录</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2217",
+            "section": "1.3",
+            "fSection": "1",
+            "title": "<a href=\"#获取期权每日盘前静态文件\">获取期权每日盘前静态文件</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2226",
+            "section": "1.4",
+            "fSection": "1",
+            "title": "<a href=\"#获取期权日行情数据\">获取期权日行情数据</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2328",
+            "section": "1.5",
+            "fSection": "1",
+            "title": "<a href=\"#获取期权分钟行情仅本地数据提供\">获取期权分钟行情(仅本地数据提供)</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2329",
+            "section": "1.6",
+            "fSection": "1",
+            "title": "<a href=\"#获取指定时间周期的期权行情仅本地数据提供\">获取指定时间周期的期权行情(仅本地数据提供)</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2330",
+            "section": "1.7",
+            "fSection": "1",
+            "title": "<a href=\"#获取期权的tick行情仅本地数据提供\">获取期权的tick行情(仅本地数据提供)</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2244",
+            "section": "1.8",
+            "fSection": "1",
+            "title": "<a href=\"#获取ETF期权交易和持仓排名统计\">获取ETF期权交易和持仓排名统计</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2243",
+            "section": "1.9",
+            "fSection": "1",
+            "title": "<a href=\"#获取期权风险指标数据\">获取期权风险指标数据</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2242",
+            "section": "1.10",
+            "fSection": "1",
+            "title": "<a href=\"#获取期权行权交收信息\">获取期权行权交收信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2205",
+        "section": "2",
+        "fSection": "0",
+        "title": "<a href=\"#期权列表\">期权列表</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      }
+    ],
+    "idStr": "获取期权数据,获取期权合约资料,获取期权合约调整记录,获取期权每日盘前静态文件,获取期权日行情数据,获取期权分钟行情仅本地数据提供,获取指定时间周期的期权行情仅本地数据提供,获取期权的tick行情仅本地数据提供,获取ETF期权交易和持仓排名统计,获取期权风险指标数据,获取期权行权交收信息,期权列表",
+    "name": "期权数据 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}

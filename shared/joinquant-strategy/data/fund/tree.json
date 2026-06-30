@@ -1,0 +1,104 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "1755",
+        "section": "1",
+        "fSection": "0",
+        "title": "<a href=\"#获取基金数据\">获取基金数据</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "1754",
+            "section": "1.1",
+            "fSection": "1",
+            "title": "<a href=\"#基金概况：上市退市时间、代码、名称、累计单位净值等\">基金概况：上市退市时间、代码、名称、累计/单位净值等</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1753",
+                "section": "1.1.1",
+                "fSection": "1.1",
+                "title": "<a href=\"#获取单支基金数据\">获取单支基金数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1752",
+                "section": "1.1.2",
+                "fSection": "1.1",
+                "title": "<a href=\"#获取所有基金数据\">获取所有基金数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1751",
+                "section": "1.1.3",
+                "fSection": "1.1",
+                "title": "<a href=\"#基金累计单位净值\">基金累计/单位净值</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "3456",
+                "section": "1.1.4",
+                "fSection": "1.1",
+                "title": "<a href=\"#场内基金份额数据\">场内基金份额数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "4874",
+                "section": "1.1.5",
+                "fSection": "1.1",
+                "title": "<a href=\"#获取场内基金tick数据\">获取场内基金tick数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10671",
+                "section": "1.1.6",
+                "fSection": "1.1",
+                "title": "<a href=\"#获取etf跟踪指数信息\">获取etf跟踪指数信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1744",
+            "section": "1.2",
+            "fSection": "1",
+            "title": "<a href=\"#基金列表\">基金列表</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1742",
+                "section": "1.2.1",
+                "fSection": "1.2",
+                "title": "<a href=\"#LOF列表\">LOF列表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      }
+    ],
+    "idStr": "获取基金数据,基金概况：上市退市时间、代码、名称、累计单位净值等,获取单支基金数据,获取所有基金数据,基金累计单位净值,场内基金份额数据,获取场内基金tick数据,获取etf跟踪指数信息,基金列表,LOF列表",
+    "name": "场内基金数据 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}

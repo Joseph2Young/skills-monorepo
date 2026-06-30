@@ -1,0 +1,615 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "1063",
+        "section": "1",
+        "fSection": "0",
+        "title": "<a href=\"#获取股票数据\">获取股票数据</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "1062",
+            "section": "1.1",
+            "fSection": "1",
+            "title": "<a href=\"#获取股票概况\">获取股票概况</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1070",
+                "section": "1.1.1",
+                "fSection": "1.1",
+                "title": "<a href=\"#获取单支股票数据\">获取单支股票数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1071",
+                "section": "1.1.2",
+                "fSection": "1.1",
+                "title": "<a href=\"#获取所有股票数据\">获取所有股票数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1072",
+                "section": "1.1.3",
+                "fSection": "1.1",
+                "title": "<a href=\"#判断股票是否是ST\">判断股票是否是ST</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1073",
+                "section": "1.1.4",
+                "fSection": "1.1",
+                "title": "<a href=\"#获取股票的融资融券信息\">获取股票的融资融券信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1074",
+            "section": "1.2",
+            "fSection": "1",
+            "title": "<a href=\"#股票分类信息\">股票分类信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1075",
+                "section": "1.2.1",
+                "fSection": "1.2",
+                "title": "<a href=\"#获取指数成份股\">获取指数成份股</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1076",
+                "section": "1.2.2",
+                "fSection": "1.2",
+                "title": "<a href=\"#获取行业、概念成份股\">获取行业、概念成份股</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2971",
+                "section": "1.2.3",
+                "fSection": "1.2",
+                "title": "<a href=\"#查询股票所属行业\">查询股票所属行业</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1077",
+            "section": "1.3",
+            "fSection": "1",
+            "title": "<a href=\"#获取行情数据\">获取行情数据</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2125",
+        "section": "2",
+        "fSection": "0",
+        "title": "<a href=\"#获取融资融券标的列表\">获取融资融券标的列表</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "2126",
+            "section": "2.1",
+            "fSection": "2",
+            "title": "<a href=\"#获取融资标的列表\">获取融资标的列表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2127",
+            "section": "2.2",
+            "fSection": "2",
+            "title": "<a href=\"#获取融券标的列表\">获取融券标的列表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "3454",
+        "section": "3",
+        "fSection": "0",
+        "title": "<a href=\"#获取融资融券汇总数据\">获取融资融券汇总数据</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "2128",
+        "section": "4",
+        "fSection": "0",
+        "title": "<a href=\"#获取股票资金流向数据\">获取股票资金流向数据</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "2123",
+        "section": "5",
+        "fSection": "0",
+        "title": "<a href=\"#获取龙虎榜数据\">获取龙虎榜数据</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "1524",
+        "section": "7",
+        "fSection": "0",
+        "title": "<a href=\"#上市公司分红送股（除权除息）数据\">上市公司分红送股（除权除息）数据</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "1521",
+        "section": "8",
+        "fSection": "0",
+        "title": "<a href=\"#沪深市场每日成交概况\">沪深市场每日成交概况</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "1508",
+        "section": "9",
+        "fSection": "0",
+        "title": "<a href=\"#市场通（沪港通深港通和港股通）\">市场通（沪港通，深港通和港股通）</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "1510",
+            "section": "9.2",
+            "fSection": "9",
+            "title": "<a href=\"#合格证券变动记录\">合格证券变动记录</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1511",
+            "section": "9.3",
+            "fSection": "9",
+            "title": "<a href=\"#市场通交易日历\">市场通交易日历</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1512",
+            "section": "9.4",
+            "fSection": "9",
+            "title": "<a href=\"#市场通十大成交活跃股\">市场通十大成交活跃股</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1513",
+            "section": "9.5",
+            "fSection": "9",
+            "title": "<a href=\"#市场通成交与额度信息\">市场通成交与额度信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1514",
+            "section": "9.6",
+            "fSection": "9",
+            "title": "<a href=\"#市场通汇率\">市场通汇率</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2970",
+            "section": "9.7",
+            "fSection": "9",
+            "title": "<a href=\"#沪深港通持股数据\">沪深港通持股数据</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "1084",
+        "section": "10",
+        "fSection": "0",
+        "title": "<a href=\"#上市公司概况\">上市公司概况</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "1516",
+            "section": "10.1",
+            "fSection": "10",
+            "title": "<a href=\"#上市公司基本信息\">上市公司基本信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1517",
+            "section": "10.2",
+            "fSection": "10",
+            "title": "<a href=\"#上市公司状态变动\">上市公司状态变动</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1518",
+            "section": "10.3",
+            "fSection": "10",
+            "title": "<a href=\"#股票上市信息\">股票上市信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1519",
+            "section": "10.4",
+            "fSection": "10",
+            "title": "<a href=\"#股票简称变更情况\">股票简称变更情况</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1515",
+            "section": "10.6",
+            "fSection": "10",
+            "title": "<a href=\"#上市公司员工情况\">上市公司员工情况</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "1357",
+        "section": "11",
+        "fSection": "0",
+        "title": "<a href=\"#上市公司股东和股本信息\">上市公司股东和股本信息</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "1358",
+            "section": "11.1",
+            "fSection": "11",
+            "title": "<a href=\"#十大股东\">十大股东</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1359",
+            "section": "11.2",
+            "fSection": "11",
+            "title": "<a href=\"#十大流通股东\">十大流通股东</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1360",
+            "section": "11.3",
+            "fSection": "11",
+            "title": "<a href=\"#股东股份质押\">股东股份质押</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1361",
+            "section": "11.4",
+            "fSection": "11",
+            "title": "<a href=\"#股东股份冻结\">股东股份冻结</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1362",
+            "section": "11.5",
+            "fSection": "11",
+            "title": "<a href=\"#股东户数\">股东户数</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1363",
+            "section": "11.6",
+            "fSection": "11",
+            "title": "<a href=\"#大股东增减持\">大股东增减持</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "4576",
+            "section": "11.7",
+            "fSection": "11",
+            "title": "<a href=\"#受限股份上市公告日期\">受限股份上市公告日期</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1365",
+            "section": "11.8",
+            "fSection": "11",
+            "title": "<a href=\"#受限股份实际解禁日期\">受限股份实际解禁日期</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1366",
+            "section": "11.9",
+            "fSection": "11",
+            "title": "<a href=\"#上市公司股本变动\">上市公司股本变动</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "1351",
+        "section": "12",
+        "fSection": "0",
+        "title": "<a href=\"#获取单季度年度财务数据\">获取单季度/年度财务数据</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "1587",
+            "section": "12.1",
+            "fSection": "12",
+            "title": "<a href=\"#财务数据列表\">财务数据列表</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1087",
+                "section": "12.1.1",
+                "fSection": "12.1",
+                "title": "<a href=\"#市值数据\">市值数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1088",
+                "section": "12.1.2",
+                "fSection": "12.1",
+                "title": "<a href=\"#资产负债数据\">资产负债数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1089",
+                "section": "12.1.3",
+                "fSection": "12.1",
+                "title": "<a href=\"#现金流数据\">现金流数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1090",
+                "section": "12.1.4",
+                "fSection": "12.1",
+                "title": "<a href=\"#利润数据\">利润数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1091",
+                "section": "12.1.5",
+                "fSection": "12.1",
+                "title": "<a href=\"#财务指标数据\">财务指标数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "1968",
+        "section": "13",
+        "fSection": "0",
+        "title": "<a href=\"#获取报告期财务数据\">获取报告期财务数据</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10567",
+            "section": "13.1",
+            "fSection": "13",
+            "title": "<a href=\"#审计意见新上线数据\">审计意见(新上线数据)</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10570",
+            "section": "13.2",
+            "fSection": "13",
+            "title": "<a href=\"#定期报告预约披露时间表新上线数据\">定期报告预约披露时间表(新上线数据)</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1969",
+            "section": "13.3",
+            "fSection": "13",
+            "title": "<a href=\"#业绩预告\">业绩预告</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10546",
+            "section": "13.4",
+            "fSection": "13",
+            "title": "<a href=\"#业绩快报新上线数据\">业绩快报(新上线数据)</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1970",
+            "section": "13.5",
+            "fSection": "13",
+            "title": "<a href=\"#合并利润表\">合并利润表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1971",
+            "section": "13.6",
+            "fSection": "13",
+            "title": "<a href=\"#母公司利润表\">母公司利润表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1972",
+            "section": "13.7",
+            "fSection": "13",
+            "title": "<a href=\"#合并现金流量表\">合并现金流量表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1973",
+            "section": "13.8",
+            "fSection": "13",
+            "title": "<a href=\"#母公司现金流量表\">母公司现金流量表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1974",
+            "section": "13.9",
+            "fSection": "13",
+            "title": "<a href=\"#合并资产负债表\">合并资产负债表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1975",
+            "section": "13.10",
+            "fSection": "13",
+            "title": "<a href=\"#母公司资产负债表\">母公司资产负债表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1980",
+            "section": "13.11",
+            "fSection": "13",
+            "title": "<a href=\"#金融类合并利润表\">金融类合并利润表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1981",
+            "section": "13.12",
+            "fSection": "13",
+            "title": "<a href=\"#金融类母公司利润表\">金融类母公司利润表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1982",
+            "section": "13.13",
+            "fSection": "13",
+            "title": "<a href=\"#金融类合并现金流量表\">金融类合并现金流量表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1983",
+            "section": "13.14",
+            "fSection": "13",
+            "title": "<a href=\"#金融类母公司现金流量表\">金融类母公司现金流量表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1984",
+            "section": "13.15",
+            "fSection": "13",
+            "title": "<a href=\"#金融类合并资产负债表\">金融类合并资产负债表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1985",
+            "section": "13.16",
+            "fSection": "13",
+            "title": "<a href=\"#金融类母公司资产负债表\">金融类母公司资产负债表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      }
+    ],
+    "idStr": "获取股票数据,获取股票概况,获取单支股票数据,获取所有股票数据,判断股票是否是ST,获取股票的融资融券信息,股票分类信息,获取指数成份股,获取行业、概念成份股,查询股票所属行业,获取行情数据,获取融资融券标的列表,获取融资标的列表,获取融券标的列表,获取融资融券汇总数据,获取股票资金流向数据,获取龙虎榜数据,上市公司分红送股（除权除息）数据,沪深市场每日成交概况,市场通（沪港通深港通和港股通）,合格证券变动记录,市场通交易日历,市场通十大成交活跃股,市场通成交与额度信息,市场通汇率,沪深港通持股数据,上市公司概况,上市公司基本信息,上市公司状态变动,股票上市信息,股票简称变更情况,上市公司员工情况,上市公司股东和股本信息,十大股东,十大流通股东,股东股份质押,股东股份冻结,股东户数,大股东增减持,受限股份上市公告日期,受限股份实际解禁日期,上市公司股本变动,获取单季度年度财务数据,财务数据列表,市值数据,资产负债数据,现金流数据,利润数据,财务指标数据,获取报告期财务数据,审计意见新上线数据,定期报告预约披露时间表新上线数据,业绩预告,业绩快报新上线数据,合并利润表,母公司利润表,合并现金流量表,母公司现金流量表,合并资产负债表,母公司资产负债表,金融类合并利润表,金融类母公司利润表,金融类合并现金流量表,金融类母公司现金流量表,金融类合并资产负债表,金融类母公司资产负债表",
+    "name": "股票数据 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}

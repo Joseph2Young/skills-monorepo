@@ -1,0 +1,614 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>数据 - JoinQuant</title>
+        <meta name="keywords" content="股票,指数,免费数据,股指期货,板块,财务报表,基金,ETF,LOF,分级基金,分级A,分级B,joinquant,聚宽,量化,宽客,quant,量化交易,量化平台,量化投资,量化策略,程序化交易,量化投研平台,python,金融工程,level2,level1" />
+        <meta name="description" content="聚宽（JoinQuant）量化投研平台是为量化爱好者（宽客）量身打造的云平台，我们为您提供精准的回测功能、高速实盘交易接口、易用的API文档、由易入难的策略库，便于您快速实现、使用自己的量化交易策略。" />
+        <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="vipType" content="''">
+        <meta name="tick-access" content="0" />
+	            <link type='text/css'  href="https://cdn.joinquant.com/common/css/lib.min.css?v=1780039148084" rel='stylesheet'></link>
+        <link type='text/css'  href="https://cdn.joinquant.com/common/css/common.min.css?v=1780039148084" rel='stylesheet'></link>
+        <link rel="stylesheet" href="https://cdn.joinquant.com/themes/jq/static/common/css/jq-common.min.css?v=1780039148084">
+                <link rel="stylesheet" href="https://cdn.joinquant.com/themes/jq/static/default/css/newUserTip.css?v=1780039148084">
+        <link rel="stylesheet" href="https://cdn.joinquant.com/themes/jq/dist/static_v2/default/backtotop/detail/index/index.component.bundle.css?v=1780039148084">
+	      <link rel="icon" href="https://cdn.joinquant.com/common/img/favicon-16-16.png?v=2" type="image/x-icon">
+
+        <link rel="stylesheet" type='text/css' href="https://cdn.joinquant.com/dist/static_v2/global/user/login/index/index.component.bundle.css?v=1780039148084" />
+        <link rel="stylesheet" type='text/css' href="https://cdn.joinquant.com/user/css/unreadMsg.css?v=1780039148084" />
+        <link type='text/css'  href="https://cdn.joinquant.com/themes/jq/static/default/css/iconfont.css" rel='stylesheet'/>
+
+        
+        <link rel="stylesheet" type="text/css" href="https://cdn.joinquant.com/help/css/data.min.css?v=1780039148084">
+<link type='text/css'  href="https://cdn.joinquant.com/themes/jq/static/common/css/beforelogin-layer.css?v=1780039148084" rel='stylesheet'/>
+<style>
+	.kk_body{top:27px\9;}
+	.kk_footer .inner {
+   		max-width: none;
+	}
+	a{
+		color:#333;
+		text-decoration: none;
+	}
+	.data-dic h4{
+		margin-bottom: 15px;
+	}
+	.data-dic {
+		position: relative;
+	}
+	.data-dic .jq-helpdata-badge {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 2px 6px 4px 8px;
+		font-size: 12px;
+		background: #FF3144;
+		color: #fff;
+		border-radius: 0 4px;
+	}
+
+	.jq-data-banner-sdktitle {
+		position: absolute;
+    top: 86px;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    font-size: 56px;
+	}
+
+	.jq-data-banner-sdksubtitle {
+		position: absolute;
+    top: 183px;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    font-size: 18px;
+	}
+
+	.jq-data-banner-sdksubtitle > .sdksubtitle-text {
+		margin: 0 10px;
+	}
+
+	.jq-data-sdkpagebutton-warpper {
+		position: absolute;
+    top: 275px;
+    left: 0;
+		width: 100%;
+    text-align: center;
+	}
+
+	.jq-data-sdkpagebutton-warpper a {
+		display: inline;
+		padding: 13px 79px;
+		color: #fff;
+    background-color: transparent;
+    border: 1px solid #fff;
+	}
+
+	.jq-data-sdkpagebutton-warpper a:focus {
+		color: #fff;
+		background-color: transparent;
+		border: 1px solid #fff;
+	}
+
+	.jq-data-sdkpagebutton-warpper a:hover {
+		color: #3262C1;
+		background-color: #fff;
+		border: 1px solid #fff;
+	}
+
+	.jq-data-sdkpagebutton-warpper a:active {
+		color: #3262C1;
+		background-color: #fff;
+		border: 1px solid #fff;
+	}
+
+
+	.jq-data-sdkpagebutton-warpper a:active:focus {
+		color: #3262C1;
+		background-color: #fff;
+		border: 1px solid #fff;
+	}
+
+	@media (max-width: 768px) {
+
+		.news-guide {
+			height: 220px;
+		}
+
+		.jq-data-banner-sdktitle {
+			font-size: 24px;
+			top: 51px;
+		}
+
+		.jq-data-banner-sdksubtitle {
+			font-size: 14px;
+			top: 91px;
+		}
+
+		.jq-data-sdkpagebutton-warpper {
+			top: 152px;
+		}
+
+		.jq-data-banner-sdksubtitle .sdksubtitle-line {
+			display: none;
+		}
+	}
+	footer.bottom-50 {
+		bottom: -225px;
+	}
+</style>
+
+        
+                                                                        <style>
+        span.new{
+        background: rgba(0,0,0,0);
+    }
+    .side-bar .top .name.user-alias img{
+        width:16px;
+        height:16px;
+        float: none;
+        margin-right:0;
+    }
+    .kk_footer .wp20.last img{
+        position: relative;
+        top:-2px;
+    }
+    .kk_footer .wp20.last .item>a{
+        position: relative;
+        left:-5px;
+    }
+        </style>
+    <script type='text/javascript'>
+        var _vds = _vds || [];
+        window._vds = _vds;
+        (function(){
+                            _vds.push(['setAccountId', '949f6a566feb9b09']);
+                                        _vds.push(['trackBot', false]);
+         (function() {
+           // if (window.location.href.indexOf('www.joinquant.com') > -1) {
+            //  var vds = document.createElement('script');
+            //  vds.type='text/javascript';
+            //  vds.async = true;
+            //  vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'assets.giocdn.com/vds.js';
+            //  var s = document.getElementsByTagName('script')[0];
+            //  s.parentNode.insertBefore(vds, s);
+           // }
+         })();
+        })();
+        var g_domain = 'https://www.joinquant.com';
+        var g_filedomain = 'https://file.joinquant.com';
+
+        </script>
+    </head>
+    <body >
+                <div id="browser-message" class="container browser-message relative" style="border: 1px solid #ccc;margin-bottom:3px;z-index:1000000;top:50px">
+    <div style="float:right"><a href="###" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);">关闭</a></div>
+    <div class="browse-alert alert-block alert-error padding_20">
+        <div class="payload-image inline-block">
+            <i class="icon icon-exclamation-sign"></i>
+        </div>
+        <div class="payload inline-block">
+            <p class="bold">您正在使用的浏览器版本较低，无法支持聚宽的某些特性。</p>
+            <p>为了获得更好的体验，推荐使用： <a href="http://rj.baidu.com/soft/detail/14744.html"  target="_blank">Google Chrome</a> 或者 <a href="http://www.firefox.com.cn/download/" target="_blank">Mozilla Firefox</a> 或者 <a href="http://windows.microsoft.com/zh-cn/internet-explorer/ie-11-worldwide-languages/" target="_blank">IE9以上</a>。</p>
+        </div>
+    </div>
+</div>
+                <div class="kk_main in_wrap">
+                        
+            <header id="kk_nav" class="fixed-top kk_nav navbar narbar-static-top heigh_nav">
+              <div class="kk_nav_container js-jq-header" ></div>
+            </header>
+            
+            <!--/header-->
+
+            <!-- <div class="kk_body  js-jq-body hidden top_50  "> -->
+            <div class="kk_body js-jq-body top_50  ">
+                
+<!-- banner开始 -->
+<div style="width: 100%;height:100%">
+    <div id="guide" class="news-guide">
+        <div class='slogan'
+            style="background: url('https://cdn.joinquant.com/themes/jq/static/help/img/sdkhelpdatabanner.png') no-repeat center;background-size: auto 380px;"
+        >
+
+            <div class="jq-data-content">
+                <p class="jq-data-banner-sdktitle">
+                    JQData本地量化数据开放使用
+                </p>
+                <p class="jq-data-banner-sdksubtitle">
+                    <span class="sdksubtitle-text">支持本地调用，提供2005年至今的全品种量化数据</span>
+                </p>
+                <div class="jq-data-sdkpagebutton-warpper">
+                    <a class="btn btn-default" href="/default/index/sdk" target="_blank">点击查看</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner结束 -->
+
+    <!-- 数据字典开始 -->
+    <div class="guide-box">
+        <div class="data-dictionary">
+            <div class="data-dictionary-title">
+                <div class="line left"></div>
+                <h3>数据字典</h3>
+                <div class="line right"></div>
+            </div>
+            <div class="data-dictionary-content mb_36">
+                <div class="data-dic">
+                    <a href="/help/api/help#name:Stock">
+                        <h4>股票数据</h4>
+                        <p>提供2005年至今沪深A股全面的行情、财务、基本面等数据</p>
+                    </a>
+                </div>
+                <div class="data-dic">
+                    <a href="/help/api/help#name:plateData">
+                        <h4>行业概念数据</h4>
+                        <p>包含行业板块、概念板块数据</p>
+                    </a>
+                </div>
+                <div class="data-dic">
+                    <a href="/help/api/help#name:index">
+                        <h4>指数数据</h4>
+                        <p>包含沪深市场多只指数数据</p>
+                    </a>
+                </div>
+                <div class="data-dic">
+                    <a href="/help/api/help#name:macroData">
+                        <h4>宏观经济数据</h4>
+                        <p>包含国内的重要宏观经济数据</p>
+                    </a>
+                </div>
+                <div class="data-dic">
+                    <a href="/help/api/help#name:Future">
+                        <h4>期货数据</h4>
+                        <p>涵盖中金所、上期所、郑商所和大商所的所有期货合约数据</p>
+                    </a>
+                </div>
+                <div class="data-dic">
+                    <a href="/help/api/help#name:Option">
+                        <h4>期权数据</h4>
+                        <p>提供股票期权和商品期权的合约资料和行情数据</p>
+                    </a>
+                </div>
+                <div class="data-dic">
+                    <a href="/help/api/help#name:fund">
+                        <h4>场内基金数据</h4>
+                        <p>包含ETF、LOF、分级基金、货币基金完整的行情、净值数据</p>
+                    </a>
+                </div>
+                <div class="data-dic">
+                    <a href="/help/api/help#name:OTCfund">
+                        <h4>场外基金数据</h4>
+                        <p>提供场外基金单位净值、复权净值、投资组合等数据</p>
+                    </a>
+                </div>
+                <div class="data-dic">
+                    <a href="/help/api/help#name:technicalanalysis">
+                        <h4>技术分析指标</h4>
+                        <p>技术分析指标因子库</p>
+                    </a>
+                </div>
+                <div class="data-dic">
+                    <a href="/help/api/help#name:Alpha101">
+                        <h4>Alpha101因子</h4>
+                        <p>WorldQuant LLC 发表论文中给出的 101 个 Alphas 因子</p>
+                    </a>
+                </div>
+                <div class="data-dic">
+                    <a href="/help/api/help#name:Alpha191">
+                        <h4>Alpha191因子</h4>
+                        <p>短周期阿尔法因子</p>
+                    </a>
+                </div>
+                <div class="data-dic">
+                  <a href="/help/api/help#name:factor_values">
+                    <h4>聚宽因子库</h4>
+                    <p>包含数百个质量、情绪、风险、成长等六大类因子</p>
+                  </a>
+                </div>
+                <!-- <div class="data-dic">
+                    <a href="/help/data/data?name=jy">
+                        <h4>聚源数据</h4>
+                        <p>包含上市公司、基金、期权、资讯等数据</p>
+                    </a>
+                </div>
+                <div class="data-dic">
+                    <a href="/data/dict/tushare">
+                        <h4>TuShare数据</h4>
+                        <p>包含新闻事件等数据</p>
+                    </a>
+                </div> -->
+                <div class="data-dic">
+                    <a href="/help/api/help#name:Public">
+                        <h4>舆情数据</h4>
+                        <p>包含CCTV等舆情数据</p>
+                    </a>
+                </div>
+                <div class="data-dic">
+                    <a href="/help/api/doc?name=JQDatadoc">
+                        <h4>JQData</h4>
+                        <p>能在本地调用的<br/>全品种量化数据</p>
+                    </a>
+                </div>
+                <!-- 暂时隐藏超对称数据 -->
+                <!-- <div class="data-dic">
+                    <a href="/help/api/help#name:ssymmetry">
+                        <h4>超对称数据</h4>
+                        <p>提供股吧、雪球的情绪因子和淘宝、天猫的电商销量数据</p>
+                    </a>
+                    <span class="jq-helpdata-badge">new</span>
+                </div> -->
+                <div class="data-dic">
+                    <a href="/help/api/help#name:bond">
+                        <h4>债券数据</h4>
+                        <p>提供债券基本信息、国债逆回购、可转债等债券数据</p>
+                    </a>
+                    <span class="jq-helpdata-badge">new</span>
+                </div>
+                                <!-- <div class="data-dic">
+                    <a href="/help/data/data?name=gta">
+                        <h4>国泰安数据</h4>
+                        <p>包含上市公司基本信息数据</p>
+                    </a>
+                </div> -->
+                            </div>
+        </div>
+    </div>
+    <!-- 数据字典结束 -->
+</div>
+
+            </div>
+            <input type="hidden" id="imagePath" value="https://image.joinquant.com"/>
+            <input type="hidden" id="cdnPath" value="https://cdn.joinquant.com"/>
+            <!--/body-->
+            
+            <footer class="kk_footer clearfix bottom-50">
+                <div class="inner auto_w">
+                    <div class="wp19 fleft">
+                        <div class="item title">关于</div>
+                        <!-- <div class="item"><a href="/about#aboutUs">关于我们</a></div> -->
+                        <!-- <div class="item"><a href="/about#contactUs">联系我们</a></div> -->
+                        <div class="item"><a href="javascript:void(0);">联系我们：hi@joinquant.com</a></div>
+                        <div class="item"><a href="https://app.mokahr.com/m/social-recruitment/joinquant/92346">加入我们</a></div>
+                    </div>
+                    <div class="wp19 fleft hidden">
+                        <div class="item title">数据</div>
+                        <div class="item"><a href="/help/data/index">指数数据</a></div>
+                        <div class="item"><a href="/help/data/fund">基金数据</a></div>
+                        <div class="item"><a href="/data/dict/gta">国泰安数据</a></div>
+                        <div class="item"><a href="/help/data/stock">股票财务数据</a></div>
+                        <div class="item"><a href="/help/data/futures">金融期货数据</a></div>
+                        <div class="item"><a href="/help/api/plateData">行业概念数据</a></div>
+                    </div>
+                    <div class="wp19 fleft">
+                        <div class="item title">帮助</div>
+                        <div class="item"><a href="/faq">常见问题</a></div>
+                        <div class="item"><a href="/api" target="_blank">API文档</a></div>
+                        <div class="item"><a href="/study#python" target="_blank">Python教程</a></div>
+                        <!-- <div class="item"><a href="/algorithm/apishare/list" target="_blank">共享函数库</a></div> -->
+                        <div class="item"><a href="/view/algorithm/pythonConversion?utm_source=bottom"  target="_blank">Python 2 to 3</a></div>
+                    </div>
+                    <div class="wp19 fleft">
+                        <div class="item title">友情链接</div>
+                        <div class="item"><a href="https://guorn.com/?from=joinquant">果仁网</a></div>
+                    </div>
+                    <div class="wp19 fleft">
+                        <div class="item title" style="padding-left:5px">关注我们</div>
+                        <div class="item"><a href="https://zhuanlan.zhihu.com/JoinQuant"><img style="width:24px;" src="https://cdn.joinquant.com/common/img/zhi.png" alt="">知乎专栏</a></div>
+                        <div class="item"><a href="https://xueqiu.com/JoinQuant/profile"> <img style="width:24px;" src="https://cdn.joinquant.com/common/img/xq.png" alt="">雪球</a></div>
+                    </div>
+                    <div class="wp24 fleft last tright">
+                        <div class="item inline-block pr_10 fleft">
+                            <img class="mb_10" src="https://cdn.joinquant.com/themes/jq/static/common/img/wechat.png" alt="">
+                            <p class="f14 tcenter">微信公众号</p>
+                        </div>
+                    </div>
+                    <div class="copyright tcenter clear">
+                        <p><a href="https://cdn.joinquant.com/std/user/protocol/user.pdf" target="_blank">用户协议</a> | <a href="https://cdn.joinquant.com/std/user/protocol/privacy.pdf" target="_blank">隐私政策</a></p>
+                        <p>@2026 @joinquant.com | <a href="https://beian.miit.gov.cn" target="_blank">京ICP备17068639号-5</a> | 增值电信业务经营许可证：京B2-20212305</p>
+                    </div>
+                </div>
+            </footer>
+            <div class="mkk_footer">
+                <div class="inner">
+                    <div class="list">
+                        <a href="#mfooter1" class="item title" type="button" data-toggle='collapse' data-target='#mfooter1' aria-expanded="false" aria-controls="mfooter1">关于</a>
+                        <div class='collapse mfooter1' id="mfooter1">
+                            <!-- <div class="item"><a href="/about#aboutUs">关于我们</a></div>
+                            <div class="item"><a href="/about#contactUs">联系我们</a></div> -->
+                            <div class="item"><a href="javascript:void(0);">联系我们：hi@joinquant.com</a></div>
+                            <div class="item"><a href="https://app.mokahr.com/m/social-recruitment/joinquant/92346">加入我们</a></div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <a href="#mfooter2" class="item title" data-toggle='collapse' data-target='#mfooter2' aria-expanded="false" aria-controls="mfooter2">数据</a>
+                        <div class='collapse mfooter2' id="mfooter2">
+                            <div class="item"><a href="/help/data/index">指数数据</a></div>
+                            <div class="item"><a href="/help/data/fund">基金数据</a></div>
+                            <div class="item"><a href="/data/dict/gta">国泰安数据</a></div>
+                            <div class="item"><a href="/help/data/stock">股票财务数据</a></div>
+                            <div class="item"><a href="/help/data/futures">金融期货数据</a></div>
+                            <div class="item"><a href="/help/api/plateData">行业概念数据</a></div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <a href="#mfooter3" class="item title" data-toggle='collapse' data-target='#mfooter3' aria-expanded="false" aria-controls="mfooter3">帮助</a>
+                        <div class='collapse mfooter3' id="mfooter3">
+                        	<div class="item"><a href="/faq">常见问题</a></div>
+                        	<div class="item"><a href="/api">API文档</a></div>
+                            <div class="item"><a href="/study#python" target="_blank">Python教程</a></div>
+                        </div>
+                    </div>
+                    <div class="list last">
+                        <div class="logo"><a href="/"></a></div>
+                        <div class="copyright">@2026 @joinquant.com | <a href="https://beian.miit.gov.cn" target="_blank">京ICP备17068639号-5</a> | 增值电信业务经营许可证：京B2-20212305</div>
+                    </div>
+                </div>
+            </div>
+            
+
+        </div>
+                  <!-- 回到顶部 联系我们 -->
+<div id="leftsead" class="">
+  <ul></ul>
+  <input type="text" class="timeStamp" value="1780039148084" style="display:none">
+  <input type="text" class="js-cdn-path" value="https://cdn.joinquant.com" style="display:none">
+</div>
+        
+
+        <script>
+        var g_staticHost = 'https://cdn.joinquant.com';
+
+                    var isInnerEnv = false;
+        
+                var g_isMobile = false;
+        
+                var g_isLogin = false;
+        
+                var g_isWinApp= false;
+        
+        </script>
+        <script>
+          window.tokenData = {
+            name: "token",
+            value: "531c672e0ce4440439852ac7de2393399b9ad15c089f8173bd6c22449d90a5cb53f314a469d7eb3286d6200a7d727db0"
+          }
+        </script>
+
+        
+	               <script src="https://cdn.joinquant.com/common/js/mustache.min.js"></script>
+        <script src="https://cdn.joinquant.com/common/js/lib.min.js?v=1780039148084"></script>
+        <script src="https://cdn.joinquant.com/themes/jq/static/common/js/setGroIO.js?v=1780039148084"></script>
+                
+        <script src="https://cdn.joinquant.com/std/third/pdfjs-2.16.105-legacy-dist/build/pdf.js"></script>
+        <script src="https://cdn.joinquant.com/dist/static_v2/venders/common.js"></script>
+        <script src="https://cdn.joinquant.com/dist/static_v2/util.js?v=1780039148084"></script>
+        <script src="https://cdn.joinquant.com/dist/static_v2/component.js?v=1780039148084" ></script>
+        <script src="https://cdn.joinquant.com/dist/static_v2/common/common.header.module.bundle.js?v=1780039148084" ></script>
+        <script src="https://cdn.joinquant.com/dist/static_v2/global/user/login/index/index.module.bundle.js?v=1780039148084" ></script>
+        <script src="https://cdn.joinquant.com/themes/jq/dist/static_v2/global/include/include/include.module.bundle.js?v=1780039148084" ></script>
+        <!-- <script src="https://cdn.joinquant.com/themes/jq/static/dist/asset/general/baidu-tongji.bundle.js?v=1780039148084" ></script> -->
+                  <script src="https://cdn.joinquant.com/themes/jq/dist/static_v2/default/backtotop/detail/index/index.module.bundle.js?v=1780039148084" ></script>
+                
+	    
+        
+        
+        <script>
+            // 显示隐藏nav选项
+            $('.dropdown_menu').click(function(){
+                return false;
+            })
+            $('.dropdown_menu').hover(function(){
+                var href = $(this).attr('href');
+                $('.nav-dropdown-item').addClass('hidden');
+                $(href).removeClass('hidden');
+            },function(){});
+
+            $('ul.nav').find('li').find('a').hover(function(){
+                if ($(this).hasClass('dropdown_menu')) {
+                    return;
+                }
+               $('.nav-dropdown-item').addClass('hidden');
+            })
+            $('#kk_nav').mouseleave(function(){
+                $('.nav-dropdown-item').addClass('hidden');
+            })
+        </script>
+
+        <script>
+        $('.dropdown-toggle').dropdown();
+        $("body").delegate("a","click",function(){
+            if ($(this)[0].hostname.length>0 && $(this)[0].hostname != window.location.hostname) {
+                window.open($(this)[0].href);
+                return false;
+            }
+        });
+
+	</script>
+        <script src="https://cdn.joinquant.com/themes/jq/static/common/js/beforelogin-layer.js?v=1780039148084"></script>
+<script>
+var isWinApp = $("body").hasClass("win_app");
+var isNewWinApp = !!$("body").hasClass("new_win_app");
+
+if(isWinApp){
+    $('.guide-box').delegate('a', 'click',function(){
+
+      if (typeof parent != 'undefined' && this.href.length > 0 && this.href.indexOf('javascript:') < 0) {
+        var arg = {
+          url:this.href
+        };
+
+        // 旧版客户端跳转页面
+        parent.send && parent.send('addTab',arg);
+        return false;
+      }
+    });
+}
+
+if (isNewWinApp) {
+  $('.guide-box').delegate('a', 'click',function(){
+
+    if (typeof parent != 'undefined' && this.href.length > 0 && this.href.indexOf('javascript:') < 0) {
+      event.preventDefault();
+      let type = 'data';
+      let href;
+      let splitText = '?';
+
+      if ($(this).attr('href').indexOf('?') !== -1) {
+        splitText = '&';
+      };
+      href = [location.origin, $(this).attr('href'), splitText, 'device=newwinapp'].join('');
+
+      // 新版客户端跳转页面
+      parent.loadIframe && parent.loadIframe({
+        url: href,
+        type: type
+      });
+      return false;
+    }
+  });
+}
+</script>
+
+	            <div style="display:none">
+        <!-- 返回顶部 -->
+
+        <script>
+             var img = new Image();
+             var referer = "";
+             var euid = "0";
+             var urd = "0000_00_00";
+             var logHost = '';
+             var timestamp=new Date().getTime();
+             img.src = logHost+'/log/p.gif?euid='+euid+"&referer="+referer+'&urd='+urd+'&_t='+timestamp;
+        </script>
+        <script>
+
+          $('.js-tag-hot').on('click', function() {
+            window.setCookie('isActiveHot', 1, 365 * 10 * 24 * 60);
+          });
+
+          if ($.cookie('isActiveHot') === '1') {
+            $('.js-tag-hot div').hide();
+          };
+        </script>
+                <!-- 网易七鱼客户系统 -->
+        <script>
+            (function (w, d, n, a, j) {
+                w[n] = w[n] || function () {
+                    (w[n].a = w[n].a || []).push(arguments);
+                };
+                j = d.createElement('script');
+                j.async = true;
+                j.src = 'https://qiyukf.com/script/d65beefd7552d92ee02344b3cc6173de.js';
+                d.body.appendChild(j);
+            })(window, document, 'ysf');
+        </script>
+                </div>
+    </body>
+</html>

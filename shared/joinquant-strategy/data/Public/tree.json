@@ -1,0 +1,20 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "2967",
+        "section": "2",
+        "fSection": "0",
+        "title": "<a href=\"#新闻联播文本数据\">新闻联播文本数据</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      }
+    ],
+    "idStr": "新闻联播文本数据",
+    "name": "舆情数据 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}

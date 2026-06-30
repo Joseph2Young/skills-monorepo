@@ -1,0 +1,1215 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "1819",
+        "section": "1",
+        "fSection": "0",
+        "title": "<a href=\"#宏观经济数据（或将停止更新）\">宏观经济数据（或将停止更新）</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "1820",
+            "section": "1.1",
+            "fSection": "1",
+            "title": "<a href=\"#数据调用方法\">数据调用方法</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1821",
+            "section": "1.2",
+            "fSection": "1",
+            "title": "<a href=\"#农业\">农业</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1836",
+                "section": "1.2.1",
+                "fSection": "1.2",
+                "title": "<a href=\"#分地区农林牧渔业总产值表季度累计\">分地区农林牧渔业总产值表(季度累计)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1837",
+                "section": "1.2.2",
+                "fSection": "1.2",
+                "title": "<a href=\"#分地区农林牧渔业总产值表年度\">分地区农林牧渔业总产值表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1838",
+                "section": "1.2.3",
+                "fSection": "1.2",
+                "title": "<a href=\"#全国农产品生产价格指数表季度\">全国农产品生产价格指数表(季度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1822",
+            "section": "1.3",
+            "fSection": "1",
+            "title": "<a href=\"#国内贸易\">国内贸易</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1839",
+                "section": "1.3.1",
+                "fSection": "1.3",
+                "title": "<a href=\"#社会消费品销售总额（月度）\">社会消费品销售总额（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1840",
+                "section": "1.3.2",
+                "fSection": "1.3",
+                "title": "<a href=\"#限额以上零售分类表（月度）\">限额以上零售分类表（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1841",
+                "section": "1.3.3",
+                "fSection": "1.3",
+                "title": "<a href=\"#分地区消费品零售总额（年度）\">分地区消费品零售总额（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1842",
+                "section": "1.3.4",
+                "fSection": "1.3",
+                "title": "<a href=\"#亿元以上商品交易市场基本情况（年度）\">亿元以上商品交易市场基本情况（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1843",
+                "section": "1.3.5",
+                "fSection": "1.3",
+                "title": "<a href=\"#分地区亿元以上商品交易市场基本情况（年度）\">分地区亿元以上商品交易市场基本情况（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1823",
+            "section": "1.4",
+            "fSection": "1",
+            "title": "<a href=\"#就业与工资\">就业与工资</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1844",
+                "section": "1.4.1",
+                "fSection": "1.4",
+                "title": "<a href=\"#分地区城镇登记失业率（年度）\">分地区城镇登记失业率（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1845",
+                "section": "1.4.2",
+                "fSection": "1.4",
+                "title": "<a href=\"#就业情况基本表年度\">就业情况基本表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1846",
+                "section": "1.4.3",
+                "fSection": "1.4",
+                "title": "<a href=\"#分地区城镇单位就业人员情况表年度\">分地区城镇单位就业人员情况表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1847",
+                "section": "1.4.4",
+                "fSection": "1.4",
+                "title": "<a href=\"#分地区分行业城镇单位就业人员工资情况表年度\">分地区分行业城镇单位就业人员工资情况表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1848",
+                "section": "1.4.5",
+                "fSection": "1.4",
+                "title": "<a href=\"#分行业城镇单位就业人员工资情况表年度\">分行业城镇单位就业人员工资情况表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1849",
+                "section": "1.4.6",
+                "fSection": "1.4",
+                "title": "<a href=\"#分地区按注册类型分城镇单位就业人员工资情况表年度\">分地区按注册类型分城镇单位就业人员工资情况表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1850",
+                "section": "1.4.7",
+                "fSection": "1.4",
+                "title": "<a href=\"#分地区按行业分城镇单位就业人员情况表（年度）\">分地区按行业分城镇单位就业人员情况表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1824",
+            "section": "1.5",
+            "fSection": "1",
+            "title": "<a href=\"#资源环境\">资源环境</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1851",
+                "section": "1.5.1",
+                "fSection": "1.5",
+                "title": "<a href=\"#各地区森林资源情况表（年度）\">各地区森林资源情况表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1852",
+                "section": "1.5.2",
+                "fSection": "1.5",
+                "title": "<a href=\"#生态环境情况信息表（年度）\">生态环境情况信息表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1853",
+                "section": "1.5.3",
+                "fSection": "1.5",
+                "title": "<a href=\"#水资源情况表（年度）\">水资源情况表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1854",
+                "section": "1.5.4",
+                "fSection": "1.5",
+                "title": "<a href=\"#全国水资源量年度信息表（年度）\">全国水资源量年度信息表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1855",
+                "section": "1.5.5",
+                "fSection": "1.5",
+                "title": "<a href=\"#各地区供水用水情况表（年度）\">各地区供水用水情况表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1856",
+                "section": "1.5.6",
+                "fSection": "1.5",
+                "title": "<a href=\"#供水用水情况表（年度）\">供水用水情况表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1857",
+                "section": "1.5.7",
+                "fSection": "1.5",
+                "title": "<a href=\"#水环境情况信息表（年度）\">水环境情况信息表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1858",
+                "section": "1.5.8",
+                "fSection": "1.5",
+                "title": "<a href=\"#各地区废气排放及处理情况表（年度）\">各地区废气排放及处理情况表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1859",
+                "section": "1.5.9",
+                "fSection": "1.5",
+                "title": "<a href=\"#自然灾害情况信息表（年度）\">自然灾害情况信息表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1860",
+                "section": "1.5.10",
+                "fSection": "1.5",
+                "title": "<a href=\"#环境污染治理投资情况信息表（年度）\">环境污染治理投资情况信息表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1825",
+            "section": "1.6",
+            "fSection": "1",
+            "title": "<a href=\"#房地产行业\">房地产行业</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1861",
+                "section": "1.6.1",
+                "fSection": "1.6",
+                "title": "<a href=\"#房地产开发投资情况表月度累计\">房地产开发投资情况表(月度累计)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1862",
+                "section": "1.6.2",
+                "fSection": "1.6",
+                "title": "<a href=\"#分地区房地产开发投资情况表月度累计\">分地区房地产开发投资情况表(月度累计)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1863",
+                "section": "1.6.3",
+                "fSection": "1.6",
+                "title": "<a href=\"#房地产开发投资资金来源情况表月度累计\">房地产开发投资资金来源情况表(月度累计)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1864",
+                "section": "1.6.4",
+                "fSection": "1.6",
+                "title": "<a href=\"#各地区房地产开发规模与开、竣工面积增长情况表月度累计\">各地区房地产开发规模与开、竣工面积增长情况表(月度累计)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1865",
+                "section": "1.6.5",
+                "fSection": "1.6",
+                "title": "<a href=\"#70个大中城市房屋销售价格指数月度\">70个大中城市房屋销售价格指数(月度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1826",
+            "section": "1.7",
+            "fSection": "1",
+            "title": "<a href=\"#金融业\">金融业</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1866",
+                "section": "1.7.1",
+                "fSection": "1.7",
+                "title": "<a href=\"#人民币外汇牌价日级\">人民币外汇牌价(日级)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1867",
+                "section": "1.7.2",
+                "fSection": "1.7",
+                "title": "<a href=\"#银行间拆借利率表（日级）\">银行间拆借利率表（日级）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1868",
+                "section": "1.7.3",
+                "fSection": "1.7",
+                "title": "<a href=\"#金融机构人民币信贷资金平衡表（年度）\">金融机构人民币信贷资金平衡表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1951",
+                "section": "1.7.4",
+                "fSection": "1.7",
+                "title": "<a href=\"#货币供应量月度\">货币供应量(月度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1869",
+                "section": "1.7.5",
+                "fSection": "1.7",
+                "title": "<a href=\"#货币供应量年度\">货币供应量(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1870",
+                "section": "1.7.6",
+                "fSection": "1.7",
+                "title": "<a href=\"#货币当局资产负债表（年度）\">货币当局资产负债表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1871",
+                "section": "1.7.7",
+                "fSection": "1.7",
+                "title": "<a href=\"#其他存款性公司资产负债表（年度）\">其他存款性公司资产负债表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1872",
+                "section": "1.7.8",
+                "fSection": "1.7",
+                "title": "<a href=\"#社会融资规模及构成（年度）\">社会融资规模及构成（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1873",
+                "section": "1.7.9",
+                "fSection": "1.7",
+                "title": "<a href=\"#证券市场基本情况（年度）\">证券市场基本情况（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1874",
+                "section": "1.7.10",
+                "fSection": "1.7",
+                "title": "<a href=\"#黄金和外汇储备（月度）\">黄金和外汇储备（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1875",
+                "section": "1.7.11",
+                "fSection": "1.7",
+                "title": "<a href=\"#股票发行量和筹资额（年度）\">股票发行量和筹资额（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1876",
+                "section": "1.7.12",
+                "fSection": "1.7",
+                "title": "<a href=\"#股票市场统计表（年度）\">股票市场统计表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1827",
+            "section": "1.8",
+            "fSection": "1",
+            "title": "<a href=\"#财政政策\">财政政策</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1877",
+                "section": "1.8.1",
+                "fSection": "1.8",
+                "title": "<a href=\"#国家财政收支总额及增长速度表（年度）\">国家财政收支总额及增长速度表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1878",
+                "section": "1.8.2",
+                "fSection": "1.8",
+                "title": "<a href=\"#中央财政与地方财政收支及比重表（年度）\">中央财政与地方财政收支及比重表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1879",
+                "section": "1.8.3",
+                "fSection": "1.8",
+                "title": "<a href=\"#中央和地方财政主要收入项目情况表年度\">中央和地方财政主要收入项目情况表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1880",
+                "section": "1.8.4",
+                "fSection": "1.8",
+                "title": "<a href=\"#中央和地方财政主要支出项目情况表年度\">中央和地方财政主要支出项目情况表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1881",
+                "section": "1.8.5",
+                "fSection": "1.8",
+                "title": "<a href=\"#各项税收表（年度）\">各项税收表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1882",
+                "section": "1.8.6",
+                "fSection": "1.8",
+                "title": "<a href=\"#预算外资金分项目收支表（年度）\">预算外资金分项目收支表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1883",
+                "section": "1.8.7",
+                "fSection": "1.8",
+                "title": "<a href=\"#中央财政与地方财政预算外收支表（年度）\">中央财政与地方财政预算外收支表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1884",
+                "section": "1.8.8",
+                "fSection": "1.8",
+                "title": "<a href=\"#外债余额表（年度）\">外债余额表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1885",
+                "section": "1.8.9",
+                "fSection": "1.8",
+                "title": "<a href=\"#外债风险指标表（年度）\">外债风险指标表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1886",
+                "section": "1.8.10",
+                "fSection": "1.8",
+                "title": "<a href=\"#各地区财政收入表（年度）\">各地区财政收入表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1887",
+                "section": "1.8.11",
+                "fSection": "1.8",
+                "title": "<a href=\"#各地区财政支出表（年度）\">各地区财政支出表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1828",
+            "section": "1.9",
+            "fSection": "1",
+            "title": "<a href=\"#固定资产投资\">固定资产投资</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1888",
+                "section": "1.9.1",
+                "fSection": "1.9",
+                "title": "<a href=\"#固定资产投资情况（月度）\">固定资产投资情况（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1889",
+                "section": "1.9.2",
+                "fSection": "1.9",
+                "title": "<a href=\"#分地区固定资产投资情况（月度）\">分地区固定资产投资情况（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1890",
+                "section": "1.9.3",
+                "fSection": "1.9",
+                "title": "<a href=\"#分行业固定资产投资情况（月度）\">分行业固定资产投资情况（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1891",
+                "section": "1.9.4",
+                "fSection": "1.9",
+                "title": "<a href=\"#按注册类型登记分固定资产投资（月度）\">按注册类型登记分固定资产投资（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1892",
+                "section": "1.9.5",
+                "fSection": "1.9",
+                "title": "<a href=\"#固定资产投资情况表年度\">固定资产投资情况表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1829",
+            "section": "1.10",
+            "fSection": "1",
+            "title": "<a href=\"#对外贸易\">对外贸易</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1893",
+                "section": "1.10.1",
+                "fSection": "1.10",
+                "title": "<a href=\"#货物进出口总额表（年度）\">货物进出口总额表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1894",
+                "section": "1.10.2",
+                "fSection": "1.10",
+                "title": "<a href=\"#海关进出口货物分类金额表（年度）\">海关进出口货物分类金额表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1895",
+                "section": "1.10.3",
+                "fSection": "1.10",
+                "title": "<a href=\"#地区按经营单位所在地分货物进出口总额表（年度）\">地区按经营单位所在地分货物进出口总额表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1896",
+                "section": "1.10.4",
+                "fSection": "1.10",
+                "title": "<a href=\"#各地区按境内目的地和货源地分货物进出口总额表（年度）\">各地区按境内目的地和货源地分货物进出口总额表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1897",
+                "section": "1.10.5",
+                "fSection": "1.10",
+                "title": "<a href=\"#利用外资情况表（月度）\">利用外资情况表（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1898",
+                "section": "1.10.6",
+                "fSection": "1.10",
+                "title": "<a href=\"#利用外资概况表（年度）\">利用外资概况表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1899",
+                "section": "1.10.7",
+                "fSection": "1.10",
+                "title": "<a href=\"#按行业分对外直接投资情况表（年度）\">按行业分对外直接投资情况表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1900",
+                "section": "1.10.8",
+                "fSection": "1.10",
+                "title": "<a href=\"#分国别对外外直接投资情况表（年度）\">分国别对外外直接投资情况表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1901",
+                "section": "1.10.9",
+                "fSection": "1.10",
+                "title": "<a href=\"#分地区外商投资企业年底注册登记情况表（年度）\">分地区外商投资企业年底注册登记情况表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1902",
+                "section": "1.10.10",
+                "fSection": "1.10",
+                "title": "<a href=\"#按行业分外商投资企业年底注册登记情况表（年度）\">按行业分外商投资企业年底注册登记情况表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1903",
+                "section": "1.10.11",
+                "fSection": "1.10",
+                "title": "<a href=\"#对外经济合作表（年度）\">对外经济合作表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1904",
+                "section": "1.10.12",
+                "fSection": "1.10",
+                "title": "<a href=\"#按国别对外经济合作表（年度）\">按国别对外经济合作表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1830",
+            "section": "1.11",
+            "fSection": "1",
+            "title": "<a href=\"#景气指数\">景气指数</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1905",
+                "section": "1.11.1",
+                "fSection": "1.11",
+                "title": "<a href=\"#宏观经济景气指数（月度）\">宏观经济景气指数（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1906",
+                "section": "1.11.2",
+                "fSection": "1.11",
+                "title": "<a href=\"#消费者景气指数（月度）\">消费者景气指数（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1907",
+                "section": "1.11.3",
+                "fSection": "1.11",
+                "title": "<a href=\"#宏观经济景气预警指数（月度）\">宏观经济景气预警指数（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1908",
+                "section": "1.11.4",
+                "fSection": "1.11",
+                "title": "<a href=\"#企业景气及企业家信心指数（季度）\">企业景气及企业家信心指数（季度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1909",
+                "section": "1.11.5",
+                "fSection": "1.11",
+                "title": "<a href=\"#制造业采购经理指数（月度）\">制造业采购经理指数（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1910",
+                "section": "1.11.6",
+                "fSection": "1.11",
+                "title": "<a href=\"#非制造业采购经理指数（月度）\">非制造业采购经理指数（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1911",
+                "section": "1.11.7",
+                "fSection": "1.11",
+                "title": "<a href=\"#分地区居民消费价格指数（月度）\">分地区居民消费价格指数（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "4520",
+                "section": "1.11.8",
+                "fSection": "1.11",
+                "title": "<a href=\"#全国居民消费价格指数（月度）\">全国居民消费价格指数（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1831",
+            "section": "1.12",
+            "fSection": "1",
+            "title": "<a href=\"#工业\">工业</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1912",
+                "section": "1.12.1",
+                "fSection": "1.12",
+                "title": "<a href=\"#全国工业增长速度（月度）\">全国工业增长速度（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1913",
+                "section": "1.12.2",
+                "fSection": "1.12",
+                "title": "<a href=\"#全国工业分行业增长速度（月度）\">全国工业分行业增长速度（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1914",
+                "section": "1.12.3",
+                "fSection": "1.12",
+                "title": "<a href=\"#全国工业企业主要经济指标（月度）\">全国工业企业主要经济指标（月度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1832",
+            "section": "1.13",
+            "fSection": "1",
+            "title": "<a href=\"#保险业\">保险业</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1915",
+                "section": "1.13.1",
+                "fSection": "1.13",
+                "title": "<a href=\"#全国各地区保险业务统计表年度\">全国各地区保险业务统计表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1916",
+                "section": "1.13.2",
+                "fSection": "1.13",
+                "title": "<a href=\"#保险公司保费金额表年度\">保险公司保费金额表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1917",
+                "section": "1.13.3",
+                "fSection": "1.13",
+                "title": "<a href=\"#保险公司赔款及给付表年度\">保险公司赔款及给付表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1918",
+                "section": "1.13.4",
+                "fSection": "1.13",
+                "title": "<a href=\"#保险公司资产情况（年度）\">保险公司资产情况（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1919",
+                "section": "1.13.5",
+                "fSection": "1.13",
+                "title": "<a href=\"#保险公司原保费收入和赔付支出情况（年度）\">保险公司原保费收入和赔付支出情况（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1833",
+            "section": "1.14",
+            "fSection": "1",
+            "title": "<a href=\"#国民经济\">国民经济</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1920",
+                "section": "1.14.1",
+                "fSection": "1.14",
+                "title": "<a href=\"#全国各地区的行政划分（年度）\">全国各地区的行政划分（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1921",
+                "section": "1.14.2",
+                "fSection": "1.14",
+                "title": "<a href=\"#分地区国内生产总值表季度\">分地区国内生产总值表(季度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1922",
+                "section": "1.14.3",
+                "fSection": "1.14",
+                "title": "<a href=\"#分地区国内生产总值表年度\">分地区国内生产总值表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1923",
+                "section": "1.14.4",
+                "fSection": "1.14",
+                "title": "<a href=\"#分地区国内生产总值指数表上年=100年度\">分地区国内生产总值指数表(上年=100，年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1926",
+                "section": "1.14.5",
+                "fSection": "1.14",
+                "title": "<a href=\"#分地区国内生产总值指数表（年度）\">分地区国内生产总值指数表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1927",
+                "section": "1.14.6",
+                "fSection": "1.14",
+                "title": "<a href=\"#分地区支出法国内生产总值表年度\">分地区支出法国内生产总值表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1928",
+                "section": "1.14.7",
+                "fSection": "1.14",
+                "title": "<a href=\"#分地区收入法国内生产总值表年度\">分地区收入法国内生产总值表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1929",
+                "section": "1.14.8",
+                "fSection": "1.14",
+                "title": "<a href=\"#国家统计局发布经济信息的日程表（年度）\">国家统计局发布经济信息的日程表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1834",
+            "section": "1.15",
+            "fSection": "1",
+            "title": "<a href=\"#人民生活\">人民生活</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1930",
+                "section": "1.15.1",
+                "fSection": "1.15",
+                "title": "<a href=\"#各地区居民消费水平表年度\">各地区居民消费水平表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1931",
+                "section": "1.15.2",
+                "fSection": "1.15",
+                "title": "<a href=\"#居民人均收入支出表年度\">居民人均收入支出表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1932",
+                "section": "1.15.3",
+                "fSection": "1.15",
+                "title": "<a href=\"#城乡居民家庭人均收入及恩格尔系数年度\">城乡居民家庭人均收入及恩格尔系数(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1933",
+                "section": "1.15.4",
+                "fSection": "1.15",
+                "title": "<a href=\"#城乡居民人民币储蓄存款表年度\">城乡居民人民币储蓄存款表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1934",
+                "section": "1.15.5",
+                "fSection": "1.15",
+                "title": "<a href=\"#分地区城镇居民家庭平均每人全年收入来源表年度\">分地区城镇居民家庭平均每人全年收入来源表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1935",
+                "section": "1.15.6",
+                "fSection": "1.15",
+                "title": "<a href=\"#分地区城镇及农村居民家庭平均每人全年消费性支出表年度\">分地区城镇及农村居民家庭平均每人全年消费性支出表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1936",
+                "section": "1.15.7",
+                "fSection": "1.15",
+                "title": "<a href=\"#农村居民家庭平均每人纯收入年度\">农村居民家庭平均每人纯收入(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1937",
+                "section": "1.15.8",
+                "fSection": "1.15",
+                "title": "<a href=\"#各地区按来源分农村居民家庭人均纯收入年度\">各地区按来源分农村居民家庭人均纯收入(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1938",
+                "section": "1.15.9",
+                "fSection": "1.15",
+                "title": "<a href=\"#分地区农村居民家庭住房情况表年度\">分地区农村居民家庭住房情况表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1835",
+            "section": "1.16",
+            "fSection": "1",
+            "title": "<a href=\"#人口信息\">人口信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1939",
+                "section": "1.16.1",
+                "fSection": "1.16",
+                "title": "<a href=\"#人口基本情况表年度\">人口基本情况表(年度)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1940",
+                "section": "1.16.2",
+                "fSection": "1.16",
+                "title": "<a href=\"#各地区人口平均预期寿命表（年度）\">各地区人口平均预期寿命表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1941",
+                "section": "1.16.3",
+                "fSection": "1.16",
+                "title": "<a href=\"#按年龄和性别分人口数表（年度）\">按年龄和性别分人口数表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1942",
+                "section": "1.16.4",
+                "fSection": "1.16",
+                "title": "<a href=\"#各地区户数、人口数、性别比和户规模表（年度）\">各地区户数、人口数、性别比和户规模表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1943",
+                "section": "1.16.5",
+                "fSection": "1.16",
+                "title": "<a href=\"#户口登记状况（年度）\">户口登记状况（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1944",
+                "section": "1.16.6",
+                "fSection": "1.16",
+                "title": "<a href=\"#各地区人口年龄结构和抚养比例表（年度）\">各地区人口年龄结构和抚养比例表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1945",
+                "section": "1.16.7",
+                "fSection": "1.16",
+                "title": "<a href=\"#各地区按性别和婚姻状况分的人口表（年度）\">各地区按性别和婚姻状况分的人口表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1946",
+                "section": "1.16.8",
+                "fSection": "1.16",
+                "title": "<a href=\"#各地区按性别和受教育程度分人口情况表（年度）\">各地区按性别和受教育程度分人口情况表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1947",
+                "section": "1.16.9",
+                "fSection": "1.16",
+                "title": "<a href=\"#各地区按性别分的15岁及以上文盲人口表（年度）\">各地区按性别分的15岁及以上文盲人口表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1948",
+                "section": "1.16.10",
+                "fSection": "1.16",
+                "title": "<a href=\"#各地区按家庭户规模分的户数表（年度）\">各地区按家庭户规模分的户数表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1949",
+                "section": "1.16.11",
+                "fSection": "1.16",
+                "title": "<a href=\"#育龄妇女分年龄生育状况表（年度）\">育龄妇女分年龄生育状况表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1950",
+                "section": "1.16.12",
+                "fSection": "1.16",
+                "title": "<a href=\"#人口年龄结构和抚养比例表（年度）\">人口年龄结构和抚养比例表（年度）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      }
+    ],
+    "idStr": "宏观经济数据（或将停止更新）,数据调用方法,农业,分地区农林牧渔业总产值表季度累计,分地区农林牧渔业总产值表年度,全国农产品生产价格指数表季度,国内贸易,社会消费品销售总额（月度）,限额以上零售分类表（月度）,分地区消费品零售总额（年度）,亿元以上商品交易市场基本情况（年度）,分地区亿元以上商品交易市场基本情况（年度）,就业与工资,分地区城镇登记失业率（年度）,就业情况基本表年度,分地区城镇单位就业人员情况表年度,分地区分行业城镇单位就业人员工资情况表年度,分行业城镇单位就业人员工资情况表年度,分地区按注册类型分城镇单位就业人员工资情况表年度,分地区按行业分城镇单位就业人员情况表（年度）,资源环境,各地区森林资源情况表（年度）,生态环境情况信息表（年度）,水资源情况表（年度）,全国水资源量年度信息表（年度）,各地区供水用水情况表（年度）,供水用水情况表（年度）,水环境情况信息表（年度）,各地区废气排放及处理情况表（年度）,自然灾害情况信息表（年度）,环境污染治理投资情况信息表（年度）,房地产行业,房地产开发投资情况表月度累计,分地区房地产开发投资情况表月度累计,房地产开发投资资金来源情况表月度累计,各地区房地产开发规模与开、竣工面积增长情况表月度累计,70个大中城市房屋销售价格指数月度,金融业,人民币外汇牌价日级,银行间拆借利率表（日级）,金融机构人民币信贷资金平衡表（年度）,货币供应量月度,货币供应量年度,货币当局资产负债表（年度）,其他存款性公司资产负债表（年度）,社会融资规模及构成（年度）,证券市场基本情况（年度）,黄金和外汇储备（月度）,股票发行量和筹资额（年度）,股票市场统计表（年度）,财政政策,国家财政收支总额及增长速度表（年度）,中央财政与地方财政收支及比重表（年度）,中央和地方财政主要收入项目情况表年度,中央和地方财政主要支出项目情况表年度,各项税收表（年度）,预算外资金分项目收支表（年度）,中央财政与地方财政预算外收支表（年度）,外债余额表（年度）,外债风险指标表（年度）,各地区财政收入表（年度）,各地区财政支出表（年度）,固定资产投资,固定资产投资情况（月度）,分地区固定资产投资情况（月度）,分行业固定资产投资情况（月度）,按注册类型登记分固定资产投资（月度）,固定资产投资情况表年度,对外贸易,货物进出口总额表（年度）,海关进出口货物分类金额表（年度）,地区按经营单位所在地分货物进出口总额表（年度）,各地区按境内目的地和货源地分货物进出口总额表（年度）,利用外资情况表（月度）,利用外资概况表（年度）,按行业分对外直接投资情况表（年度）,分国别对外外直接投资情况表（年度）,分地区外商投资企业年底注册登记情况表（年度）,按行业分外商投资企业年底注册登记情况表（年度）,对外经济合作表（年度）,按国别对外经济合作表（年度）,景气指数,宏观经济景气指数（月度）,消费者景气指数（月度）,宏观经济景气预警指数（月度）,企业景气及企业家信心指数（季度）,制造业采购经理指数（月度）,非制造业采购经理指数（月度）,分地区居民消费价格指数（月度）,全国居民消费价格指数（月度）,工业,全国工业增长速度（月度）,全国工业分行业增长速度（月度）,全国工业企业主要经济指标（月度）,保险业,全国各地区保险业务统计表年度,保险公司保费金额表年度,保险公司赔款及给付表年度,保险公司资产情况（年度）,保险公司原保费收入和赔付支出情况（年度）,国民经济,全国各地区的行政划分（年度）,分地区国内生产总值表季度,分地区国内生产总值表年度,分地区国内生产总值指数表上年=100年度,分地区国内生产总值指数表（年度）,分地区支出法国内生产总值表年度,分地区收入法国内生产总值表年度,国家统计局发布经济信息的日程表（年度）,人民生活,各地区居民消费水平表年度,居民人均收入支出表年度,城乡居民家庭人均收入及恩格尔系数年度,城乡居民人民币储蓄存款表年度,分地区城镇居民家庭平均每人全年收入来源表年度,分地区城镇及农村居民家庭平均每人全年消费性支出表年度,农村居民家庭平均每人纯收入年度,各地区按来源分农村居民家庭人均纯收入年度,分地区农村居民家庭住房情况表年度,人口信息,人口基本情况表年度,各地区人口平均预期寿命表（年度）,按年龄和性别分人口数表（年度）,各地区户数、人口数、性别比和户规模表（年度）,户口登记状况（年度）,各地区人口年龄结构和抚养比例表（年度）,各地区按性别和婚姻状况分的人口表（年度）,各地区按性别和受教育程度分人口情况表（年度）,各地区按性别分的15岁及以上文盲人口表（年度）,各地区按家庭户规模分的户数表（年度）,育龄妇女分年龄生育状况表（年度）,人口年龄结构和抚养比例表（年度）",
+    "name": "宏观经济数据 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}

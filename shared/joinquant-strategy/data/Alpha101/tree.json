@@ -1,0 +1,985 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "2587",
+        "section": "1",
+        "fSection": "0",
+        "title": "<a href=\"#WorldQuant101Alphas因子函数使用说明\">WorldQuant 101 Alphas 因子函数使用说明</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "2588",
+            "section": "1.1",
+            "fSection": "1",
+            "title": "<a href=\"#因子来源\">因子来源</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2589",
+            "section": "1.2",
+            "fSection": "1",
+            "title": "<a href=\"#因子使用\">因子使用</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2590",
+            "section": "1.3",
+            "fSection": "1",
+            "title": "<a href=\"#公用函数说明\">公用函数说明</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2597",
+            "section": "1.4",
+            "fSection": "1",
+            "title": "<a href=\"#公用变量说明\">公用变量说明</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2598",
+            "section": "1.5",
+            "fSection": "1",
+            "title": "<a href=\"#因子说明\">因子说明</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "3358",
+                "section": "1.5.1",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha（获取全部因子值）\">alpha（获取全部因子值）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2599",
+                "section": "1.5.2",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_001\">alpha_001</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2600",
+                "section": "1.5.3",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_002\">alpha_002</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2601",
+                "section": "1.5.4",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_003\">alpha_003</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2602",
+                "section": "1.5.5",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_004\">alpha_004</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2603",
+                "section": "1.5.6",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_005\">alpha_005</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2604",
+                "section": "1.5.7",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_006\">alpha_006</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2605",
+                "section": "1.5.8",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_007\">alpha_007</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2606",
+                "section": "1.5.9",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_008\">alpha_008</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2607",
+                "section": "1.5.10",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_009\">alpha_009</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2608",
+                "section": "1.5.11",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_010\">alpha_010</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2609",
+                "section": "1.5.12",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_011\">alpha_011</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2610",
+                "section": "1.5.13",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_012\">alpha_012</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2611",
+                "section": "1.5.14",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_013\">alpha_013</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2613",
+                "section": "1.5.15",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_014\">alpha_014</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2614",
+                "section": "1.5.16",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_015\">alpha_015</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2615",
+                "section": "1.5.17",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_016\">alpha_016</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2616",
+                "section": "1.5.18",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_017\">alpha_017</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2617",
+                "section": "1.5.19",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_018\">alpha_018</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2618",
+                "section": "1.5.20",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_019\">alpha_019</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2619",
+                "section": "1.5.21",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_020\">alpha_020</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2620",
+                "section": "1.5.22",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_021\">alpha_021</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2621",
+                "section": "1.5.23",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_022\">alpha_022</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2622",
+                "section": "1.5.24",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_023\">alpha_023</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2623",
+                "section": "1.5.25",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_024\">alpha_024</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2624",
+                "section": "1.5.26",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_025\">alpha_025</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2625",
+                "section": "1.5.27",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_026\">alpha_026</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2626",
+                "section": "1.5.28",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_027\">alpha_027</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2627",
+                "section": "1.5.29",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_028\">alpha_028</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2628",
+                "section": "1.5.30",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_029\">alpha_029</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2629",
+                "section": "1.5.31",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_030\">alpha_030</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2630",
+                "section": "1.5.32",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_031\">alpha_031</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2631",
+                "section": "1.5.33",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_032\">alpha_032</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2632",
+                "section": "1.5.34",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_033\">alpha_033</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2633",
+                "section": "1.5.35",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_034\">alpha_034</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2634",
+                "section": "1.5.36",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_035\">alpha_035</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2635",
+                "section": "1.5.37",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_036\">alpha_036</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2636",
+                "section": "1.5.38",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_037\">alpha_037</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2637",
+                "section": "1.5.39",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_038\">alpha_038</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2638",
+                "section": "1.5.40",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_039\">alpha_039</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2685",
+                "section": "1.5.41",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_040\">alpha_040</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2686",
+                "section": "1.5.42",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_041\">alpha_041</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2687",
+                "section": "1.5.43",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_042\">alpha_042</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2688",
+                "section": "1.5.44",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_043\">alpha_043</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2689",
+                "section": "1.5.45",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_044\">alpha_044</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2690",
+                "section": "1.5.46",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_045\">alpha_045</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2691",
+                "section": "1.5.47",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_046\">alpha_046</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2692",
+                "section": "1.5.48",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_047\">alpha_047</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2693",
+                "section": "1.5.49",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_048（未实现）\">alpha_048（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2694",
+                "section": "1.5.50",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_049\">alpha_049</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2695",
+                "section": "1.5.51",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_050\">alpha_050</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2696",
+                "section": "1.5.52",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_051\">alpha_051</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2697",
+                "section": "1.5.53",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_052\">alpha_052</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2698",
+                "section": "1.5.54",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_053\">alpha_053</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2699",
+                "section": "1.5.55",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_054\">alpha_054</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2700",
+                "section": "1.5.56",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_055\">alpha_055</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2701",
+                "section": "1.5.57",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_056\">alpha_056</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2702",
+                "section": "1.5.58",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_057\">alpha_057</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2703",
+                "section": "1.5.59",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_058（未实现）\">alpha_058（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2704",
+                "section": "1.5.60",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_059（未实现）\">alpha_059（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2705",
+                "section": "1.5.61",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_060\">alpha_060</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2706",
+                "section": "1.5.62",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_061\">alpha_061</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2707",
+                "section": "1.5.63",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_062\">alpha_062</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2708",
+                "section": "1.5.64",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_063（未实现）\">alpha_063（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2709",
+                "section": "1.5.65",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_064\">alpha_064</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2710",
+                "section": "1.5.66",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_065\">alpha_065</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2711",
+                "section": "1.5.67",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_066\">alpha_066</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2712",
+                "section": "1.5.68",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_067（未实现）\">alpha_067（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2713",
+                "section": "1.5.69",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_068\">alpha_068</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2714",
+                "section": "1.5.70",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_069（未实现）\">alpha_069（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2715",
+                "section": "1.5.71",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_070（未实现）\">alpha_070（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2716",
+                "section": "1.5.72",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_071\">alpha_071</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2717",
+                "section": "1.5.73",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_072\">alpha_072</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2718",
+                "section": "1.5.74",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_073\">alpha_073</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2719",
+                "section": "1.5.75",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_074\">alpha_074</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2720",
+                "section": "1.5.76",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_075\">alpha_075</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2721",
+                "section": "1.5.77",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_076（未实现）\">alpha_076（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2722",
+                "section": "1.5.78",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_077\">alpha_077</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2723",
+                "section": "1.5.79",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_078\">alpha_078</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2724",
+                "section": "1.5.80",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_079（未实现）\">alpha_079（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2725",
+                "section": "1.5.81",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_080（未实现）\">alpha_080（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2726",
+                "section": "1.5.82",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_081\">alpha_081</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2727",
+                "section": "1.5.83",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_082（未实现）\">alpha_082（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2728",
+                "section": "1.5.84",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_083\">alpha_083</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2729",
+                "section": "1.5.85",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_084\">alpha_084</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2730",
+                "section": "1.5.86",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_085\">alpha_085</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2731",
+                "section": "1.5.87",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_086\">alpha_086</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2732",
+                "section": "1.5.88",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_087（未实现）\">alpha_087（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2733",
+                "section": "1.5.89",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_088\">alpha_088</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2734",
+                "section": "1.5.90",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_089（未实现）\">alpha_089（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2735",
+                "section": "1.5.91",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_090（未实现）\">alpha_090（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2736",
+                "section": "1.5.92",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_091（未实现）\">alpha_091（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2737",
+                "section": "1.5.93",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_092\">alpha_092</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2738",
+                "section": "1.5.94",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_093（未实现）\">alpha_093（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2739",
+                "section": "1.5.95",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_094\">alpha_094</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2740",
+                "section": "1.5.96",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_095\">alpha_095</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2741",
+                "section": "1.5.97",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_096\">alpha_096</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2742",
+                "section": "1.5.98",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_097（未实现）\">alpha_097（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2743",
+                "section": "1.5.99",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_098\">alpha_098</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2744",
+                "section": "1.5.100",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_099\">alpha_099</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2745",
+                "section": "1.5.101",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_100（未实现）\">alpha_100（未实现）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2746",
+                "section": "1.5.102",
+                "fSection": "1.5",
+                "title": "<a href=\"#alpha_101\">alpha_101</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      }
+    ],
+    "idStr": "WorldQuant101Alphas因子函数使用说明,因子来源,因子使用,公用函数说明,公用变量说明,因子说明,alpha（获取全部因子值）,alpha_001,alpha_002,alpha_003,alpha_004,alpha_005,alpha_006,alpha_007,alpha_008,alpha_009,alpha_010,alpha_011,alpha_012,alpha_013,alpha_014,alpha_015,alpha_016,alpha_017,alpha_018,alpha_019,alpha_020,alpha_021,alpha_022,alpha_023,alpha_024,alpha_025,alpha_026,alpha_027,alpha_028,alpha_029,alpha_030,alpha_031,alpha_032,alpha_033,alpha_034,alpha_035,alpha_036,alpha_037,alpha_038,alpha_039,alpha_040,alpha_041,alpha_042,alpha_043,alpha_044,alpha_045,alpha_046,alpha_047,alpha_048（未实现）,alpha_049,alpha_050,alpha_051,alpha_052,alpha_053,alpha_054,alpha_055,alpha_056,alpha_057,alpha_058（未实现）,alpha_059（未实现）,alpha_060,alpha_061,alpha_062,alpha_063（未实现）,alpha_064,alpha_065,alpha_066,alpha_067（未实现）,alpha_068,alpha_069（未实现）,alpha_070（未实现）,alpha_071,alpha_072,alpha_073,alpha_074,alpha_075,alpha_076（未实现）,alpha_077,alpha_078,alpha_079（未实现）,alpha_080（未实现）,alpha_081,alpha_082（未实现）,alpha_083,alpha_084,alpha_085,alpha_086,alpha_087（未实现）,alpha_088,alpha_089（未实现）,alpha_090（未实现）,alpha_091（未实现）,alpha_092,alpha_093（未实现）,alpha_094,alpha_095,alpha_096,alpha_097（未实现）,alpha_098,alpha_099,alpha_100（未实现）,alpha_101",
+    "name": "Alpha101 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}

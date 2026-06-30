@@ -1,0 +1,188 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "2153",
+        "section": "1",
+        "fSection": "0",
+        "title": "<a href=\"#获取期货数据\">获取期货数据</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "2155",
+            "section": "1.1",
+            "fSection": "1",
+            "title": "<a href=\"#获取期货概况\">获取期货概况</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "2177",
+                "section": "1.1.1",
+                "fSection": "1.1",
+                "title": "<a href=\"#获取单只期货信息\">获取单只期货信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2178",
+                "section": "1.1.2",
+                "fSection": "1.1",
+                "title": "<a href=\"#获取所有期货信息\">获取所有期货信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2179",
+                "section": "1.1.3",
+                "fSection": "1.1",
+                "title": "<a href=\"#期货结算价与持仓量\">期货结算价与持仓量</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "2156",
+            "section": "1.2",
+            "fSection": "1",
+            "title": "<a href=\"#获取期货行情数据\">获取期货行情数据</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "2186",
+                "section": "1.2.1",
+                "fSection": "1.2",
+                "title": "<a href=\"#获取期货行情数据\">获取期货行情数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "7424",
+                "section": "1.2.2",
+                "fSection": "1.2",
+                "title": "<a href=\"#获取期货bar数据\">获取期货bar数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2260",
+                "section": "1.2.3",
+                "fSection": "1.2",
+                "title": "<a href=\"#获取期货tick数据\">获取期货tick数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "2168",
+            "section": "1.3",
+            "fSection": "1",
+            "title": "<a href=\"#获取期货交易统计数据\">获取期货交易统计数据</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "2169",
+                "section": "1.3.1",
+                "fSection": "1.3",
+                "title": "<a href=\"#获取期货龙虎榜数据\">获取期货龙虎榜数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "2170",
+                "section": "1.3.2",
+                "fSection": "1.3",
+                "title": "<a href=\"#获取期货仓单数据\">获取期货仓单数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10564",
+            "section": "1.4",
+            "fSection": "1",
+            "title": "<a href=\"#期货手续费及保证金\">期货手续费及保证金</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10565",
+                "section": "1.4.1",
+                "fSection": "1.4",
+                "title": "<a href=\"#获取期货手续费\">获取期货手续费</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10566",
+                "section": "1.4.2",
+                "fSection": "1.4",
+                "title": "<a href=\"#获取期货保证金\">获取期货保证金</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2172",
+        "section": "2",
+        "fSection": "0",
+        "title": "<a href=\"#期货列表\">期货列表</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "2173",
+            "section": "2.1",
+            "fSection": "2",
+            "title": "<a href=\"#金融期货列表\">金融期货列表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2174",
+            "section": "2.2",
+            "fSection": "2",
+            "title": "<a href=\"#商品期货列表\">商品期货列表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "5270",
+            "section": "2.3",
+            "fSection": "2",
+            "title": "<a href=\"#主力连续合约及品种指数\">主力连续合约及品种指数</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      }
+    ],
+    "idStr": "获取期货数据,获取期货概况,获取单只期货信息,获取所有期货信息,期货结算价与持仓量,获取期货行情数据,获取期货行情数据,获取期货bar数据,获取期货tick数据,获取期货交易统计数据,获取期货龙虎榜数据,获取期货仓单数据,期货手续费及保证金,获取期货手续费,获取期货保证金,期货列表,金融期货列表,商品期货列表,主力连续合约及品种指数",
+    "name": "期货数据 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}

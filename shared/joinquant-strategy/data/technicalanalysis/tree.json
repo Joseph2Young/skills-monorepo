@@ -1,0 +1,1041 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "2983",
+        "section": "1",
+        "fSection": "0",
+        "title": "<a href=\"#因子说明\">因子说明</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "2984",
+        "section": "2",
+        "fSection": "0",
+        "title": "<a href=\"#重要提示★\">重要提示 ★</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "2985",
+        "section": "3",
+        "fSection": "0",
+        "title": "<a href=\"#超买超卖型\">超买超卖型</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3004",
+            "section": "3.1",
+            "fSection": "3",
+            "title": "<a href=\"#ACCER-幅度涨速\">ACCER-幅度涨速</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2998",
+            "section": "3.2",
+            "fSection": "3",
+            "title": "<a href=\"#ADTM-动态买卖气指标\">ADTM-动态买卖气指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2999",
+            "section": "3.3",
+            "fSection": "3",
+            "title": "<a href=\"#ATR-真实波幅\">ATR-真实波幅</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3001",
+            "section": "3.4",
+            "fSection": "3",
+            "title": "<a href=\"#BIAS-乖离率\">BIAS-乖离率</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3005",
+            "section": "3.5",
+            "fSection": "3",
+            "title": "<a href=\"#BIAS_QL-乖离率_传统版\">BIAS_QL-乖离率_传统版</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3006",
+            "section": "3.6",
+            "fSection": "3",
+            "title": "<a href=\"#BIAS_36-三六乖离\">BIAS_36-三六乖离</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3007",
+            "section": "3.7",
+            "fSection": "3",
+            "title": "<a href=\"#CCI-商品路径指标\">CCI-商品路径指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3008",
+            "section": "3.8",
+            "fSection": "3",
+            "title": "<a href=\"#CYF-市场能量\">CYF-市场能量</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3010",
+            "section": "3.9",
+            "fSection": "3",
+            "title": "<a href=\"#DKX-多空线\">DKX-多空线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3011",
+            "section": "3.10",
+            "fSection": "3",
+            "title": "<a href=\"#KD-随机指标KD\">KD-随机指标KD</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3012",
+            "section": "3.11",
+            "fSection": "3",
+            "title": "<a href=\"#KDJ-随机指标\">KDJ-随机指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3013",
+            "section": "3.12",
+            "fSection": "3",
+            "title": "<a href=\"#SKDJ-慢速随机指标\">SKDJ-慢速随机指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3014",
+            "section": "3.13",
+            "fSection": "3",
+            "title": "<a href=\"#MFI-资金流量指标\">MFI-资金流量指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3015",
+            "section": "3.14",
+            "fSection": "3",
+            "title": "<a href=\"#MTM-动量线\">MTM-动量线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3016",
+            "section": "3.15",
+            "fSection": "3",
+            "title": "<a href=\"#ROC-变动率指标\">ROC-变动率指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3017",
+            "section": "3.16",
+            "fSection": "3",
+            "title": "<a href=\"#RSI-相对强弱指标\">RSI-相对强弱指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3018",
+            "section": "3.17",
+            "fSection": "3",
+            "title": "<a href=\"#MARSI-相对强弱平均线\">MARSI-相对强弱平均线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3019",
+            "section": "3.18",
+            "fSection": "3",
+            "title": "<a href=\"#OSC-变动速率线\">OSC-变动速率线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3020",
+            "section": "3.19",
+            "fSection": "3",
+            "title": "<a href=\"#UDL-引力线\">UDL-引力线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3021",
+            "section": "3.20",
+            "fSection": "3",
+            "title": "<a href=\"#WR-威廉指标\">WR-威廉指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3022",
+            "section": "3.21",
+            "fSection": "3",
+            "title": "<a href=\"#LWR-LWR威廉指标\">LWR-LWR威廉指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3023",
+            "section": "3.22",
+            "fSection": "3",
+            "title": "<a href=\"#TAPI-加权指数成交值\">TAPI-加权指数成交值</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3024",
+            "section": "3.23",
+            "fSection": "3",
+            "title": "<a href=\"#FSL-分水岭\">FSL-分水岭</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2986",
+        "section": "4",
+        "fSection": "0",
+        "title": "<a href=\"#趋势型\">趋势型</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3025",
+            "section": "4.1",
+            "fSection": "4",
+            "title": "<a href=\"#CHO-佳庆指标\">CHO-佳庆指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3026",
+            "section": "4.2",
+            "fSection": "4",
+            "title": "<a href=\"#CYE-市场趋势\">CYE-市场趋势</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "3029",
+                "section": "4.2.1",
+                "fSection": "4.2",
+                "title": "<a href=\"#DMI-趋向指标\">DMI - 趋向指标</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "3027",
+            "section": "4.3",
+            "fSection": "4",
+            "title": "<a href=\"#DBQR-对比强弱\">DBQR-对比强弱</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3028",
+            "section": "4.4",
+            "fSection": "4",
+            "title": "<a href=\"#DMA-平均差\">DMA-平均差</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3030",
+            "section": "4.5",
+            "fSection": "4",
+            "title": "<a href=\"#DPO-区间震荡线\">DPO-区间震荡线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3031",
+            "section": "4.6",
+            "fSection": "4",
+            "title": "<a href=\"#EMV-简易波动指标\">EMV-简易波动指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3032",
+            "section": "4.7",
+            "fSection": "4",
+            "title": "<a href=\"#GDX-鬼道线\">GDX-鬼道线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3033",
+            "section": "4.8",
+            "fSection": "4",
+            "title": "<a href=\"#JLHB-绝路航标\">JLHB-绝路航标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3034",
+            "section": "4.9",
+            "fSection": "4",
+            "title": "<a href=\"#JS-加速线\">JS-加速线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3035",
+            "section": "4.10",
+            "fSection": "4",
+            "title": "<a href=\"#MACD-平滑异同平均\">MACD-平滑异同平均</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3036",
+            "section": "4.11",
+            "fSection": "4",
+            "title": "<a href=\"#QACD-快速异同平均\">QACD-快速异同平均</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3037",
+            "section": "4.12",
+            "fSection": "4",
+            "title": "<a href=\"#QR-强弱指标\">QR-强弱指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3038",
+            "section": "4.13",
+            "fSection": "4",
+            "title": "<a href=\"#TRIX-终极指标\">TRIX-终极指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3039",
+            "section": "4.14",
+            "fSection": "4",
+            "title": "<a href=\"#UOS-终极指标\">UOS-终极指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3040",
+            "section": "4.15",
+            "fSection": "4",
+            "title": "<a href=\"#VMACD-量平滑移动平均\">VMACD-量平滑移动平均</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3041",
+            "section": "4.16",
+            "fSection": "4",
+            "title": "<a href=\"#VPT-量价曲线\">VPT-量价曲线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3042",
+            "section": "4.17",
+            "fSection": "4",
+            "title": "<a href=\"#WVAD-威廉变异离散量\">WVAD-威廉变异离散量</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2987",
+        "section": "5",
+        "fSection": "0",
+        "title": "<a href=\"#能量型\">能量型</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3043",
+            "section": "5.1",
+            "fSection": "5",
+            "title": "<a href=\"#BRAR-情绪指标\">BRAR-情绪指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3073",
+            "section": "5.2",
+            "fSection": "5",
+            "title": "<a href=\"#CR-带状能量线\">CR-带状能量线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3074",
+            "section": "5.3",
+            "fSection": "5",
+            "title": "<a href=\"#CYR-市场强弱\">CYR-市场强弱</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3076",
+            "section": "5.4",
+            "fSection": "5",
+            "title": "<a href=\"#MASS-梅斯线\">MASS-梅斯线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3077",
+            "section": "5.5",
+            "fSection": "5",
+            "title": "<a href=\"#PCNT-幅度比\">PCNT-幅度比</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3078",
+            "section": "5.6",
+            "fSection": "5",
+            "title": "<a href=\"#PSY-心理线\">PSY-心理线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3079",
+            "section": "5.7",
+            "fSection": "5",
+            "title": "<a href=\"#VR-成交量变异率\">VR-成交量变异率</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2988",
+        "section": "6",
+        "fSection": "0",
+        "title": "<a href=\"#成交量型\">成交量型</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3091",
+            "section": "6.1",
+            "fSection": "6",
+            "title": "<a href=\"#AMO-成交金额\">AMO-成交金额</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3092",
+            "section": "6.2",
+            "fSection": "6",
+            "title": "<a href=\"#CCL-持仓量（适用期货期权）\">CCL-持仓量（适用期货期权）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3093",
+            "section": "6.3",
+            "fSection": "6",
+            "title": "<a href=\"#DBLB-对比量比\">DBLB-对比量比</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3094",
+            "section": "6.4",
+            "fSection": "6",
+            "title": "<a href=\"#DBQRV-对比强弱量\">DBQRV-对比强弱量</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3095",
+            "section": "6.5",
+            "fSection": "6",
+            "title": "<a href=\"#HSL-换手线\">HSL-换手线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3096",
+            "section": "6.6",
+            "fSection": "6",
+            "title": "<a href=\"#OBV-累积能量线\">OBV-累积能量线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3097",
+            "section": "6.7",
+            "fSection": "6",
+            "title": "<a href=\"#VOL-成交量\">VOL-成交量</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3098",
+            "section": "6.8",
+            "fSection": "6",
+            "title": "<a href=\"#VRSI-相对强弱量\">VRSI-相对强弱量</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "4518",
+            "section": "6.9",
+            "fSection": "6",
+            "title": "<a href=\"#LB-量比\">LB-量比</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2989",
+        "section": "7",
+        "fSection": "0",
+        "title": "<a href=\"#均线型\">均线型</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3099",
+            "section": "7.1",
+            "fSection": "7",
+            "title": "<a href=\"#AMV-成本价均线\">AMV-成本价均线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3100",
+            "section": "7.2",
+            "fSection": "7",
+            "title": "<a href=\"#ALLIGAT-鳄鱼线\">ALLIGAT-鳄鱼线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3101",
+            "section": "7.3",
+            "fSection": "7",
+            "title": "<a href=\"#BBI-多空均线\">BBI-多空均线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3102",
+            "section": "7.4",
+            "fSection": "7",
+            "title": "<a href=\"#EXPMA-指数平均线\">EXPMA-指数平均线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3103",
+            "section": "7.5",
+            "fSection": "7",
+            "title": "<a href=\"#BBIBOLL-多空布林线\">BBIBOLL-多空布林线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3104",
+            "section": "7.6",
+            "fSection": "7",
+            "title": "<a href=\"#MA-均线\">MA-均线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3105",
+            "section": "7.7",
+            "fSection": "7",
+            "title": "<a href=\"#HMA-高价平均线\">HMA-高价平均线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3106",
+            "section": "7.8",
+            "fSection": "7",
+            "title": "<a href=\"#LMA-低价平均线\">LMA-低价平均线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3107",
+            "section": "7.9",
+            "fSection": "7",
+            "title": "<a href=\"#VMA-变异平均线\">VMA-变异平均线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2990",
+        "section": "8",
+        "fSection": "0",
+        "title": "<a href=\"#路径型\">路径型</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3108",
+            "section": "8.1",
+            "fSection": "8",
+            "title": "<a href=\"#BOLL-布林线\">BOLL-布林线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3109",
+            "section": "8.2",
+            "fSection": "8",
+            "title": "<a href=\"#ENE-轨道线\">ENE-轨道线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3110",
+            "section": "8.3",
+            "fSection": "8",
+            "title": "<a href=\"#MIKE-麦克支撑压力\">MIKE-麦克支撑压力</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3111",
+            "section": "8.4",
+            "fSection": "8",
+            "title": "<a href=\"#PBX-瀑布线\">PBX-瀑布线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3112",
+            "section": "8.5",
+            "fSection": "8",
+            "title": "<a href=\"#XS-薛斯通道\">XS-薛斯通道</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3113",
+            "section": "8.6",
+            "fSection": "8",
+            "title": "<a href=\"#XS2-薛斯通道2\">XS2-薛斯通道2</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2991",
+        "section": "9",
+        "fSection": "0",
+        "title": "<a href=\"#其他型\">其他型</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3114",
+            "section": "9.1",
+            "fSection": "9",
+            "title": "<a href=\"#EMA-指数移动平均\">EMA-指数移动平均</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3115",
+            "section": "9.2",
+            "fSection": "9",
+            "title": "<a href=\"#SMA-移动平均\">SMA-移动平均</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3116",
+            "section": "9.3",
+            "fSection": "9",
+            "title": "<a href=\"#BDZX-波段之星\">BDZX-波段之星</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3117",
+            "section": "9.4",
+            "fSection": "9",
+            "title": "<a href=\"#CDP-STD-逆势操作\">CDP-STD-逆势操作</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3118",
+            "section": "9.5",
+            "fSection": "9",
+            "title": "<a href=\"#CJDX-超级短线\">CJDX-超级短线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3119",
+            "section": "9.6",
+            "fSection": "9",
+            "title": "<a href=\"#CYHT-财运亨通\">CYHT-财运亨通</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3120",
+            "section": "9.7",
+            "fSection": "9",
+            "title": "<a href=\"#JAX-济安线\">JAX-济安线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3121",
+            "section": "9.8",
+            "fSection": "9",
+            "title": "<a href=\"#JFZX-飓风智能中线\">JFZX-飓风智能中线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3122",
+            "section": "9.9",
+            "fSection": "9",
+            "title": "<a href=\"#JYJL-交易参考均量\">JYJL-交易参考均量</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3123",
+            "section": "9.10",
+            "fSection": "9",
+            "title": "<a href=\"#LHXJ-猎狐先觉\">LHXJ-猎狐先觉</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3124",
+            "section": "9.11",
+            "fSection": "9",
+            "title": "<a href=\"#LYJH-猎鹰歼狐\">LYJH-猎鹰歼狐</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3125",
+            "section": "9.12",
+            "fSection": "9",
+            "title": "<a href=\"#TBP-STD-趋势平衡点\">TBP-STD-趋势平衡点</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3126",
+            "section": "9.13",
+            "fSection": "9",
+            "title": "<a href=\"#ZBCD-准备抄底\">ZBCD-准备抄底</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2992",
+        "section": "10",
+        "fSection": "0",
+        "title": "<a href=\"#神系\">神系</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3127",
+            "section": "10.1",
+            "fSection": "10",
+            "title": "<a href=\"#SG-SMX-生命线\">SG-SMX-生命线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3128",
+            "section": "10.2",
+            "fSection": "10",
+            "title": "<a href=\"#SG-LB-量比\">SG-LB-量比</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3129",
+            "section": "10.3",
+            "fSection": "10",
+            "title": "<a href=\"#SG-PF-强势股评分\">SG-PF-强势股评分</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3130",
+            "section": "10.4",
+            "fSection": "10",
+            "title": "<a href=\"#XDT-心电图\">XDT-心电图</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2993",
+        "section": "11",
+        "fSection": "0",
+        "title": "<a href=\"#龙系\">龙系</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3131",
+            "section": "11.1",
+            "fSection": "11",
+            "title": "<a href=\"#ZLMM-主力买卖\">ZLMM-主力买卖</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3132",
+            "section": "11.2",
+            "fSection": "11",
+            "title": "<a href=\"#RAD-威力雷达\">RAD-威力雷达</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3133",
+            "section": "11.3",
+            "fSection": "11",
+            "title": "<a href=\"#SHT-龙系短线\">SHT-龙系短线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2994",
+        "section": "12",
+        "fSection": "0",
+        "title": "<a href=\"#鬼系\">鬼系</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3134",
+            "section": "12.1",
+            "fSection": "12",
+            "title": "<a href=\"#CYW-主力控盘\">CYW-主力控盘</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3135",
+            "section": "12.2",
+            "fSection": "12",
+            "title": "<a href=\"#CYS-市场盈亏\">CYS-市场盈亏</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2995",
+        "section": "13",
+        "fSection": "0",
+        "title": "<a href=\"#特色型\">特色型</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3136",
+            "section": "13.1",
+            "fSection": "13",
+            "title": "<a href=\"#AROON-阿隆指标\">AROON-阿隆指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3137",
+            "section": "13.2",
+            "fSection": "13",
+            "title": "<a href=\"#CFJT-财富阶梯\">CFJT-财富阶梯</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3138",
+            "section": "13.3",
+            "fSection": "13",
+            "title": "<a href=\"#ZSDB-指数对比\">ZSDB-指数对比</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2996",
+        "section": "14",
+        "fSection": "0",
+        "title": "<a href=\"#图表型\">图表型</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3139",
+            "section": "14.1",
+            "fSection": "14",
+            "title": "<a href=\"#ZX-重心线\">ZX-重心线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3140",
+            "section": "14.2",
+            "fSection": "14",
+            "title": "<a href=\"#PUCU-逆时钟曲线\">PUCU-逆时钟曲线</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      }
+    ],
+    "idStr": "因子说明,重要提示★,超买超卖型,ACCER-幅度涨速,ADTM-动态买卖气指标,ATR-真实波幅,BIAS-乖离率,BIAS_QL-乖离率_传统版,BIAS_36-三六乖离,CCI-商品路径指标,CYF-市场能量,DKX-多空线,KD-随机指标KD,KDJ-随机指标,SKDJ-慢速随机指标,MFI-资金流量指标,MTM-动量线,ROC-变动率指标,RSI-相对强弱指标,MARSI-相对强弱平均线,OSC-变动速率线,UDL-引力线,WR-威廉指标,LWR-LWR威廉指标,TAPI-加权指数成交值,FSL-分水岭,趋势型,CHO-佳庆指标,CYE-市场趋势,DMI-趋向指标,DBQR-对比强弱,DMA-平均差,DPO-区间震荡线,EMV-简易波动指标,GDX-鬼道线,JLHB-绝路航标,JS-加速线,MACD-平滑异同平均,QACD-快速异同平均,QR-强弱指标,TRIX-终极指标,UOS-终极指标,VMACD-量平滑移动平均,VPT-量价曲线,WVAD-威廉变异离散量,能量型,BRAR-情绪指标,CR-带状能量线,CYR-市场强弱,MASS-梅斯线,PCNT-幅度比,PSY-心理线,VR-成交量变异率,成交量型,AMO-成交金额,CCL-持仓量（适用期货期权）,DBLB-对比量比,DBQRV-对比强弱量,HSL-换手线,OBV-累积能量线,VOL-成交量,VRSI-相对强弱量,LB-量比,均线型,AMV-成本价均线,ALLIGAT-鳄鱼线,BBI-多空均线,EXPMA-指数平均线,BBIBOLL-多空布林线,MA-均线,HMA-高价平均线,LMA-低价平均线,VMA-变异平均线,路径型,BOLL-布林线,ENE-轨道线,MIKE-麦克支撑压力,PBX-瀑布线,XS-薛斯通道,XS2-薛斯通道2,其他型,EMA-指数移动平均,SMA-移动平均,BDZX-波段之星,CDP-STD-逆势操作,CJDX-超级短线,CYHT-财运亨通,JAX-济安线,JFZX-飓风智能中线,JYJL-交易参考均量,LHXJ-猎狐先觉,LYJH-猎鹰歼狐,TBP-STD-趋势平衡点,ZBCD-准备抄底,神系,SG-SMX-生命线,SG-LB-量比,SG-PF-强势股评分,XDT-心电图,龙系,ZLMM-主力买卖,RAD-威力雷达,SHT-龙系短线,鬼系,CYW-主力控盘,CYS-市场盈亏,特色型,AROON-阿隆指标,CFJT-财富阶梯,ZSDB-指数对比,图表型,ZX-重心线,PUCU-逆时钟曲线",
+    "name": "技术分析指标 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}

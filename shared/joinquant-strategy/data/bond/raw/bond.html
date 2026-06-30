@@ -1,0 +1,1648 @@
+<h2 id="债券数据">债券数据</h2>
+<p><a href="https://www.joinquant.com/view/community/detail/433d0e9ed9fed11fc9f7772eab8d9376">Query的简单教程</a></p>
+<h3 id="使用说明">使用说明</h3>
+<pre><code class="python language-python">from jqdata import bond
+df=bond.run_query(query(bond.BOND_BASIC_INFO).filter(bond.BOND_BASIC_INFO.code == '131801').limit(n))
+</code></pre>
+<p>获取债券基本信息数据、债券票面利率数据和国债逆回购日行情数据</p>
+<p><strong>参数：</strong></p>
+<ul>
+<li><p><strong>query(bond.BOND_BASIC_INFO)</strong>：表示从bond.BOND_BASIC_INFO 这张表中查询债券基本信息数据，其中bond是库名，BOND_BASIC_INFO是表名。bond库中的表都可以使用run_query方法调用，表名如下所示：</p>
+<table>
+<thead>
+<tr>
+<th><strong>表名</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BOND_BASIC_INFO</td>
+<td>债券基本信息数据</td>
+</tr>
+<tr>
+<td>BOND_COUPON</td>
+<td>债券票面利率数据</td>
+</tr>
+<tr>
+<td>REPO_DAILY_PRICE</td>
+<td>国债逆回购日行情数据</td>
+</tr>
+<tr>
+<td>CONBOND_BASIC_INFO</td>
+<td>可转债基本资料</td>
+</tr>
+<tr>
+<td>CONBOND_CONVERT_PRICE_ADJUST</td>
+<td>可转债转股价格调整</td>
+</tr>
+<tr>
+<td>CONBOND_DAILY_PRICE</td>
+<td>可转债日行情</td>
+</tr>
+<tr>
+<td>CONBOND_DAILY_CONVERT</td>
+<td>可转债每日转股统计</td>
+</tr>
+<tr>
+<td>BOND_INTEREST_PAYMENT</td>
+<td>债券付息事件</td>
+</tr>
+</tbody>
+</table>
+<p>在查询表数据时还可以指定所要查询的字段名，格式如下：query(库名.表名.字段名1，库名.表名.字段名2，多个字段用逗号分隔进行提取；query函数的更多用法详见：
+<strong><a href="https://www.joinquant.com/view/community/detail/16411">query简易教程</a></strong></p></li>
+<li><p><strong>filter(bond.BOND_BASIC_INFO.code == '131801')</strong>：指定筛选条件，通过bond.BOND_BASIC_INFO.code == '131801' 可以指定债券代码来获取债券基本信息数据；除此之外，还可以对表中其他字段指定筛选条件，如filter(bond.BOND_BASIC_INFO.exchange=='上交所')，表示交易市场在上交所的所有债券基本信息数据；多个筛选条件用英文逗号分隔。</p></li>
+<li><p><strong>limit(n)</strong>：限制返回的数据条数，n指定返回条数。</p></li>
+</ul>
+<p><strong>返回结果：</strong></p>
+<ul>
+<li>返回一个 dataframe，每一行对应数据表中的一条数据， 列索引是您所查询的字段名称</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ol>
+<li><strong>为了防止返回数据量过大, 我们每次最多返回5000行</strong></li>
+<li>不能进行连表查询，即同时查询多张表的数据</li>
+</ol>
+<p><strong>示例：</strong></p>
+<pre><code class="python language-python"># 查询交易市场为上交所的债券基本信息数据
+from jqdata import bond
+
+df = bond.run_query(query(bond.BOND_BASIC_INFO).filter(bond.BOND_BASIC_INFO.exchange == '上交所').limit(10))
+print(df)
+</code></pre>
+<pre><code class="python language-python">   id    code short_name                            full_name  list_status_id  \
+0   2  131800      16东莞次  中国中投证券-东莞证券融出资金债权1号资产支持专项计划次级资产支持证券             NaN   
+1   3  131801     花呗01A1         德邦花呗第一期消费贷款资产支持专项计划优先级资产支持证券        301006.0   
+2   4  131802     花呗01A2        德邦花呗第一期消费贷款资产支持专项计划次优先级资产支持证券        301006.0   
+3   5  131803      花呗01B          德邦花呗第一期消费贷款资产支持专项计划次级资产支持证券        301006.0   
+4   6  131805       海尔优B             海尔保理一期资产支持专项计划优先B级资产支持证券        301006.0   
+5   7  131806       海尔优C             海尔保理一期资产支持专项计划优先C级资产支持证券        301006.0   
+6  11  204001      GC001                           1天新质押式国债回购             NaN   
+7  12  204002      GC002                           2天新质押式国债回购             NaN   
+8  13  204003      GC003                           3天新质押式国债回购             NaN   
+9  14  204004      GG004                           4天新质押式国债回购             NaN   
+
+  list_status           issuer company_code  exchange_code exchange  \
+0        None       东莞证券股份有限公司         None         705001      上交所   
+1        终止上市  重庆市阿里小微小额贷款有限公司         None         705001      上交所   
+2        终止上市  重庆市阿里小微小额贷款有限公司         None         705001      上交所   
+3        终止上市  重庆市阿里小微小额贷款有限公司         None         705001      上交所   
+4        终止上市   海尔金融保理(重庆)有限公司         None         705001      上交所   
+5        终止上市   海尔金融保理(重庆)有限公司         None         705001      上交所   
+6        None             None         None         705001      上交所   
+7        None             None         None         705001      上交所   
+8        None             None         None         705001      上交所   
+9        None             None         None         705001      上交所   
+
+      ...      bond_type  bond_form_id bond_form   list_date  delist_Date  \
+0     ...         资产支持证券        704001       记账式  2016-07-25   2019-06-18   
+1     ...         资产支持证券        704001       记账式  2016-07-12   2017-06-13   
+2     ...         资产支持证券        704001       记账式  2016-07-12   2017-06-13   
+3     ...         资产支持证券        704001       记账式  2016-07-12   2017-06-13   
+4     ...         资产支持证券        704001       记账式  2016-07-07   2016-12-02   
+5     ...         资产支持证券        704001       记账式  2016-07-07   2017-03-09   
+6     ...          质押式回购        704001       记账式        None         None   
+7     ...          质押式回购        704001       记账式        None         None   
+8     ...          质押式回购        704001       记账式        None         None   
+9     ...          质押式回购        704001       记账式        None         None   
+
+  interest_begin_date  maturity_date  interest_date  last_cash_date  \
+0          2016-06-17     2019-06-18           None      2019-06-18   
+1          2016-06-07     2017-06-15           None      2017-06-15   
+2          2016-06-07     2017-06-15           None      2017-06-15   
+3          2016-06-07     2017-06-15           None      2017-06-15   
+4          2016-06-08     2016-12-06           None      2016-12-06   
+5          2016-06-08     2017-03-13           None      2017-03-13   
+6                None           None           None            None   
+7                None           None           None            None   
+8                None           None           None            None   
+9                None           None           None            None   
+
+  cash_comment  
+0         None  
+1         None  
+2         None  
+3         None  
+4         None  
+5         None  
+6         None  
+7         None  
+8         None  
+9         None  
+</code></pre>
+<h3 id="数据字典">数据字典</h3>
+
+<h4 id="债券基本信息（BOND_BASIC_INFO）">债券基本信息（BOND_BASIC_INFO）</h4>
+<p><strong>表结构：</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>str</td>
+<td>债券代码(不加后缀）</td>
+</tr>
+<tr>
+<td>short_name</td>
+<td>str</td>
+<td>债券简称</td>
+</tr>
+<tr>
+<td>full_name</td>
+<td>str</td>
+<td>债券全称</td>
+</tr>
+<tr>
+<td>list_status_id</td>
+<td>int</td>
+<td>上市状态编码，见下表上市状态编码对照表</td>
+</tr>
+<tr>
+<td>list_status</td>
+<td>str</td>
+<td>上市状态</td>
+</tr>
+<tr>
+<td>issuer</td>
+<td>str</td>
+<td>发行人</td>
+</tr>
+<tr>
+<td>company_code</td>
+<td>str</td>
+<td>发行人股票代码</td>
+</tr>
+<tr>
+<td>exchange_code</td>
+<td>int</td>
+<td>交易市场编码，见下表交易市场编码</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>str</td>
+<td>交易市场</td>
+</tr>
+<tr>
+<td>currency_id</td>
+<td>str</td>
+<td>货币代码。CNY-人民币</td>
+</tr>
+<tr>
+<td>coupon_type_id</td>
+<td>int</td>
+<td>计息方式编码，见下表计息方式编码</td>
+</tr>
+<tr>
+<td>coupon_type</td>
+<td>str</td>
+<td>计息方式</td>
+</tr>
+<tr>
+<td>coupon_frequency</td>
+<td>int</td>
+<td>付息频率，单位：月/次。按年付息是12月/次；半年付息是6月/次</td>
+</tr>
+<tr>
+<td>payment_type_id</td>
+<td>int</td>
+<td>兑付方式编码，见下表兑付方式编码表</td>
+</tr>
+<tr>
+<td>payment_type</td>
+<td>str</td>
+<td>兑付方式</td>
+</tr>
+<tr>
+<td>par</td>
+<td>float</td>
+<td>债券面值(元)</td>
+</tr>
+<tr>
+<td>repayment_period</td>
+<td>int</td>
+<td>偿还期限(月）</td>
+</tr>
+<tr>
+<td>bond_type_id</td>
+<td>int</td>
+<td>债券分类编码。</td>
+</tr>
+<tr>
+<td>bond_type</td>
+<td>str</td>
+<td>债券分类</td>
+</tr>
+<tr>
+<td>bond_form_id</td>
+<td>int</td>
+<td>债券形式编码，见下表债券形式编码表</td>
+</tr>
+<tr>
+<td>bond_form</td>
+<td>str</td>
+<td>债券形式</td>
+</tr>
+<tr>
+<td>list_date</td>
+<td>date</td>
+<td>上市日期</td>
+</tr>
+<tr>
+<td>delist_Date</td>
+<td>date</td>
+<td>退市日期</td>
+</tr>
+<tr>
+<td>interest_begin_date</td>
+<td>date</td>
+<td>起息日</td>
+</tr>
+<tr>
+<td>maturity_date</td>
+<td>date</td>
+<td>到期日</td>
+</tr>
+<tr>
+<td>interest_date</td>
+<td>str</td>
+<td>付息日</td>
+</tr>
+<tr>
+<td>last_cash_date</td>
+<td>date</td>
+<td>最终兑付日</td>
+</tr>
+<tr>
+<td>cash_comment</td>
+<td>str</td>
+<td>兑付说明</td>
+</tr>
+</tbody>
+</table>
+<p><strong>编码对照表:</strong></p>
+<table>
+<thead>
+<tr>
+<th>上市状态编码</th>
+<th>上市状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>301001</td>
+<td>正常上市</td>
+</tr>
+<tr>
+<td>301006</td>
+<td>终止上市</td>
+</tr>
+<tr>
+<td>301007</td>
+<td>已发行未上市</td>
+</tr>
+<tr>
+<td>301099</td>
+<td>其他（数据源未披露等）</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><strong>交易市场编码</strong></th>
+<th><strong>交易市场</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>705001</td>
+<td>上交所</td>
+</tr>
+<tr>
+<td>705002</td>
+<td>深交所主板</td>
+</tr>
+<tr>
+<td>705007</td>
+<td>银行间债券市场</td>
+</tr>
+<tr>
+<td>705008</td>
+<td>商业银行柜台市场</td>
+</tr>
+<tr>
+<td>705099</td>
+<td>其他</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>计息方式编码</th>
+<th>计息方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>701001</td>
+<td>利随本清</td>
+</tr>
+<tr>
+<td>701002</td>
+<td>固定利率附息</td>
+</tr>
+<tr>
+<td>701003</td>
+<td>递进利率</td>
+</tr>
+<tr>
+<td>701004</td>
+<td>浮动利率</td>
+</tr>
+<tr>
+<td>701005</td>
+<td>贴现</td>
+</tr>
+<tr>
+<td>701006</td>
+<td>未公布</td>
+</tr>
+<tr>
+<td>701007</td>
+<td>无利率</td>
+</tr>
+<tr>
+<td>701008</td>
+<td>累进利率</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>兑付方式编码</th>
+<th>兑付方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>702001</td>
+<td>到期一次付息</td>
+</tr>
+<tr>
+<td>702002</td>
+<td>按年付息</td>
+</tr>
+<tr>
+<td>702003</td>
+<td>按半年付息</td>
+</tr>
+<tr>
+<td>702004</td>
+<td>按季付息</td>
+</tr>
+<tr>
+<td>702005</td>
+<td>按月付息</td>
+</tr>
+<tr>
+<td>702006</td>
+<td>未公布</td>
+</tr>
+<tr>
+<td>702099</td>
+<td>其他</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>债券分类编码</th>
+<th>债券分类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>703001</td>
+<td>短期融资券</td>
+</tr>
+<tr>
+<td>703002</td>
+<td>质押式回购</td>
+</tr>
+<tr>
+<td>703003</td>
+<td>私募债</td>
+</tr>
+<tr>
+<td>703004</td>
+<td>企业债</td>
+</tr>
+<tr>
+<td>703005</td>
+<td>次级债</td>
+</tr>
+<tr>
+<td>703006</td>
+<td>一般金融债</td>
+</tr>
+<tr>
+<td>703007</td>
+<td>中期票据</td>
+</tr>
+<tr>
+<td>703008</td>
+<td>资产支持证券</td>
+</tr>
+<tr>
+<td>703009</td>
+<td>小微企业扶持债</td>
+</tr>
+<tr>
+<td>703010</td>
+<td>地方政府债</td>
+</tr>
+<tr>
+<td>703011</td>
+<td>公司债</td>
+</tr>
+<tr>
+<td>703012</td>
+<td>可交换私募债</td>
+</tr>
+<tr>
+<td>703013</td>
+<td>可转债</td>
+</tr>
+<tr>
+<td>703014</td>
+<td>集合债券</td>
+</tr>
+<tr>
+<td>703015</td>
+<td>国际机构债券</td>
+</tr>
+<tr>
+<td>703016</td>
+<td>政府支持机构债券</td>
+</tr>
+<tr>
+<td>703017</td>
+<td>集合票据</td>
+</tr>
+<tr>
+<td>703018</td>
+<td>外国主权政府人民币债券</td>
+</tr>
+<tr>
+<td>703019</td>
+<td>央行票据</td>
+</tr>
+<tr>
+<td>703020</td>
+<td>政策性金融债</td>
+</tr>
+<tr>
+<td>703021</td>
+<td>国债</td>
+</tr>
+<tr>
+<td>703022</td>
+<td>非银行金融债</td>
+</tr>
+<tr>
+<td>703023</td>
+<td>可分离可转债</td>
+</tr>
+<tr>
+<td>703024</td>
+<td>国库定期存款</td>
+</tr>
+<tr>
+<td>703025</td>
+<td>可交换债</td>
+</tr>
+<tr>
+<td>703026</td>
+<td>特种金融债</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>债券形式编码</th>
+<th>债券形式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>704001</td>
+<td>记账式</td>
+</tr>
+<tr>
+<td>704002</td>
+<td>实物式</td>
+</tr>
+<tr>
+<td>704003</td>
+<td>储蓄电子式</td>
+</tr>
+<tr>
+<td>704004</td>
+<td>凭证式</td>
+</tr>
+<tr>
+<td>704005</td>
+<td>未公布</td>
+</tr>
+</tbody>
+</table>
+<h4 id="债券票面利率（BOND_COUPON）">债券票面利率（BOND_COUPON）</h4>
+<p><strong>表结构：</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>str</td>
+<td>债券代码（不加后缀）</td>
+</tr>
+<tr>
+<td>short_name</td>
+<td>str</td>
+<td>债券简称</td>
+</tr>
+<tr>
+<td>exchange_code</td>
+<td>int</td>
+<td>证券市场编码(新增字段)</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>str</td>
+<td>证券市场(新增字段)</td>
+</tr>
+<tr>
+<td>pub_date</td>
+<td>date</td>
+<td>信息发布日期</td>
+</tr>
+<tr>
+<td>coupon_type_id</td>
+<td>int</td>
+<td>计息方式编码，见下表计息方式编码</td>
+</tr>
+<tr>
+<td>coupon_type</td>
+<td>str</td>
+<td>计息方式</td>
+</tr>
+<tr>
+<td>coupon</td>
+<td>float(5)</td>
+<td>票面年利率(%)</td>
+</tr>
+<tr>
+<td>coupon_start_date</td>
+<td>date</td>
+<td>票面利率起始适用日期</td>
+</tr>
+<tr>
+<td>coupon_end_date</td>
+<td>date</td>
+<td>票面利率终止适用日期</td>
+</tr>
+<tr>
+<td>reference_rate</td>
+<td>float</td>
+<td>浮息债参考利率(%)</td>
+</tr>
+<tr>
+<td>reference_rate_comment</td>
+<td>str</td>
+<td>浮息债参考利率说明</td>
+</tr>
+<tr>
+<td>margin_rate</td>
+<td>float</td>
+<td>浮息债利差(%)-(等于票面利率减参考利率）</td>
+</tr>
+<tr>
+<td>coupon_upper_limit</td>
+<td>float</td>
+<td>利率上限</td>
+</tr>
+<tr>
+<td>coupon_lower_limit</td>
+<td>float</td>
+<td>利率下限</td>
+</tr>
+</tbody>
+</table>
+<p><strong>编码对照表：</strong></p>
+<table>
+<thead>
+<tr>
+<th>计息方式编码</th>
+<th>计息方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>701001</td>
+<td>利随本清</td>
+</tr>
+<tr>
+<td>701002</td>
+<td>固定利率附息</td>
+</tr>
+<tr>
+<td>701003</td>
+<td>递进利率</td>
+</tr>
+<tr>
+<td>701004</td>
+<td>浮动利率</td>
+</tr>
+<tr>
+<td>701005</td>
+<td>贴现</td>
+</tr>
+<tr>
+<td>701006</td>
+<td>未公布</td>
+</tr>
+<tr>
+<td>701007</td>
+<td>无利率</td>
+</tr>
+</tbody>
+</table>
+<h4 id="国债逆回购日行情（REPO_DAILY_PRICE）">国债逆回购日行情（REPO_DAILY_PRICE）</h4>
+<p><strong>数据字典：</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>date</td>
+<td>交易日期</td>
+</tr>
+<tr>
+<td>code</td>
+<td>varchar(12)</td>
+<td>回购代码，如 '204001.XSHG'</td>
+</tr>
+<tr>
+<td>name</td>
+<td>varchar(20)</td>
+<td>回购简称，如 'GC001'</td>
+</tr>
+<tr>
+<td>exchange_code</td>
+<td>varchar(12)</td>
+<td>证券市场编码。XSHG-上海证券交易所；XSHE-深圳证券交易所</td>
+</tr>
+<tr>
+<td>pre_close</td>
+<td>decimal(10,4)</td>
+<td>前收盘利率(%)</td>
+</tr>
+<tr>
+<td>open</td>
+<td>decimal(10,4)</td>
+<td>开盘利率(%)</td>
+</tr>
+<tr>
+<td>high</td>
+<td>decimal(10,4)</td>
+<td>最高利率(%)</td>
+</tr>
+<tr>
+<td>low</td>
+<td>decimal(10,4)</td>
+<td>最低利率(%)</td>
+</tr>
+<tr>
+<td>close</td>
+<td>decimal(10,4)</td>
+<td>收盘利率(%)</td>
+</tr>
+<tr>
+<td>volume</td>
+<td>bigint</td>
+<td>成交量（手）</td>
+</tr>
+<tr>
+<td>money</td>
+<td>decimal（20,2）</td>
+<td>成交额（元）</td>
+</tr>
+<tr>
+<td>deal_number</td>
+<td>int</td>
+<td>成交笔数（笔）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="可转债基本资料（CONBOND_BASIC_INFO）">可转债基本资料（CONBOND_BASIC_INFO）</h4>
+<p><strong>表结构：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">名称</th>
+<th style="text-align:left;">类型</th>
+<th style="text-align:left;">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">code</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">债券代码</td>
+</tr>
+<tr>
+<td style="text-align:left;">short_name</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">债券简称</td>
+</tr>
+<tr>
+<td style="text-align:left;">short_name_spelling</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">债券简称拼音</td>
+</tr>
+<tr>
+<td style="text-align:left;">full_name</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">债券全称</td>
+</tr>
+<tr>
+<td style="text-align:left;">list_status_id</td>
+<td style="text-align:left;">int</td>
+<td style="text-align:left;">上市状态编码，见下表上市状态编码对照表</td>
+</tr>
+<tr>
+<td style="text-align:left;">list_status</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">上市状态</td>
+</tr>
+<tr>
+<td style="text-align:left;">issuer</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">发行人</td>
+</tr>
+<tr>
+<td style="text-align:left;">company_code</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">发行人股票代码（带后缀）</td>
+</tr>
+<tr>
+<td style="text-align:left;">issue_start_date</td>
+<td style="text-align:left;">date</td>
+<td style="text-align:left;">发行起始日</td>
+</tr>
+<tr>
+<td style="text-align:left;">issue_end_date</td>
+<td style="text-align:left;">date</td>
+<td style="text-align:left;">发行终止日</td>
+</tr>
+<tr>
+<td style="text-align:left;">plan_raise_fund</td>
+<td style="text-align:left;">decimal(20,4)</td>
+<td style="text-align:left;">计划发行总量（万元）</td>
+</tr>
+<tr>
+<td style="text-align:left;">actual_raise_fund</td>
+<td style="text-align:left;">decimal(20,4)</td>
+<td style="text-align:left;">实际发行总量（万元）</td>
+</tr>
+<tr>
+<td style="text-align:left;">issue_par</td>
+<td style="text-align:left;">int</td>
+<td style="text-align:left;">发行面值</td>
+</tr>
+<tr>
+<td style="text-align:left;">issue_price</td>
+<td style="text-align:left;">decimal(10,3)</td>
+<td style="text-align:left;">发行价格</td>
+</tr>
+<tr>
+<td style="text-align:left;">is_guarantee</td>
+<td style="text-align:left;">int</td>
+<td style="text-align:left;">是否有担保(1-是，0-否）</td>
+</tr>
+<tr>
+<td style="text-align:left;">fund_raising_purposes</td>
+<td style="text-align:left;">varchar(200)</td>
+<td style="text-align:left;">募资用途说明</td>
+</tr>
+<tr>
+<td style="text-align:left;">list_date  list_declare_date</td>
+<td style="text-align:left;">date</td>
+<td style="text-align:left;">上市公告日期</td>
+</tr>
+<tr>
+<td style="text-align:left;">convert_price_reason</td>
+<td style="text-align:left;">varchar(300)</td>
+<td style="text-align:left;">初始转股价确定方式</td>
+</tr>
+<tr>
+<td style="text-align:left;">convert_price</td>
+<td style="text-align:left;">decimal(10,3)</td>
+<td style="text-align:left;">初始转股价格</td>
+</tr>
+<tr>
+<td style="text-align:left;">convert_start_date</td>
+<td style="text-align:left;">start_date</td>
+<td style="text-align:left;">转股开始日期</td>
+</tr>
+<tr>
+<td style="text-align:left;">convert_end_date</td>
+<td style="text-align:left;">end_date</td>
+<td style="text-align:left;">转股终止日期</td>
+</tr>
+<tr>
+<td style="text-align:left;">convert_code</td>
+<td style="text-align:left;">varchar(10)</td>
+<td style="text-align:left;">转股代码（不带后缀）</td>
+</tr>
+<tr>
+<td style="text-align:left;">coupon</td>
+<td style="text-align:left;">decimal(10,3)</td>
+<td style="text-align:left;">初始票面利率</td>
+</tr>
+<tr>
+<td style="text-align:left;">exchange_code</td>
+<td style="text-align:left;">int</td>
+<td style="text-align:left;">交易市场编码，见下表交易市场编码</td>
+</tr>
+<tr>
+<td style="text-align:left;">exchange</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">交易市场</td>
+</tr>
+<tr>
+<td style="text-align:left;">currency_id</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">货币代码。CNY-人民币</td>
+</tr>
+<tr>
+<td style="text-align:left;">coupon_type_id</td>
+<td style="text-align:left;">int</td>
+<td style="text-align:left;">计息方式编码，见下表计息方式编码</td>
+</tr>
+<tr>
+<td style="text-align:left;">coupon_type</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">计息方式</td>
+</tr>
+<tr>
+<td style="text-align:left;">coupon_frequency</td>
+<td style="text-align:left;">int</td>
+<td style="text-align:left;">付息频率，单位：月/次。按年付息是12月/次；半年付息是6月/次</td>
+</tr>
+<tr>
+<td style="text-align:left;">payment_type_id</td>
+<td style="text-align:left;">int</td>
+<td style="text-align:left;">兑付方式编码，见下表兑付方式编码表</td>
+</tr>
+<tr>
+<td style="text-align:left;">payment_type</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">兑付方式</td>
+</tr>
+<tr>
+<td style="text-align:left;">par</td>
+<td style="text-align:left;">float</td>
+<td style="text-align:left;">债券面值(元)</td>
+</tr>
+<tr>
+<td style="text-align:left;">repayment_period</td>
+<td style="text-align:left;">int</td>
+<td style="text-align:left;">偿还期限(月）</td>
+</tr>
+<tr>
+<td style="text-align:left;">bond_type_id</td>
+<td style="text-align:left;">int</td>
+<td style="text-align:left;">债券分类编码，见下表债券分类编码</td>
+</tr>
+<tr>
+<td style="text-align:left;">bond_type</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">债券分类</td>
+</tr>
+<tr>
+<td style="text-align:left;">bond_form_id</td>
+<td style="text-align:left;">int</td>
+<td style="text-align:left;">债券形式编码，见下表债券形式编码表</td>
+</tr>
+<tr>
+<td style="text-align:left;">bond_form</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">债券形式</td>
+</tr>
+<tr>
+<td style="text-align:left;">list_date</td>
+<td style="text-align:left;">date</td>
+<td style="text-align:left;">上市日期</td>
+</tr>
+<tr>
+<td style="text-align:left;">delist_Date</td>
+<td style="text-align:left;">date</td>
+<td style="text-align:left;">退市日期</td>
+</tr>
+<tr>
+<td style="text-align:left;">interest_begin_date</td>
+<td style="text-align:left;">date</td>
+<td style="text-align:left;">起息日</td>
+</tr>
+<tr>
+<td style="text-align:left;">maturity_date</td>
+<td style="text-align:left;">date</td>
+<td style="text-align:left;">到期日</td>
+</tr>
+<tr>
+<td style="text-align:left;">interest_date</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">付息日</td>
+</tr>
+<tr>
+<td style="text-align:left;">last_cash_date</td>
+<td style="text-align:left;">date</td>
+<td style="text-align:left;">最终兑付日</td>
+</tr>
+<tr>
+<td style="text-align:left;">cash_comment</td>
+<td style="text-align:left;">str</td>
+<td style="text-align:left;">兑付说明</td>
+</tr>
+</tbody>
+</table>
+<p><strong>编码对照表：</strong></p>
+<table>
+<thead>
+<tr>
+<th>上市状态编码</th>
+<th>上市状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>301001</td>
+<td>正常上市</td>
+</tr>
+<tr>
+<td>301006</td>
+<td>终止上市</td>
+</tr>
+<tr>
+<td>301099</td>
+<td>其他</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><strong>交易市场编码</strong></th>
+<th><strong>交易市场</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>705001</td>
+<td>上交所</td>
+</tr>
+<tr>
+<td>705002</td>
+<td>深交所主板</td>
+</tr>
+<tr>
+<td>705003</td>
+<td>深交所中小板</td>
+</tr>
+<tr>
+<td>705004</td>
+<td>深交所创业板</td>
+</tr>
+<tr>
+<td>705005</td>
+<td>上交所综合业务平台</td>
+</tr>
+<tr>
+<td>705006</td>
+<td>深交所综合协议交易平台</td>
+</tr>
+<tr>
+<td>705007</td>
+<td>银行间债券市场</td>
+</tr>
+<tr>
+<td>705008</td>
+<td>商业银行柜台市场</td>
+</tr>
+<tr>
+<td>705009</td>
+<td>港交所创业板</td>
+</tr>
+<tr>
+<td>705010</td>
+<td>新加坡证券交易所</td>
+</tr>
+<tr>
+<td>705011</td>
+<td>拟上市</td>
+</tr>
+<tr>
+<td>705012</td>
+<td>产权交易市场</td>
+</tr>
+<tr>
+<td>705013</td>
+<td>美国NASDAQ证券交易所</td>
+</tr>
+<tr>
+<td>705014</td>
+<td>港交所主板</td>
+</tr>
+<tr>
+<td>705015</td>
+<td>股份报价系统</td>
+</tr>
+<tr>
+<td>705016</td>
+<td>代办转让</td>
+</tr>
+<tr>
+<td>705017</td>
+<td>上交所CDR</td>
+</tr>
+<tr>
+<td>705018</td>
+<td>深交所存托凭证</td>
+</tr>
+<tr>
+<td>705099</td>
+<td>其他</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>计息方式编码</th>
+<th>计息方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>701001</td>
+<td>利随本清</td>
+</tr>
+<tr>
+<td>701002</td>
+<td>固定利率附息</td>
+</tr>
+<tr>
+<td>701003</td>
+<td>递进利率</td>
+</tr>
+<tr>
+<td>701004</td>
+<td>浮动利率</td>
+</tr>
+<tr>
+<td>701005</td>
+<td>贴现</td>
+</tr>
+<tr>
+<td>701006</td>
+<td>未公布</td>
+</tr>
+<tr>
+<td>701007</td>
+<td>无利率</td>
+</tr>
+<tr>
+<td>701008</td>
+<td>累进利率</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>兑付方式编码</th>
+<th>兑付方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>702001</td>
+<td>到期一次付息</td>
+</tr>
+<tr>
+<td>702002</td>
+<td>按年付息</td>
+</tr>
+<tr>
+<td>702003</td>
+<td>按半年付息</td>
+</tr>
+<tr>
+<td>702004</td>
+<td>按季付息</td>
+</tr>
+<tr>
+<td>702005</td>
+<td>按月付息</td>
+</tr>
+<tr>
+<td>702006</td>
+<td>未公布</td>
+</tr>
+<tr>
+<td>702099</td>
+<td>其他</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>债券分类编码</th>
+<th>债券分类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>703001</td>
+<td>短期融资券</td>
+</tr>
+<tr>
+<td>703002</td>
+<td>质押式回购</td>
+</tr>
+<tr>
+<td>703003</td>
+<td>私募债</td>
+</tr>
+<tr>
+<td>703004</td>
+<td>企业债</td>
+</tr>
+<tr>
+<td>703005</td>
+<td>次级债</td>
+</tr>
+<tr>
+<td>703006</td>
+<td>一般金融债</td>
+</tr>
+<tr>
+<td>703007</td>
+<td>中期票据</td>
+</tr>
+<tr>
+<td>703008</td>
+<td>资产支持证券</td>
+</tr>
+<tr>
+<td>703009</td>
+<td>小微企业扶持债</td>
+</tr>
+<tr>
+<td>703010</td>
+<td>地方政府债</td>
+</tr>
+<tr>
+<td>703011</td>
+<td>公司债</td>
+</tr>
+<tr>
+<td>703012</td>
+<td>可交换私募债</td>
+</tr>
+<tr>
+<td>703013</td>
+<td>可转债</td>
+</tr>
+<tr>
+<td>703014</td>
+<td>集合债券</td>
+</tr>
+<tr>
+<td>703015</td>
+<td>国际机构债券</td>
+</tr>
+<tr>
+<td>703016</td>
+<td>政府支持机构债券</td>
+</tr>
+<tr>
+<td>703017</td>
+<td>集合票据</td>
+</tr>
+<tr>
+<td>703018</td>
+<td>外国主权政府人民币债券</td>
+</tr>
+<tr>
+<td>703019</td>
+<td>央行票据</td>
+</tr>
+<tr>
+<td>703020</td>
+<td>政策性金融债</td>
+</tr>
+<tr>
+<td>703021</td>
+<td>国债</td>
+</tr>
+<tr>
+<td>703022</td>
+<td>非银行金融债</td>
+</tr>
+<tr>
+<td>703023</td>
+<td>可分离可转债</td>
+</tr>
+<tr>
+<td>703024</td>
+<td>国库定期存款</td>
+</tr>
+<tr>
+<td>703025</td>
+<td>可交换债</td>
+</tr>
+<tr>
+<td>703026</td>
+<td>特种金融债</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>债券形式编码</th>
+<th>债券形式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>704001</td>
+<td>记账式</td>
+</tr>
+<tr>
+<td>704002</td>
+<td>实物式</td>
+</tr>
+<tr>
+<td>704003</td>
+<td>储蓄电子式</td>
+</tr>
+<tr>
+<td>704004</td>
+<td>凭证式</td>
+</tr>
+<tr>
+<td>704005</td>
+<td>未公布</td>
+</tr>
+</tbody>
+</table>
+<h4 id="可转债转股价格调整（CONBOND_CONVERT_PRICE_ADJUST）">可转债转股价格调整（CONBOND_CONVERT_PRICE_ADJUST）</h4>
+<p><strong>表结构：</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>str</td>
+<td>债券代码</td>
+</tr>
+<tr>
+<td>name</td>
+<td>str</td>
+<td>债券名称</td>
+</tr>
+<tr>
+<td>pub_date</td>
+<td>date</td>
+<td>公告日期</td>
+</tr>
+<tr>
+<td>adjust_date</td>
+<td>date</td>
+<td>调整生效日期</td>
+</tr>
+<tr>
+<td>new_convert_price</td>
+<td>float</td>
+<td>调整后转股价格</td>
+</tr>
+<tr>
+<td>adjust_reason</td>
+<td>str</td>
+<td>调整原因</td>
+</tr>
+</tbody>
+</table>
+<h4 id="可转债日行情从2018-09-13开始（CONBOND_DAILY_PRICE）">可转债日行情，从2018-09-13开始（CONBOND_DAILY_PRICE）</h4>
+<p><strong>表结构：</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>date</td>
+<td>交易日期（以YYYY-MM-DD表示）</td>
+</tr>
+<tr>
+<td>code</td>
+<td>str</td>
+<td>债券代码</td>
+</tr>
+<tr>
+<td>name</td>
+<td>str</td>
+<td>债券简称</td>
+</tr>
+<tr>
+<td>exchange_code</td>
+<td>str</td>
+<td>证券市场编码（XSHG-上交所；XSHE-深交所）</td>
+</tr>
+<tr>
+<td>pre_close</td>
+<td>float</td>
+<td>昨收价</td>
+</tr>
+<tr>
+<td>open</td>
+<td>float</td>
+<td>开盘价，以人民币计</td>
+</tr>
+<tr>
+<td>high</td>
+<td>float</td>
+<td>最高价，以人民币计</td>
+</tr>
+<tr>
+<td>low</td>
+<td>float</td>
+<td>最低价，以人民币计</td>
+</tr>
+<tr>
+<td>close</td>
+<td>float</td>
+<td>收盘价，以人民币计</td>
+</tr>
+<tr>
+<td>volume</td>
+<td>float</td>
+<td>成交量（手），1手为10张债券</td>
+</tr>
+<tr>
+<td>money</td>
+<td>float</td>
+<td>成交额，以人民币计</td>
+</tr>
+<tr>
+<td>deal_number</td>
+<td>int</td>
+<td>成交笔数</td>
+</tr>
+<tr>
+<td>change_pct</td>
+<td>float</td>
+<td>涨跌幅，单位：%</td>
+</tr>
+</tbody>
+</table>
+<h4 id="可转债每日转股统计从2000-7-12开始CONBOND_DAILY_CONVERT">可转债每日转股统计，从2000-7-12开始(CONBOND_DAILY_CONVERT)</h4>
+<p><strong>表结构：</strong>
+深交所每日披露，上交所仅当日发生转股时才会披露</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>date</td>
+<td>交易日期（以YYYY-MM-DD表示）</td>
+</tr>
+<tr>
+<td>code</td>
+<td>str</td>
+<td>债券代码</td>
+</tr>
+<tr>
+<td>name</td>
+<td>str</td>
+<td>债券简称</td>
+</tr>
+<tr>
+<td>exchange_code</td>
+<td>str</td>
+<td>证券市场编码（XSHG-上海证券交易所；XSHE-深圳证券交易所）</td>
+</tr>
+<tr>
+<td>issue_number</td>
+<td>int</td>
+<td>发行总量（单位：张）</td>
+</tr>
+<tr>
+<td>convert_price</td>
+<td>float</td>
+<td>转股价格</td>
+</tr>
+<tr>
+<td>daily_convert_number</td>
+<td>int</td>
+<td>当日转股数量（深交所披露为债券转换量 单位：张，上交所披露为股票转换量 单位 :股）</td>
+</tr>
+<tr>
+<td>acc_convert_number</td>
+<td>int</td>
+<td>累计转股数量（深交所披露为债券转换量 单位：张，上交所披露为股票转换量 单位 :股）</td>
+</tr>
+<tr>
+<td>acc_convert_ratio</td>
+<td>float</td>
+<td>累计转股比例（单位：% ， 因上交所只披露转股股数，因此计算剩余转股张数时公式应为 : 发行总量 *(1 -累计转股比例)  ）</td>
+</tr>
+<tr>
+<td>convert_premium</td>
+<td>float</td>
+<td>转股溢价，从2018-09-13开始计算（每张可转债转股后可以获得的收益，单位：元。<strong>转股溢价=可转债收盘价-（100/转股价格）*正股收盘价</strong>）</td>
+</tr>
+<tr>
+<td>convert_premium_rate</td>
+<td>float</td>
+<td>转股溢价率</td>
+</tr>
+</tbody>
+</table>
+<h4 id="债券付息事件（含可转债）（BOND_INTEREST_PAYMENT）">债券付息事件（含可转债）（BOND_INTEREST_PAYMENT）</h4>
+<p><strong>表结构：</strong></p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>str</td>
+<td>债券代码(不加后缀）</td>
+</tr>
+<tr>
+<td>name</td>
+<td>str</td>
+<td>债券简称</td>
+</tr>
+<tr>
+<td>exchange_code</td>
+<td>int</td>
+<td>证券市场编码(新增字段)</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>str</td>
+<td>证券市场(新增字段)</td>
+</tr>
+<tr>
+<td>pub_date</td>
+<td>date</td>
+<td>公告日期</td>
+</tr>
+<tr>
+<td>event_type</td>
+<td>str</td>
+<td>事件类型</td>
+</tr>
+<tr>
+<td>interest_start_date</td>
+<td>date</td>
+<td>年度计息起始日</td>
+</tr>
+<tr>
+<td>coupon</td>
+<td>float</td>
+<td>票面利率（%）</td>
+</tr>
+<tr>
+<td>interest_end_date</td>
+<td>date</td>
+<td>年度计息终止日</td>
+</tr>
+<tr>
+<td>autual_interest</td>
+<td>float</td>
+<td>实际付息利率（%）</td>
+</tr>
+<tr>
+<td>interest_per_unit</td>
+<td>float</td>
+<td>每手付息数（单位：元，每1000元付息金额）</td>
+</tr>
+<tr>
+<td>register_date</td>
+<td>date</td>
+<td>债权登记日</td>
+</tr>
+<tr>
+<td>dividend_date</td>
+<td>date</td>
+<td>除息日</td>
+</tr>
+<tr>
+<td>interest_pay_start_date</td>
+<td>date</td>
+<td>付息起始日（债务人实际付息开始日期）</td>
+</tr>
+<tr>
+<td>interest_pay_end_date</td>
+<td>date</td>
+<td>付息终止日（债务人实际付息截止日期）</td>
+</tr>
+<tr>
+<td>payment_date</td>
+<td>date</td>
+<td>兑付日（债券到期兑付）</td>
+</tr>
+<tr>
+<td>payment_per_unit</td>
+<td>float</td>
+<td>每百元面值的到期兑付资金（元）</td>
+</tr>
+<tr>
+<td>tax_rate</td>
+<td>float</td>
+<td>代扣所得税率（%）</td>
+</tr>
+<tr>
+<td>tax_channel</td>
+<td>str</td>
+<td>扣税渠道</td>
+</tr>
+</tbody>
+</table>
+<h4 id="可转债分钟tick行情仅本地接口jqdatasdk提供">可转债分钟/tick行情(仅本地接口jqdatasdk提供)</h4>
+<p>可转债分钟及tick行情仅本地接口jqdatasdk提供，官网无法使用，具体查看<a href="https://www.joinquant.com/help/api/doc?name=JQDatadoc&id=9954">JQData文档</a>
+<br> <br/>
+<br> <br/>
+<br> <br/>
+<br> <br/>
+<br> <br/>
+<br> <br/>
+<br> <br/>
+<br> <br/>
+<br> <br/>
+<br> <br/>
+<br> <br/>
+<br> <br/>
+<br> <br/></p>

@@ -1,0 +1,113 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "1738",
+        "section": "1",
+        "fSection": "0",
+        "title": "<a href=\"#获取沪深指数数据\">获取沪深指数数据</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "1737",
+            "section": "1.1",
+            "fSection": "1",
+            "title": "<a href=\"#指数概况\">指数概况</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1736",
+                "section": "1.1.1",
+                "fSection": "1.1",
+                "title": "<a href=\"#获取单支指数数据\">获取单支指数数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1735",
+                "section": "1.1.2",
+                "fSection": "1.1",
+                "title": "<a href=\"#获取所有指数数据\">获取所有指数数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1732",
+                "section": "1.1.3",
+                "fSection": "1.1",
+                "title": "<a href=\"#获取指数成份股\">获取指数成份股</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1779",
+                "section": "1.1.4",
+                "fSection": "1.1",
+                "title": "<a href=\"#获取指数成份股权重\">获取指数成份股权重</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1734",
+            "section": "1.2",
+            "fSection": "1",
+            "title": "<a href=\"#行情数据\">行情数据</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1733",
+                "section": "1.2.1",
+                "fSection": "1.2",
+                "title": "<a href=\"#历史行情数据\">历史行情数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1731",
+                "section": "1.2.2",
+                "fSection": "1.2",
+                "title": "<a href=\"#当前单位时间的行情数据策略专用\">当前单位时间的行情数据(策略专用)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "4983",
+                "section": "1.2.3",
+                "fSection": "1.2",
+                "title": "<a href=\"#获取指数tick数据\">获取指数tick数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "1730",
+        "section": "2",
+        "fSection": "0",
+        "title": "<a href=\"#沪深指数列表\">沪深指数列表</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      }
+    ],
+    "idStr": "获取沪深指数数据,指数概况,获取单支指数数据,获取所有指数数据,获取指数成份股,获取指数成份股权重,行情数据,历史行情数据,当前单位时间的行情数据策略专用,获取指数tick数据,沪深指数列表",
+    "name": "指数数据 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}

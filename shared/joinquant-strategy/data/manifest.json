@@ -1,0 +1,112 @@
+{
+  "source": "https://www.joinquant.com/data",
+  "entries": [
+    {
+      "name": "Stock",
+      "href": "/help/api/help#name:Stock",
+      "label": "股票数据 提供2005年至今沪深A股全面的行情、财务、基本面等数据",
+      "chunk_count": 69,
+      "path": "Stock/index.md"
+    },
+    {
+      "name": "plateData",
+      "href": "/help/api/help#name:plateData",
+      "label": "行业概念数据 包含行业板块、概念板块数据",
+      "chunk_count": 13,
+      "path": "plateData/index.md"
+    },
+    {
+      "name": "index",
+      "href": "/help/api/help#name:index",
+      "label": "指数数据 包含沪深市场多只指数数据",
+      "chunk_count": 11,
+      "path": "index/index.md"
+    },
+    {
+      "name": "macroData",
+      "href": "/help/api/help#name:macroData",
+      "label": "宏观经济数据 包含国内的重要宏观经济数据",
+      "chunk_count": 132,
+      "path": "macroData/index.md"
+    },
+    {
+      "name": "Future",
+      "href": "/help/api/help#name:Future",
+      "label": "期货数据 涵盖中金所、上期所、郑商所和大商所的所有期货合约数据",
+      "chunk_count": 34,
+      "path": "Future/index.md"
+    },
+    {
+      "name": "Option",
+      "href": "/help/api/help#name:Option",
+      "label": "期权数据 提供股票期权和商品期权的合约资料和行情数据",
+      "chunk_count": 12,
+      "path": "Option/index.md"
+    },
+    {
+      "name": "fund",
+      "href": "/help/api/help#name:fund",
+      "label": "场内基金数据 包含ETF、LOF、分级基金、货币基金完整的行情、净值数据",
+      "chunk_count": 10,
+      "path": "fund/index.md"
+    },
+    {
+      "name": "OTCfund",
+      "href": "/help/api/help#name:OTCfund",
+      "label": "场外基金数据 提供场外基金单位净值、复权净值、投资组合等数据",
+      "chunk_count": 48,
+      "path": "OTCfund/index.md"
+    },
+    {
+      "name": "technicalanalysis",
+      "href": "/help/api/help#name:technicalanalysis",
+      "label": "技术分析指标 技术分析指标因子库",
+      "chunk_count": 113,
+      "path": "technicalanalysis/index.md"
+    },
+    {
+      "name": "Alpha101",
+      "href": "/help/api/help#name:Alpha101",
+      "label": "Alpha101因子 WorldQuant LLC 发表论文中给出的 101 个 Alphas 因子",
+      "chunk_count": 108,
+      "path": "Alpha101/index.md"
+    },
+    {
+      "name": "Alpha191",
+      "href": "/help/api/help#name:Alpha191",
+      "label": "Alpha191因子 短周期阿尔法因子",
+      "chunk_count": 197,
+      "path": "Alpha191/index.md"
+    },
+    {
+      "name": "factor_values",
+      "href": "/help/api/help#name:factor_values",
+      "label": "聚宽因子库 包含数百个质量、情绪、风险、成长等六大类因子",
+      "chunk_count": 22,
+      "path": "factor_values/index.md"
+    },
+    {
+      "name": "Public",
+      "href": "/help/api/help#name:Public",
+      "label": "舆情数据 包含CCTV等舆情数据",
+      "chunk_count": 1,
+      "path": "Public/index.md"
+    },
+    {
+      "name": "JQDatadoc",
+      "href": "/help/api/doc?name=JQDatadoc",
+      "label": "JQData 能在本地调用的 全品种量化数据",
+      "chunk_count": 912,
+      "path": "JQDatadoc/index.md"
+    },
+    {
+      "name": "bond",
+      "href": "/help/api/help#name:bond",
+      "label": "债券数据 提供债券基本信息、国债逆回购、可转债等债券数据",
+      "chunk_count": 12,
+      "path": "bond/index.md"
+    }
+  ],
+  "total_docs": 15,
+  "total_chunks": 1694
+}

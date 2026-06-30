@@ -1,0 +1,123 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "1768",
+        "section": "1",
+        "fSection": "0",
+        "title": "<a href=\"#行业概念数据\">行业概念数据</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "1767",
+        "section": "2",
+        "fSection": "0",
+        "title": "<a href=\"#行业类\">行业类</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "1766",
+            "section": "2.1",
+            "fSection": "2",
+            "title": "<a href=\"#证监会行业\">证监会行业</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "1765",
+            "section": "2.2",
+            "fSection": "2",
+            "title": "<a href=\"#聚宽行业\">聚宽行业</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1764",
+                "section": "2.2.1",
+                "fSection": "2.2",
+                "title": "<a href=\"#聚宽一级行业\">聚宽一级行业</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1763",
+                "section": "2.2.2",
+                "fSection": "2.2",
+                "title": "<a href=\"#聚宽二级行业\">聚宽二级行业</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "1762",
+            "section": "2.3",
+            "fSection": "2",
+            "title": "<a href=\"#申万行业\">申万行业</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1761",
+                "section": "2.3.1",
+                "fSection": "2.3",
+                "title": "<a href=\"#申万一级行业\">申万一级行业</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1760",
+                "section": "2.3.2",
+                "fSection": "2.3",
+                "title": "<a href=\"#申万二级行业\">申万二级行业</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1759",
+                "section": "2.3.3",
+                "fSection": "2.3",
+                "title": "<a href=\"#申万三级行业\">申万三级行业</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "1758",
+        "section": "3",
+        "fSection": "0",
+        "title": "<a href=\"#概念类\">概念类</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "1757",
+            "section": "3.1",
+            "fSection": "3",
+            "title": "<a href=\"#概念板块\">概念板块</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      }
+    ],
+    "idStr": "行业概念数据,行业类,证监会行业,聚宽行业,聚宽一级行业,聚宽二级行业,申万行业,申万一级行业,申万二级行业,申万三级行业,概念类,概念板块",
+    "name": "行业概念数据 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}

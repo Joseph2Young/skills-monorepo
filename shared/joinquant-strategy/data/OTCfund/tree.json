@@ -1,0 +1,310 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "2200",
+        "section": "1",
+        "fSection": "0",
+        "title": "<a href=\"#获取公募基金数据\">获取公募基金数据</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "2194",
+            "section": "1.1",
+            "fSection": "1",
+            "title": "<a href=\"#获取公募基金主体信息\">获取公募基金主体信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2202",
+            "section": "1.2",
+            "fSection": "1",
+            "title": "<a href=\"#获取公募基金净值信息\">获取公募基金净值信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2203",
+            "section": "1.3",
+            "fSection": "1",
+            "title": "<a href=\"#获取基金持股信息\">获取基金持股信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2245",
+            "section": "1.4",
+            "fSection": "1",
+            "title": "<a href=\"#获取基金持有的债券信息\">获取基金持有的债券信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2204",
+            "section": "1.5",
+            "fSection": "1",
+            "title": "<a href=\"#获取基金资产组合概况\">获取基金资产组合概况</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2246",
+            "section": "1.6",
+            "fSection": "1",
+            "title": "<a href=\"#获取基金财务指标信息\">获取基金财务指标信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2247",
+            "section": "1.7",
+            "fSection": "1",
+            "title": "<a href=\"#获取货币基金收益日报\">获取货币基金收益日报</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2248",
+            "section": "1.8",
+            "fSection": "1",
+            "title": "<a href=\"#获取基金分红拆分合并信息\">获取基金分红拆分合并信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "2201",
+        "section": "2",
+        "fSection": "0",
+        "title": "<a href=\"#公募基金列表\">公募基金列表</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "2157",
+            "section": "2.1",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表一\">基金列表一</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2158",
+            "section": "2.2",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表二\">基金列表二</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2159",
+            "section": "2.3",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表三\">基金列表三</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2160",
+            "section": "2.4",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表四\">基金列表四</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2161",
+            "section": "2.5",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表五\">基金列表五</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2162",
+            "section": "2.6",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表六\">基金列表六</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2163",
+            "section": "2.7",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表七\">基金列表七</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2164",
+            "section": "2.8",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表八\">基金列表八</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2165",
+            "section": "2.9",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表九\">基金列表九</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2166",
+            "section": "2.10",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表十\">基金列表十</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "2167",
+            "section": "2.11",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表十一\">基金列表十一</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3384",
+            "section": "2.12",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表十二\">基金列表十二</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3385",
+            "section": "2.13",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表十三\">基金列表十三</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3386",
+            "section": "2.14",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表十四\">基金列表十四</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3387",
+            "section": "2.15",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表十五\">基金列表十五</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3388",
+            "section": "2.16",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表十六\">基金列表十六</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3389",
+            "section": "2.17",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表十七\">基金列表十七</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3390",
+            "section": "2.18",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表十八\">基金列表十八</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3391",
+            "section": "2.19",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表十九\">基金列表十九</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3392",
+            "section": "2.20",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表二十\">基金列表二十</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3393",
+            "section": "2.21",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表二十一\">基金列表二十一</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3394",
+            "section": "2.22",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表二十二\">基金列表二十二</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3395",
+            "section": "2.23",
+            "fSection": "2",
+            "title": "<a href=\"#基金列表二十三\">基金列表二十三</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      }
+    ],
+    "idStr": "获取公募基金数据,获取公募基金主体信息,获取公募基金净值信息,获取基金持股信息,获取基金持有的债券信息,获取基金资产组合概况,获取基金财务指标信息,获取货币基金收益日报,获取基金分红拆分合并信息,公募基金列表,基金列表一,基金列表二,基金列表三,基金列表四,基金列表五,基金列表六,基金列表七,基金列表八,基金列表九,基金列表十,基金列表十一,基金列表十二,基金列表十三,基金列表十四,基金列表十五,基金列表十六,基金列表十七,基金列表十八,基金列表十九,基金列表二十,基金列表二十一,基金列表二十二,基金列表二十三",
+    "name": "场外基金 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}

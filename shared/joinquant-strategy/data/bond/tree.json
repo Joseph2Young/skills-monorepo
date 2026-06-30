@@ -1,0 +1,121 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "3350",
+        "section": "1",
+        "fSection": "0",
+        "title": "<a href=\"#债券数据\">债券数据</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3351",
+            "section": "1.1",
+            "fSection": "1",
+            "title": "<a href=\"#使用说明\">使用说明</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3352",
+            "section": "1.2",
+            "fSection": "1",
+            "title": "<a href=\"#数据字典\">数据字典</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "3364",
+                "section": "1.2.1",
+                "fSection": "1.2",
+                "title": "<a href=\"#债券基本信息（BOND_BASIC_INFO）\">债券基本信息（BOND_BASIC_INFO）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "3365",
+                "section": "1.2.2",
+                "fSection": "1.2",
+                "title": "<a href=\"#债券票面利率（BOND_COUPON）\">债券票面利率（BOND_COUPON）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "3366",
+                "section": "1.2.3",
+                "fSection": "1.2",
+                "title": "<a href=\"#国债逆回购日行情（REPO_DAILY_PRICE）\">国债逆回购日行情（REPO_DAILY_PRICE）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "4987",
+                "section": "1.2.4",
+                "fSection": "1.2",
+                "title": "<a href=\"#可转债基本资料（CONBOND_BASIC_INFO）\">可转债基本资料（CONBOND_BASIC_INFO）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "4988",
+                "section": "1.2.5",
+                "fSection": "1.2",
+                "title": "<a href=\"#可转债转股价格调整（CONBOND_CONVERT_PRICE_ADJUST）\">可转债转股价格调整（CONBOND_CONVERT_PRICE_ADJUST）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "4989",
+                "section": "1.2.6",
+                "fSection": "1.2",
+                "title": "<a href=\"#可转债日行情从2018-09-13开始（CONBOND_DAILY_PRICE）\">可转债日行情，从2018-09-13开始（CONBOND_DAILY_PRICE）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "4990",
+                "section": "1.2.7",
+                "fSection": "1.2",
+                "title": "<a href=\"#可转债每日转股统计从2000-7-12开始CONBOND_DAILY_CONVERT\">可转债每日转股统计，从2000-7-12开始(CONBOND_DAILY_CONVERT)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "4991",
+                "section": "1.2.8",
+                "fSection": "1.2",
+                "title": "<a href=\"#债券付息事件（含可转债）（BOND_INTEREST_PAYMENT）\">债券付息事件（含可转债）（BOND_INTEREST_PAYMENT）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10348",
+                "section": "1.2.9",
+                "fSection": "1.2",
+                "title": "<a href=\"#可转债分钟tick行情仅本地接口jqdatasdk提供\">可转债分钟/tick行情(仅本地接口jqdatasdk提供)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      }
+    ],
+    "idStr": "债券数据,使用说明,数据字典,债券基本信息（BOND_BASIC_INFO）,债券票面利率（BOND_COUPON）,国债逆回购日行情（REPO_DAILY_PRICE）,可转债基本资料（CONBOND_BASIC_INFO）,可转债转股价格调整（CONBOND_CONVERT_PRICE_ADJUST）,可转债日行情从2018-09-13开始（CONBOND_DAILY_PRICE）,可转债每日转股统计从2000-7-12开始CONBOND_DAILY_CONVERT,债券付息事件（含可转债）（BOND_INTEREST_PAYMENT）,可转债分钟tick行情仅本地接口jqdatasdk提供",
+    "name": "债券数据 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}

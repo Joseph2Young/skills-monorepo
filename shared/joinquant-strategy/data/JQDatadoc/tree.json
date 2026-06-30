@@ -1,0 +1,2823 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "10868",
+        "section": "1",
+        "fSection": "0",
+        "title": "<a href=\"#试用和购买（中国大陆以外地区无法使用）\">试用和购买（中国大陆以外地区无法使用）</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "11188",
+        "section": "2",
+        "fSection": "0",
+        "title": "<a href=\"#用户协议\">用户协议</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "10031",
+        "section": "3",
+        "fSection": "0",
+        "title": "<a href=\"#JQData使用指南\">JQData使用指南</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "10748",
+        "section": "4",
+        "fSection": "0",
+        "title": "<a href=\"#JQData安装登录流量查询查看账号权限\">JQData安装/登录/流量查询/查看账号权限</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "10749",
+        "section": "5",
+        "fSection": "0",
+        "title": "<a href=\"#JQData常见报错\">JQData常见报错</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "10261",
+        "section": "6",
+        "fSection": "0",
+        "title": "<a href=\"#JQData数据范围及更新时间\">JQData数据范围及更新时间</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "10276",
+        "section": "7",
+        "fSection": "0",
+        "title": "<a href=\"#JQData数据处理规则⭐\">JQData数据处理规则 ⭐</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10279",
+            "section": "7.1",
+            "fSection": "7",
+            "title": "<a href=\"#行情行业知识补充\">行情行业知识补充</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10242",
+            "section": "7.2",
+            "fSection": "7",
+            "title": "<a href=\"#行情接口get_price和get_bars的区别\">行情接口get_price和get_bars的区别</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10280",
+            "section": "7.3",
+            "fSection": "7",
+            "title": "<a href=\"#沪深A股常见数据问题\">沪深A股常见数据问题</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10281",
+                "section": "7.3.1",
+                "fSection": "7.3",
+                "title": "<a href=\"#融资融券\">融资融券</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10282",
+                "section": "7.3.2",
+                "fSection": "7.3",
+                "title": "<a href=\"#申万行业\">申万行业</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10283",
+                "section": "7.3.3",
+                "fSection": "7.3",
+                "title": "<a href=\"#行业概念及成分股\">行业概念及成分股</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10358",
+            "section": "7.4",
+            "fSection": "7",
+            "title": "<a href=\"#财务数据处理规则汇总⭐\">财务数据处理规则汇总⭐</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10359",
+                "section": "7.4.1",
+                "fSection": "7.4",
+                "title": "<a href=\"#财务数据基础知识补充\">财务数据基础知识补充</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10285",
+                "section": "7.4.2",
+                "fSection": "7.4",
+                "title": "<a href=\"#股票--单季度年度财务数据常见问题\">股票--单季度/年度财务数据常见问题</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10286",
+                "section": "7.4.3",
+                "fSection": "7.4",
+                "title": "<a href=\"#股票--报告期财务数据常见问题\">股票--报告期财务数据常见问题</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10290",
+            "section": "7.5",
+            "fSection": "7",
+            "title": "<a href=\"#指数的常见问题\">指数的常见问题</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10291",
+                "section": "7.5.1",
+                "fSection": "7.5",
+                "title": "<a href=\"#指数成分股及权重\">指数成分股及权重</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10292",
+                "section": "7.5.2",
+                "fSection": "7.5",
+                "title": "<a href=\"#指数行情数据异常\">指数行情数据异常</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10289",
+            "section": "7.6",
+            "fSection": "7",
+            "title": "<a href=\"#宏观数据的常见问题\">宏观数据的常见问题</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10287",
+            "section": "7.7",
+            "fSection": "7",
+            "title": "<a href=\"#聚宽因子常见问题\">聚宽因子常见问题</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10288",
+            "section": "7.8",
+            "fSection": "7",
+            "title": "<a href=\"#alpha因子的常见问题\">alpha因子的常见问题</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10293",
+            "section": "7.9",
+            "fSection": "7",
+            "title": "<a href=\"#可转债常见问题\">可转债常见问题</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10294",
+            "section": "7.10",
+            "fSection": "7",
+            "title": "<a href=\"#期货常见问题\">期货常见问题</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10632",
+            "section": "7.11",
+            "fSection": "7",
+            "title": "<a href=\"#期权常见问题\">期权常见问题</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9836",
+        "section": "8",
+        "fSection": "0",
+        "title": "<a href=\"#全市场通用⭐\">全市场通用 ⭐</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "9839",
+            "section": "8.1",
+            "fSection": "8",
+            "title": "<a href=\"#将标的代码转化成聚宽标准格式\">将标的代码转化成聚宽标准格式</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9837",
+            "section": "8.2",
+            "fSection": "8",
+            "title": "<a href=\"#交易日历信息\">交易日历信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9838",
+            "section": "8.3",
+            "fSection": "8",
+            "title": "<a href=\"#交易标的信息\">交易标的信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9841",
+                "section": "8.3.1",
+                "fSection": "8.3",
+                "title": "<a href=\"#获取交易列表\">获取交易列表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9840",
+                "section": "8.3.2",
+                "fSection": "8.3",
+                "title": "<a href=\"#获取单只标的信息\">获取单只标的信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10523",
+            "section": "8.4",
+            "fSection": "8",
+            "title": "<a href=\"#查询数据库数据\">查询数据库数据</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10524",
+            "section": "8.5",
+            "fSection": "8",
+            "title": "<a href=\"#批量查询数据库（新）\">批量查询数据库（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10745",
+            "section": "8.6",
+            "fSection": "8",
+            "title": "<a href=\"#查询数据表中的字段信息（新）\">查询数据表中的字段信息（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9842",
+        "section": "9",
+        "fSection": "0",
+        "title": "<a href=\"#沪深A股基础数据\">沪深A股基础数据</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "9895",
+            "section": "9.1",
+            "fSection": "9",
+            "title": "<a href=\"#股票交易标的列表\">股票交易标的列表</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10268",
+                "section": "9.1.1",
+                "fSection": "9.1",
+                "title": "<a href=\"#将标的代码转化为聚宽标准格式\">将标的代码转化为聚宽标准格式</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10243",
+                "section": "9.1.2",
+                "fSection": "9.1",
+                "title": "<a href=\"#获取所有标的信息\">获取所有标的信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10244",
+                "section": "9.1.3",
+                "fSection": "9.1",
+                "title": "<a href=\"#获取单只标的信息\">获取单只标的信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9843",
+            "section": "9.2",
+            "fSection": "9",
+            "title": "<a href=\"#股票标的交易信息\">股票标的交易信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9851",
+                "section": "9.2.1",
+                "fSection": "9.2",
+                "title": "<a href=\"#股票ST信息\">股票ST信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10032",
+                "section": "9.2.2",
+                "fSection": "9.2",
+                "title": "<a href=\"#上市公司状态变动\">上市公司状态变动</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9844",
+            "section": "9.3",
+            "fSection": "9",
+            "title": "<a href=\"#融资融券信息\">融资融券信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9852",
+                "section": "9.3.1",
+                "fSection": "9.3",
+                "title": "<a href=\"#融资融券信息\">融资融券信息 </a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9853",
+                "section": "9.3.2",
+                "fSection": "9.3",
+                "title": "<a href=\"#融资标的列表\">融资标的列表 </a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9854",
+                "section": "9.3.3",
+                "fSection": "9.3",
+                "title": "<a href=\"#融券标的列表\">融券标的列表 </a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9855",
+                "section": "9.3.4",
+                "fSection": "9.3",
+                "title": "<a href=\"#融资融券汇总数据\">融资融券汇总数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9845",
+            "section": "9.4",
+            "fSection": "9",
+            "title": "<a href=\"#交易统计数据\">交易统计数据</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10674",
+                "section": "9.4.1",
+                "fSection": "9.4",
+                "title": "<a href=\"#股票资金流向升级版\">股票资金流向升级版</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9857",
+                "section": "9.4.2",
+                "fSection": "9.4",
+                "title": "<a href=\"#股票龙虎榜数据\">股票龙虎榜数据 </a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9858",
+                "section": "9.4.3",
+                "fSection": "9.4",
+                "title": "<a href=\"#沪深市场每日成交概况\">沪深市场每日成交概况</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9847",
+            "section": "9.5",
+            "fSection": "9",
+            "title": "<a href=\"#行业概念及成分股数据\">行业概念及成分股数据</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9863",
+                "section": "9.5.1",
+                "fSection": "9.5",
+                "title": "<a href=\"#行业列表\">行业列表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9864",
+                "section": "9.5.2",
+                "fSection": "9.5",
+                "title": "<a href=\"#行业成份股\">行业成份股 </a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9861",
+                "section": "9.5.3",
+                "fSection": "9.5",
+                "title": "<a href=\"#查询股票所属行业\">查询股票所属行业 </a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9865",
+                "section": "9.5.4",
+                "fSection": "9.5",
+                "title": "<a href=\"#概念列表\">概念列表 </a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9866",
+                "section": "9.5.5",
+                "fSection": "9.5",
+                "title": "<a href=\"#概念成分股\">概念成分股</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9862",
+                "section": "9.5.6",
+                "fSection": "9.5",
+                "title": "<a href=\"#股票所属概念板块\">股票所属概念板块</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10769",
+                "section": "9.5.7",
+                "fSection": "9.5",
+                "title": "<a href=\"#获取某个行业的所有历史成分股纳入剔除记录（新）\">获取某个行业的所有历史成分股纳入剔除记录（新）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9848",
+            "section": "9.6",
+            "fSection": "9",
+            "title": "<a href=\"#沪股通深股通和港股通市场通数据）\">沪股通，深股通和港股通(市场通数据）</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9867",
+                "section": "9.6.1",
+                "fSection": "9.6",
+                "title": "<a href=\"#市场通交易日历\">市场通交易日历</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9869",
+                "section": "9.6.2",
+                "fSection": "9.6",
+                "title": "<a href=\"#市场通合格证券变动记录\">市场通合格证券变动记录 </a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9870",
+                "section": "9.6.3",
+                "fSection": "9.6",
+                "title": "<a href=\"#沪深港通持股数据\">沪深港通持股数据 </a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9871",
+                "section": "9.6.4",
+                "fSection": "9.6",
+                "title": "<a href=\"#市场通十大成交活跃股\">市场通十大成交活跃股 </a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9872",
+                "section": "9.6.5",
+                "fSection": "9.6",
+                "title": "<a href=\"#市场通成交与额度信息\">市场通成交与额度信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9873",
+                "section": "9.6.6",
+                "fSection": "9.6",
+                "title": "<a href=\"#市场通汇率\">市场通汇率</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10525",
+            "section": "9.7",
+            "fSection": "9",
+            "title": "<a href=\"#批量查询数据库（新）\">批量查询数据库（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9849",
+            "section": "9.8",
+            "fSection": "9",
+            "title": "<a href=\"#股票量价信息\">股票量价信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10465",
+                "section": "9.8.1",
+                "fSection": "9.8",
+                "title": "<a href=\"#各量价接口的差异说明\">各量价接口的差异说明</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10746",
+                "section": "9.8.2",
+                "fSection": "9.8",
+                "title": "<a href=\"#获取股票当日盘前交易信息（新）\">获取股票当日盘前交易信息（新）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9874",
+                "section": "9.8.3",
+                "fSection": "9.8",
+                "title": "<a href=\"#get_price移动窗口\">get_price 移动窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9875",
+                "section": "9.8.4",
+                "fSection": "9.8",
+                "title": "<a href=\"#get_bars固定窗口\">get_bars 固定窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9876",
+                "section": "9.8.5",
+                "fSection": "9.8",
+                "title": "<a href=\"#获取集合竞价数据\">获取集合竞价数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9877",
+                "section": "9.8.6",
+                "fSection": "9.8",
+                "title": "<a href=\"#get_ticks\">get_ticks</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9878",
+        "section": "10",
+        "fSection": "0",
+        "title": "<a href=\"#股票基本面-单季度年度财务数据（含新接口）\">股票基本面-单季度/年度财务数据（含新接口）</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "9880",
+            "section": "10.1",
+            "fSection": "10",
+            "title": "<a href=\"#估值数据及财务三大报表\">估值数据及财务三大报表</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9884",
+                "section": "10.1.1",
+                "fSection": "10.1",
+                "title": "<a href=\"#valuation估值数据\">valuation估值数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9885",
+                "section": "10.1.2",
+                "fSection": "10.1",
+                "title": "<a href=\"#indicator财务指标数据\">indicator财务指标数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9888",
+                "section": "10.1.3",
+                "fSection": "10.1",
+                "title": "<a href=\"#cash_flow现金流量表\">cash_flow现金流量表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9887",
+                "section": "10.1.4",
+                "fSection": "10.1",
+                "title": "<a href=\"#income利润表\">income利润表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9886",
+                "section": "10.1.5",
+                "fSection": "10.1",
+                "title": "<a href=\"#balance资产负债表\">balance资产负债表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9879",
+            "section": "10.2",
+            "fSection": "10",
+            "title": "<a href=\"#查询方法⭐\">查询方法⭐</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9882",
+                "section": "10.2.1",
+                "fSection": "10.2",
+                "title": "<a href=\"#get_fundamentals查询财务数据附综合案例\">get_fundamentals查询财务数据(附综合案例)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9883",
+                "section": "10.2.2",
+                "fSection": "10.2",
+                "title": "<a href=\"#get_fundamentals_continuously多日财务数据\">get_fundamentals_continuously多日财务数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10326",
+                "section": "10.2.3",
+                "fSection": "10.2",
+                "title": "<a href=\"#get_history_fundamentals获取多个季度年度的财务数据（新）\">get_history_fundamentals 获取多个季度/年度的财务数据（新）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10325",
+                "section": "10.2.4",
+                "fSection": "10.2",
+                "title": "<a href=\"#get_valuation多个标的范围日市值（新）\">get_valuation 多个标的范围日市值（新）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9892",
+        "section": "11",
+        "fSection": "0",
+        "title": "<a href=\"#股票基本面-报告期财务数据⭐\">股票基本面-报告期财务数据⭐</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10569",
+            "section": "11.1",
+            "fSection": "11",
+            "title": "<a href=\"#审计报告（新）\">审计报告（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10571",
+            "section": "11.2",
+            "fSection": "11",
+            "title": "<a href=\"#定期报告预约披露时间表新）\">定期报告预约披露时间表(新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9893",
+            "section": "11.3",
+            "fSection": "11",
+            "title": "<a href=\"#业绩预告\">业绩预告</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10547",
+            "section": "11.4",
+            "fSection": "11",
+            "title": "<a href=\"#业绩快报（新）\">业绩快报（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9894",
+            "section": "11.5",
+            "fSection": "11",
+            "title": "<a href=\"#报告期财务三大报表（母公司、合并）\">报告期财务三大报表（母公司、合并）</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9897",
+                "section": "11.5.1",
+                "fSection": "11.5",
+                "title": "<a href=\"#利润表\">利润表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9898",
+                "section": "11.5.2",
+                "fSection": "11.5",
+                "title": "<a href=\"#现金流量表\">现金流量表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9899",
+                "section": "11.5.3",
+                "fSection": "11.5",
+                "title": "<a href=\"#资产负债表\">资产负债表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9896",
+            "section": "11.6",
+            "fSection": "11",
+            "title": "<a href=\"#报告期金融类财务三大报表（母公司、合并）\">报告期金融类财务三大报表（母公司、合并）</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9900",
+                "section": "11.6.1",
+                "fSection": "11.6",
+                "title": "<a href=\"#利润表金融类\">利润表金融类</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9901",
+                "section": "11.6.2",
+                "fSection": "11.6",
+                "title": "<a href=\"#现金流量表金融类\">现金流量表金融类</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9902",
+                "section": "11.6.3",
+                "fSection": "11.6",
+                "title": "<a href=\"#资产负债表金融类\">资产负债表金融类</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10526",
+            "section": "11.7",
+            "fSection": "11",
+            "title": "<a href=\"#批量查询数据库（新）\">批量查询数据库（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "10006",
+        "section": "12",
+        "fSection": "0",
+        "title": "<a href=\"#股票基本面-上市公司相关信息\">股票基本面-上市公司相关信息</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10016",
+            "section": "12.1",
+            "fSection": "12",
+            "title": "<a href=\"#上市公司基本信息\">上市公司基本信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10023",
+                "section": "12.1.1",
+                "fSection": "12.1",
+                "title": "<a href=\"#公司状态变动\">公司状态变动</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10024",
+                "section": "12.1.2",
+                "fSection": "12.1",
+                "title": "<a href=\"#上市公司基本信息\">上市公司基本信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10025",
+                "section": "12.1.3",
+                "fSection": "12.1",
+                "title": "<a href=\"#上市信息\">上市信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10026",
+                "section": "12.1.4",
+                "fSection": "12.1",
+                "title": "<a href=\"#简称变更情况\">简称变更情况</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10008",
+            "section": "12.2",
+            "fSection": "12",
+            "title": "<a href=\"#上市公司人员信息\">上市公司人员信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10027",
+                "section": "12.2.1",
+                "fSection": "12.2",
+                "title": "<a href=\"#员工情况\">员工情况</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10009",
+            "section": "12.3",
+            "fSection": "12",
+            "title": "<a href=\"#上市公司股东信息\">上市公司股东信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10011",
+                "section": "12.3.1",
+                "fSection": "12.3",
+                "title": "<a href=\"#十大股东\">十大股东</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10012",
+                "section": "12.3.2",
+                "fSection": "12.3",
+                "title": "<a href=\"#十大流通股东\">十大流通股东</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10014",
+                "section": "12.3.3",
+                "fSection": "12.3",
+                "title": "<a href=\"#股东股份冻结\">股东股份冻结</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10015",
+                "section": "12.3.4",
+                "fSection": "12.3",
+                "title": "<a href=\"#股东户数\">股东户数</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10010",
+            "section": "12.4",
+            "fSection": "12",
+            "title": "<a href=\"#公司行为\">公司行为</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10017",
+                "section": "12.4.1",
+                "fSection": "12.4",
+                "title": "<a href=\"#大股东增减持\">大股东增减持</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10018",
+                "section": "12.4.2",
+                "fSection": "12.4",
+                "title": "<a href=\"#上市公司股本变动\">上市公司股本变动</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10019",
+                "section": "12.4.3",
+                "fSection": "12.4",
+                "title": "<a href=\"#上市公司上市公告日期和预计解禁日期\"> 上市公司上市公告日期和预计解禁日期</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10020",
+                "section": "12.4.4",
+                "fSection": "12.4",
+                "title": "<a href=\"#受限股份实际解禁日期\">受限股份实际解禁日期</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10021",
+                "section": "12.4.5",
+                "fSection": "12.4",
+                "title": "<a href=\"#限售解禁股\">限售解禁股</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10022",
+                "section": "12.4.6",
+                "fSection": "12.4",
+                "title": "<a href=\"#上市公司分红送股（除权除息）数据\">上市公司分红送股（除权除息）数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10527",
+            "section": "12.5",
+            "fSection": "12",
+            "title": "<a href=\"#批量查询数据库（新）\">批量查询数据库（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9903",
+        "section": "13",
+        "fSection": "0",
+        "title": "<a href=\"#期货\">期货</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10246",
+            "section": "13.1",
+            "fSection": "13",
+            "title": "<a href=\"#期货交易标的列表\">期货交易标的列表</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10248",
+                "section": "13.1.1",
+                "fSection": "13.1",
+                "title": "<a href=\"#将标的代码转为聚宽标准代码\">将标的代码转为聚宽标准代码</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10247",
+                "section": "13.1.2",
+                "fSection": "13.1",
+                "title": "<a href=\"#获取所有期货信息\">获取所有期货信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10256",
+                "section": "13.1.3",
+                "fSection": "13.1",
+                "title": "<a href=\"#获取期货可交易合约列表\">获取期货可交易合约列表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9904",
+            "section": "13.2",
+            "fSection": "13",
+            "title": "<a href=\"#期货交易信息⭐\">期货交易信息⭐</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9908",
+                "section": "13.2.1",
+                "fSection": "13.2",
+                "title": "<a href=\"#指定日期的期货列表数据\">指定日期的期货列表数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9909",
+                "section": "13.2.2",
+                "fSection": "13.2",
+                "title": "<a href=\"#期货主力合约\">期货主力合约</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10324",
+                "section": "13.2.3",
+                "fSection": "13.2",
+                "title": "<a href=\"#期货合约的信息新\">期货合约的信息(新)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10568",
+            "section": "13.3",
+            "fSection": "13",
+            "title": "<a href=\"#期货保证金及手续费（新）\">期货保证金及手续费（新）</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10562",
+                "section": "13.3.1",
+                "fSection": "13.3",
+                "title": "<a href=\"#期货保证金新\">期货保证金(新)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10563",
+                "section": "13.3.2",
+                "fSection": "13.3",
+                "title": "<a href=\"#期货手续费（新）\">期货手续费（新）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9905",
+            "section": "13.4",
+            "fSection": "13",
+            "title": "<a href=\"#期货交易统计数据\">期货交易统计数据</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9910",
+                "section": "13.4.1",
+                "fSection": "13.4",
+                "title": "<a href=\"#期货龙虎榜会员持仓\">期货龙虎榜(会员持仓)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9911",
+                "section": "13.4.2",
+                "fSection": "13.4",
+                "title": "<a href=\"#期货仓单数据\">期货仓单数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9912",
+                "section": "13.4.3",
+                "fSection": "13.4",
+                "title": "<a href=\"#期货结算价\">期货结算价</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10742",
+                "section": "13.4.4",
+                "fSection": "13.4",
+                "title": "<a href=\"#期货持仓量\">期货持仓量</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10528",
+            "section": "13.5",
+            "fSection": "13",
+            "title": "<a href=\"#批量查询数据库（新）\">批量查询数据库（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9906",
+            "section": "13.6",
+            "fSection": "13",
+            "title": "<a href=\"#商品期货量价信息\">商品期货量价信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10467",
+                "section": "13.6.1",
+                "fSection": "13.6",
+                "title": "<a href=\"#各量价接口的差异说明\">各量价接口的差异说明</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9978",
+                "section": "13.6.2",
+                "fSection": "13.6",
+                "title": "<a href=\"#get_price移动窗口\">get_price 移动窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9980",
+                "section": "13.6.3",
+                "fSection": "13.6",
+                "title": "<a href=\"#get_bars固定窗口\">get_bars 固定窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10297",
+                "section": "13.6.4",
+                "fSection": "13.6",
+                "title": "<a href=\"#外盘日行情数据\">外盘日行情数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10718",
+                "section": "13.6.5",
+                "fSection": "13.6",
+                "title": "<a href=\"#获取当月次月当季隔季等合约拼接而成的bar行情新\">获取当月/次月/当季/隔季等合约拼接而成的bar行情(新)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9985",
+                "section": "13.6.6",
+                "fSection": "13.6",
+                "title": "<a href=\"#get_ticks\">get_ticks</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9907",
+            "section": "13.7",
+            "fSection": "13",
+            "title": "<a href=\"#金融期货量价信息\">金融期货量价信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10468",
+                "section": "13.7.1",
+                "fSection": "13.7",
+                "title": "<a href=\"#各量价接口的差异说明\">各量价接口的差异说明</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9981",
+                "section": "13.7.2",
+                "fSection": "13.7",
+                "title": "<a href=\"#get_price移动窗口\">get_price 移动窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9979",
+                "section": "13.7.3",
+                "fSection": "13.7",
+                "title": "<a href=\"#get_bars固定窗口\">get_bars 固定窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10719",
+                "section": "13.7.4",
+                "fSection": "13.7",
+                "title": "<a href=\"#获取当月次月当季隔季等合约拼接而成的bar行情新\">获取当月/次月/当季/隔季等合约拼接而成的bar行情(新)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9983",
+                "section": "13.7.5",
+                "fSection": "13.7",
+                "title": "<a href=\"#get_ticks\">get_ticks</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10260",
+            "section": "13.8",
+            "fSection": "13",
+            "title": "<a href=\"#期货主力和品种指数的定义\">期货主力和品种指数的定义</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10273",
+            "section": "13.9",
+            "fSection": "13",
+            "title": "<a href=\"#期货列表\">期货列表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9913",
+        "section": "14",
+        "fSection": "0",
+        "title": "<a href=\"#期权\">期权</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10251",
+            "section": "14.1",
+            "fSection": "14",
+            "title": "<a href=\"#期权交易标的列表\">期权交易标的列表</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10252",
+                "section": "14.1.1",
+                "fSection": "14.1",
+                "title": "<a href=\"#获取期权交易列表\">获取期权交易列表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9914",
+            "section": "14.2",
+            "fSection": "14",
+            "title": "<a href=\"#期权交易信息\">期权交易信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9918",
+                "section": "14.2.1",
+                "fSection": "14.2",
+                "title": "<a href=\"#期权合约资料\">期权合约资料</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9919",
+                "section": "14.2.2",
+                "fSection": "14.2",
+                "title": "<a href=\"#期权日行情（查表）\">期权日行情（查表）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9920",
+                "section": "14.2.3",
+                "fSection": "14.2",
+                "title": "<a href=\"#期权风险指标\">期权风险指标</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9915",
+            "section": "14.3",
+            "fSection": "14",
+            "title": "<a href=\"#金融期权专项信息\">金融期权专项信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9921",
+                "section": "14.3.1",
+                "fSection": "14.3",
+                "title": "<a href=\"#期权交易和持仓排名统计\">期权交易和持仓排名统计</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9922",
+                "section": "14.3.2",
+                "fSection": "14.3",
+                "title": "<a href=\"#期权行权交收信息\">期权行权交收信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9924",
+                "section": "14.3.3",
+                "fSection": "14.3",
+                "title": "<a href=\"#期权合约调整记录\">期权合约调整记录</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9925",
+                "section": "14.3.4",
+                "fSection": "14.3",
+                "title": "<a href=\"#期权每日盘前静态文件\">期权每日盘前静态文件</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10529",
+            "section": "14.4",
+            "fSection": "14",
+            "title": "<a href=\"#批量查询数据库（新）\">批量查询数据库（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9917",
+            "section": "14.5",
+            "fSection": "14",
+            "title": "<a href=\"#金融期权量价信息\">金融期权量价信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10469",
+                "section": "14.5.1",
+                "fSection": "14.5",
+                "title": "<a href=\"#各量价接口的差异说明\">各量价接口的差异说明</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9986",
+                "section": "14.5.2",
+                "fSection": "14.5",
+                "title": "<a href=\"#get_price移动窗口\">get_price 移动窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9991",
+                "section": "14.5.3",
+                "fSection": "14.5",
+                "title": "<a href=\"#get_bars固定窗口\">get_bars 固定窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9992",
+                "section": "14.5.4",
+                "fSection": "14.5",
+                "title": "<a href=\"#集合竞价数据\">集合竞价数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9994",
+                "section": "14.5.5",
+                "fSection": "14.5",
+                "title": "<a href=\"#get_ticks\">get_ticks</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9916",
+            "section": "14.6",
+            "fSection": "14",
+            "title": "<a href=\"#商品期权量价信息\">商品期权量价信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10471",
+                "section": "14.6.1",
+                "fSection": "14.6",
+                "title": "<a href=\"#各量价接口的差异说明\">各量价接口的差异说明</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9987",
+                "section": "14.6.2",
+                "fSection": "14.6",
+                "title": "<a href=\"#get_price移动窗口\">get_price 移动窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9988",
+                "section": "14.6.3",
+                "fSection": "14.6",
+                "title": "<a href=\"#get_bars固定窗口\">get_bars 固定窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9995",
+                "section": "14.6.4",
+                "fSection": "14.6",
+                "title": "<a href=\"#get_ticks\">get_ticks</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10030",
+            "section": "14.7",
+            "fSection": "14",
+            "title": "<a href=\"#期权列表\">期权列表</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9926",
+        "section": "15",
+        "fSection": "0",
+        "title": "<a href=\"#基金\">基金</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10253",
+            "section": "15.1",
+            "fSection": "15",
+            "title": "<a href=\"#基金交易标的列表\">基金交易标的列表</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10254",
+                "section": "15.1.1",
+                "fSection": "15.1",
+                "title": "<a href=\"#将标的代码转化为聚宽标准代码\">将标的代码转化为聚宽标准代码</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10029",
+                "section": "15.1.2",
+                "fSection": "15.1",
+                "title": "<a href=\"#获取基金交易列表\">获取基金交易列表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10255",
+                "section": "15.1.3",
+                "fSection": "15.1",
+                "title": "<a href=\"#获取基金单只标的信息\">获取基金单只标的信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9933",
+            "section": "15.2",
+            "fSection": "15",
+            "title": "<a href=\"#基金主体信息\">基金主体信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9930",
+            "section": "15.3",
+            "fSection": "15",
+            "title": "<a href=\"#基金投资组合\">基金投资组合</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9934",
+                "section": "15.3.1",
+                "fSection": "15.3",
+                "title": "<a href=\"#基金持股信息\">基金持股信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9935",
+                "section": "15.3.2",
+                "fSection": "15.3",
+                "title": "<a href=\"#基金持有的债券信息\">基金持有的债券信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9936",
+                "section": "15.3.3",
+                "fSection": "15.3",
+                "title": "<a href=\"#基金资产组合概况\">基金资产组合概况</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9931",
+            "section": "15.4",
+            "fSection": "15",
+            "title": "<a href=\"#基金财务指标\">基金财务指标</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9938",
+            "section": "15.5",
+            "fSection": "15",
+            "title": "<a href=\"#基金分红信息\">基金分红信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9932",
+            "section": "15.6",
+            "fSection": "15",
+            "title": "<a href=\"#净值及业绩表现\">净值及业绩表现</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9940",
+                "section": "15.6.1",
+                "fSection": "15.6",
+                "title": "<a href=\"#场内基金份额数据\">场内基金份额数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9941",
+                "section": "15.6.2",
+                "fSection": "15.6",
+                "title": "<a href=\"#货币基金收益日报信息\">货币基金收益日报信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9942",
+                "section": "15.6.3",
+                "fSection": "15.6",
+                "title": "<a href=\"#基金净值信息\">基金净值信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9944",
+                "section": "15.6.4",
+                "fSection": "15.6",
+                "title": "<a href=\"#净值数据\">净值数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10342",
+            "section": "15.7",
+            "fSection": "15",
+            "title": "<a href=\"#融资融券\">融资融券</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10343",
+                "section": "15.7.1",
+                "fSection": "15.7",
+                "title": "<a href=\"#融资融券信息\">融资融券信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10344",
+                "section": "15.7.2",
+                "fSection": "15.7",
+                "title": "<a href=\"#基金融资标的列表\">基金融资标的列表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10462",
+                "section": "15.7.3",
+                "fSection": "15.7",
+                "title": "<a href=\"#基金融券标的列表\">基金融券标的列表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10537",
+                "section": "15.7.4",
+                "fSection": "15.7",
+                "title": "<a href=\"#基金融资融券汇总数据\">基金融资融券汇总数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10530",
+            "section": "15.8",
+            "fSection": "15",
+            "title": "<a href=\"#批量查询数据库（新）\">批量查询数据库（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10672",
+            "section": "15.9",
+            "fSection": "15",
+            "title": "<a href=\"#获取ETF跟踪指数信息\">获取ETF跟踪指数信息</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9997",
+            "section": "15.10",
+            "fSection": "15",
+            "title": "<a href=\"#基金量价信息\">基金量价信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10463",
+                "section": "15.10.1",
+                "fSection": "15.10",
+                "title": "<a href=\"#各量价接口的差异说明\">各量价接口的差异说明</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9998",
+                "section": "15.10.2",
+                "fSection": "15.10",
+                "title": "<a href=\"#get_price移动窗口\">get_price 移动窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9999",
+                "section": "15.10.3",
+                "fSection": "15.10",
+                "title": "<a href=\"#get_bars固定窗口\">get_bars 固定窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9943",
+                "section": "15.10.4",
+                "fSection": "15.10",
+                "title": "<a href=\"#获取集合竞价数据\">获取集合竞价数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10001",
+                "section": "15.10.5",
+                "fSection": "15.10",
+                "title": "<a href=\"#get_ticks\">get_ticks</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9927",
+        "section": "16",
+        "fSection": "0",
+        "title": "<a href=\"#指数⭐\">指数⭐</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10716",
+            "section": "16.1",
+            "fSection": "16",
+            "title": "<a href=\"#指数估值（新）\">指数估值（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10669",
+            "section": "16.2",
+            "fSection": "16",
+            "title": "<a href=\"#交易所指数\">交易所指数</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10249",
+                "section": "16.2.1",
+                "fSection": "16.2",
+                "title": "<a href=\"#指数交易标的列表\">指数交易标的列表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9956",
+                "section": "16.2.2",
+                "fSection": "16.2",
+                "title": "<a href=\"#指数成分股及权重\">指数成分股及权重</a>",
+                "level": 3,
+                "products": [
+                  {
+                    "helpDocId": "9958",
+                    "section": "16.2.2.1",
+                    "fSection": "16.2.2",
+                    "title": "<a href=\"#指数成分股数据\">指数成分股数据</a>",
+                    "level": 4,
+                    "products": [],
+                    "type": "item"
+                  },
+                  {
+                    "helpDocId": "9959",
+                    "section": "16.2.2.2",
+                    "fSection": "16.2.2",
+                    "title": "<a href=\"#指数成分股权重月度\">指数成分股权重(月度)</a>",
+                    "level": 4,
+                    "products": [],
+                    "type": "item"
+                  }
+                ],
+                "type": "folder"
+              },
+              {
+                "helpDocId": "9957",
+                "section": "16.2.3",
+                "fSection": "16.2",
+                "title": "<a href=\"#指数量价信息\">指数量价信息</a>",
+                "level": 3,
+                "products": [
+                  {
+                    "helpDocId": "10473",
+                    "section": "16.2.3.1",
+                    "fSection": "16.2.3",
+                    "title": "<a href=\"#各行情接口的差异说明\">各行情接口的差异说明</a>",
+                    "level": 4,
+                    "products": [],
+                    "type": "item"
+                  },
+                  {
+                    "helpDocId": "9990",
+                    "section": "16.2.3.2",
+                    "fSection": "16.2.3",
+                    "title": "<a href=\"#get_price移动窗口\">get_price 移动窗口</a>",
+                    "level": 4,
+                    "products": [],
+                    "type": "item"
+                  },
+                  {
+                    "helpDocId": "9989",
+                    "section": "16.2.3.3",
+                    "fSection": "16.2.3",
+                    "title": "<a href=\"#get_bars固定窗口\">get_bars 固定窗口</a>",
+                    "level": 4,
+                    "products": [],
+                    "type": "item"
+                  },
+                  {
+                    "helpDocId": "9996",
+                    "section": "16.2.3.4",
+                    "fSection": "16.2.3",
+                    "title": "<a href=\"#获取集合竞价数据\">获取集合竞价数据</a>",
+                    "level": 4,
+                    "products": [],
+                    "type": "item"
+                  },
+                  {
+                    "helpDocId": "10002",
+                    "section": "16.2.3.5",
+                    "fSection": "16.2.3",
+                    "title": "<a href=\"#get_ticks\">get_ticks</a>",
+                    "level": 4,
+                    "products": [],
+                    "type": "item"
+                  }
+                ],
+                "type": "folder"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10758",
+            "section": "16.3",
+            "fSection": "16",
+            "title": "<a href=\"#聚宽特色指数单独售卖\">聚宽特色指数 (单独售卖)</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10759",
+                "section": "16.3.1",
+                "fSection": "16.3",
+                "title": "<a href=\"#获取聚宽特色指数列表\">获取聚宽特色指数列表</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10763",
+                "section": "16.3.2",
+                "fSection": "16.3",
+                "title": "<a href=\"#聚宽特色指数成分股\">聚宽特色指数成分股</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10760",
+                "section": "16.3.3",
+                "fSection": "16.3",
+                "title": "<a href=\"#get_price移动窗口\">get_price 移动窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10761",
+                "section": "16.3.4",
+                "fSection": "16.3",
+                "title": "<a href=\"#get_bars固定窗口\">get_bars 固定窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9928",
+        "section": "17",
+        "fSection": "0",
+        "title": "<a href=\"#债券（含可转债⭐）\">债券（含可转债⭐）</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "9949",
+            "section": "17.1",
+            "fSection": "17",
+            "title": "<a href=\"#债券基本资料\">债券基本资料</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9945",
+                "section": "17.1.1",
+                "fSection": "17.1",
+                "title": "<a href=\"#债券基本信息\">债券基本信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9946",
+                "section": "17.1.2",
+                "fSection": "17.1",
+                "title": "<a href=\"#债券票面利率\">债券票面利率</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9947",
+                "section": "17.1.3",
+                "fSection": "17.1",
+                "title": "<a href=\"#债券付息事件\">债券付息事件</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9948",
+                "section": "17.1.4",
+                "fSection": "17.1",
+                "title": "<a href=\"#国债逆回购日行情数据\">国债逆回购日行情数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10339",
+            "section": "17.2",
+            "fSection": "17",
+            "title": "<a href=\"#可转债交易标的列表（新）\">可转债交易标的列表（新）</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10340",
+                "section": "17.2.1",
+                "fSection": "17.2",
+                "title": "<a href=\"#获取所有标的信息\">获取所有标的信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10341",
+                "section": "17.2.2",
+                "fSection": "17.2",
+                "title": "<a href=\"#获取单只标的信息\">获取单只标的信息</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "9950",
+            "section": "17.3",
+            "fSection": "17",
+            "title": "<a href=\"#可转债基本资料\">可转债基本资料</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9951",
+                "section": "17.3.1",
+                "fSection": "17.3",
+                "title": "<a href=\"#可转债基本资料\">可转债基本资料</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9952",
+                "section": "17.3.2",
+                "fSection": "17.3",
+                "title": "<a href=\"#可转债转股价格调整\">可转债转股价格调整</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "9953",
+                "section": "17.3.3",
+                "fSection": "17.3",
+                "title": "<a href=\"#可转债每日转股统计\">可转债每日转股统计</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10531",
+            "section": "17.4",
+            "fSection": "17",
+            "title": "<a href=\"#批量查询数据库（新\">批量查询数据库（新)</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9954",
+            "section": "17.5",
+            "fSection": "17",
+            "title": "<a href=\"#可转债量价信息\">可转债量价信息</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "9955",
+                "section": "17.5.1",
+                "fSection": "17.5",
+                "title": "<a href=\"#可转债日行情（查表）\">可转债日行情（查表）</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10764",
+                "section": "17.5.2",
+                "fSection": "17.5",
+                "title": "<a href=\"#各行情接口的区别\">各行情接口的区别</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10548",
+                "section": "17.5.3",
+                "fSection": "17.5",
+                "title": "<a href=\"#可转债集合竞价\">可转债集合竞价</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10335",
+                "section": "17.5.4",
+                "fSection": "17.5",
+                "title": "<a href=\"#get_pirce移动窗口\">get_pirce 移动窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10336",
+                "section": "17.5.5",
+                "fSection": "17.5",
+                "title": "<a href=\"#get_bars固定窗口\">get_bars 固定窗口</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10337",
+                "section": "17.5.6",
+                "fSection": "17.5",
+                "title": "<a href=\"#get_ticks\">get_ticks</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9960",
+        "section": "18",
+        "fSection": "0",
+        "title": "<a href=\"#Tick数据\">Tick数据</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "9966",
+            "section": "18.1",
+            "fSection": "18",
+            "title": "<a href=\"#股票Tick\">股票Tick</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9967",
+            "section": "18.2",
+            "fSection": "18",
+            "title": "<a href=\"#商品期货Tick\">商品期货Tick</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9968",
+            "section": "18.3",
+            "fSection": "18",
+            "title": "<a href=\"#金融期货Tick\">金融期货Tick</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9969",
+            "section": "18.4",
+            "fSection": "18",
+            "title": "<a href=\"#商品期权Tick\">商品期权Tick</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9970",
+            "section": "18.5",
+            "fSection": "18",
+            "title": "<a href=\"#金融期权Tick\">金融期权Tick</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9971",
+            "section": "18.6",
+            "fSection": "18",
+            "title": "<a href=\"#交易所指数Tick\">交易所指数Tick</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "9972",
+            "section": "18.7",
+            "fSection": "18",
+            "title": "<a href=\"#基金Tick\">基金Tick</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10338",
+            "section": "18.8",
+            "fSection": "18",
+            "title": "<a href=\"#可转债Tick\">可转债Tick</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "10664",
+        "section": "19",
+        "fSection": "0",
+        "title": "<a href=\"#资金流因子\">资金流因子</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10665",
+            "section": "19.1",
+            "fSection": "19",
+            "title": "<a href=\"#股票日分钟级资金流向\">股票日/分钟级资金流向</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9961",
+        "section": "20",
+        "fSection": "0",
+        "title": "<a href=\"#舆情数据\">舆情数据</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "10446",
+        "section": "21",
+        "fSection": "0",
+        "title": "<a href=\"#风险模型-风格因子（CNE5）⭐\">风险模型 - 风格因子（CNE5）⭐</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10447",
+            "section": "21.1",
+            "fSection": "21",
+            "title": "<a href=\"#获取聚宽因子名称\">获取聚宽因子名称</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10448",
+            "section": "21.2",
+            "fSection": "21",
+            "title": "<a href=\"#风格因子（CNE5）因子值\"> 风格因子（CNE5）因子值</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10767",
+            "section": "21.3",
+            "fSection": "21",
+            "title": "<a href=\"#获取重点宽基指数的风格暴露新\">获取重点宽基指数的风格暴露(新)</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10449",
+            "section": "21.4",
+            "fSection": "21",
+            "title": "<a href=\"#CNE5风格因子分位数收益分析\">CNE5风格因子分位数收益分析</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10450",
+                "section": "21.4.1",
+                "fSection": "21.4",
+                "title": "<a href=\"#获取因子看板列表数据\">获取因子看板列表数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10451",
+                "section": "21.4.2",
+                "fSection": "21.4",
+                "title": "<a href=\"#获取因子看板分位数历史收益率\">获取因子看板分位数历史收益率</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10317",
+            "section": "21.5",
+            "fSection": "21",
+            "title": "<a href=\"#CNE5风格因子收益率\">CNE5风格因子收益率</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10318",
+                "section": "21.5.1",
+                "fSection": "21.5",
+                "title": "<a href=\"#获取风格因子回报率\">获取风格因子回报率</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10319",
+                "section": "21.5.2",
+                "fSection": "21.5",
+                "title": "<a href=\"#获取特异收益率无法被风格因子解释的收益\">获取特异收益率(无法被风格因子解释的收益)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10654",
+                "section": "21.5.3",
+                "fSection": "21.5",
+                "title": "<a href=\"#获取风格因子协方差矩阵\">获取风格因子协方差矩阵</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10452",
+            "section": "21.6",
+            "fSection": "21",
+            "title": "<a href=\"#行业因子\">行业因子</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "10634",
+        "section": "22",
+        "fSection": "0",
+        "title": "<a href=\"#风险模型-风格因子pro（CNE6）⭐\">风险模型-风格因子pro（CNE6）⭐</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10636",
+            "section": "22.1",
+            "fSection": "22",
+            "title": "<a href=\"#获取聚宽因子名称\">获取聚宽因子名称</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10635",
+            "section": "22.2",
+            "fSection": "22",
+            "title": "<a href=\"#风格因子pro（CNE6）因子值\">风格因子pro（CNE6）因子值</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10768",
+            "section": "22.3",
+            "fSection": "22",
+            "title": "<a href=\"#获取重点宽基指数的风格暴露（新）\">获取重点宽基指数的风格暴露（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10655",
+            "section": "22.4",
+            "fSection": "22",
+            "title": "<a href=\"#CNE6风格因子pro分位数收益分析\">CNE6风格因子pro分位数收益分析</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10656",
+                "section": "22.4.1",
+                "fSection": "22.4",
+                "title": "<a href=\"#获取因子看板列表数据\">获取因子看板列表数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10657",
+                "section": "22.4.2",
+                "fSection": "22.4",
+                "title": "<a href=\"#获取因子看板分位数历史收益率\">获取因子看板分位数历史收益率</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10658",
+            "section": "22.5",
+            "fSection": "22",
+            "title": "<a href=\"#CNE6风格因子pro收益率\">CNE6风格因子pro收益率</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10659",
+                "section": "22.5.1",
+                "fSection": "22.5",
+                "title": "<a href=\"#获取风格因子pro回报率\">获取风格因子pro回报率</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10660",
+                "section": "22.5.2",
+                "fSection": "22.5",
+                "title": "<a href=\"#获取特异收益率无法被风格因子解释的部分\">获取特异收益率(无法被风格因子解释的部分)</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10661",
+                "section": "22.5.3",
+                "fSection": "22.5",
+                "title": "<a href=\"#获取风格因子pro协方差矩阵\">获取风格因子pro协方差矩阵</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9962",
+        "section": "23",
+        "fSection": "0",
+        "title": "<a href=\"#聚宽因子库⭐\">聚宽因子库⭐</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10431",
+            "section": "23.1",
+            "fSection": "23",
+            "title": "<a href=\"#获取聚宽因子名称\">获取聚宽因子名称</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10314",
+            "section": "23.2",
+            "fSection": "23",
+            "title": "<a href=\"#因子分位数收益分析\">因子分位数收益分析</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10315",
+                "section": "23.2.1",
+                "fSection": "23.2",
+                "title": "<a href=\"#获取因子看板列表数据\">获取因子看板列表数据</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10316",
+                "section": "23.2.2",
+                "fSection": "23.2",
+                "title": "<a href=\"#获取因子看板分位数历史收益率\">获取因子看板分位数历史收益率</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10432",
+            "section": "23.3",
+            "fSection": "23",
+            "title": "<a href=\"#财务基本面因子\">财务基本面因子</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10433",
+                "section": "23.3.1",
+                "fSection": "23.3",
+                "title": "<a href=\"#质量类因子\">质量类因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10434",
+                "section": "23.3.2",
+                "fSection": "23.3",
+                "title": "<a href=\"#基础类因子\">基础类因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10436",
+                "section": "23.3.3",
+                "fSection": "23.3",
+                "title": "<a href=\"#成长类因子\">成长类因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10437",
+                "section": "23.3.4",
+                "fSection": "23.3",
+                "title": "<a href=\"#每股类因子\">每股类因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10438",
+            "section": "23.4",
+            "fSection": "23",
+            "title": "<a href=\"#量价因子\">量价因子</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "10439",
+                "section": "23.4.1",
+                "fSection": "23.4",
+                "title": "<a href=\"#情绪类因子\">情绪类因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10440",
+                "section": "23.4.2",
+                "fSection": "23.4",
+                "title": "<a href=\"#风险类因子\">风险类因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10441",
+                "section": "23.4.3",
+                "fSection": "23.4",
+                "title": "<a href=\"#动量类因子\">动量类因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "10443",
+                "section": "23.4.4",
+                "fSection": "23.4",
+                "title": "<a href=\"#技术类因子\">技术类因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10445",
+            "section": "23.5",
+            "fSection": "23",
+            "title": "<a href=\"#行业因子\">行业因子</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9963",
+        "section": "24",
+        "fSection": "0",
+        "title": "<a href=\"#alpha101和alpha191\">alpha101和alpha191</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10534",
+            "section": "24.1",
+            "fSection": "24",
+            "title": "<a href=\"#批量获取alpha101因子（新）\">批量获取alpha101因子（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10535",
+            "section": "24.2",
+            "fSection": "24",
+            "title": "<a href=\"#批量获取alpha191因子（新）\">批量获取alpha191因子（新）</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "9964",
+        "section": "25",
+        "fSection": "0",
+        "title": "<a href=\"#技术指标\">技术指标</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      },
+      {
+        "helpDocId": "9965",
+        "section": "26",
+        "fSection": "0",
+        "title": "<a href=\"#宏观数据（或将停止更新）\">宏观数据（或将停止更新）</a>",
+        "level": 1,
+        "products": [],
+        "type": "item"
+      }
+    ],
+    "idStr": "试用和购买（中国大陆以外地区无法使用）,用户协议,JQData使用指南,JQData安装登录流量查询查看账号权限,JQData常见报错,JQData数据范围及更新时间,JQData数据处理规则⭐,行情行业知识补充,行情接口get_price和get_bars的区别,沪深A股常见数据问题,融资融券,申万行业,行业概念及成分股,财务数据处理规则汇总⭐,财务数据基础知识补充,股票--单季度年度财务数据常见问题,股票--报告期财务数据常见问题,指数的常见问题,指数成分股及权重,指数行情数据异常,宏观数据的常见问题,聚宽因子常见问题,alpha因子的常见问题,可转债常见问题,期货常见问题,期权常见问题,全市场通用⭐,将标的代码转化成聚宽标准格式,交易日历信息,交易标的信息,获取交易列表,获取单只标的信息,查询数据库数据,批量查询数据库（新）,查询数据表中的字段信息（新）,沪深A股基础数据,股票交易标的列表,将标的代码转化为聚宽标准格式,获取所有标的信息,获取单只标的信息,股票标的交易信息,股票ST信息,上市公司状态变动,融资融券信息,融资融券信息,融资标的列表,融券标的列表,融资融券汇总数据,交易统计数据,股票资金流向升级版,股票龙虎榜数据,沪深市场每日成交概况,行业概念及成分股数据,行业列表,行业成份股,查询股票所属行业,概念列表,概念成分股,股票所属概念板块,获取某个行业的所有历史成分股纳入剔除记录（新）,沪股通深股通和港股通市场通数据）,市场通交易日历,市场通合格证券变动记录,沪深港通持股数据,市场通十大成交活跃股,市场通成交与额度信息,市场通汇率,批量查询数据库（新）,股票量价信息,各量价接口的差异说明,获取股票当日盘前交易信息（新）,get_price移动窗口,get_bars固定窗口,获取集合竞价数据,get_ticks,股票基本面-单季度年度财务数据（含新接口）,估值数据及财务三大报表,valuation估值数据,indicator财务指标数据,cash_flow现金流量表,income利润表,balance资产负债表,查询方法⭐,get_fundamentals查询财务数据附综合案例,get_fundamentals_continuously多日财务数据,get_history_fundamentals获取多个季度年度的财务数据（新）,get_valuation多个标的范围日市值（新）,股票基本面-报告期财务数据⭐,审计报告（新）,定期报告预约披露时间表新）,业绩预告,业绩快报（新）,报告期财务三大报表（母公司、合并）,利润表,现金流量表,资产负债表,报告期金融类财务三大报表（母公司、合并）,利润表金融类,现金流量表金融类,资产负债表金融类,批量查询数据库（新）,股票基本面-上市公司相关信息,上市公司基本信息,公司状态变动,上市公司基本信息,上市信息,简称变更情况,上市公司人员信息,员工情况,上市公司股东信息,十大股东,十大流通股东,股东股份冻结,股东户数,公司行为,大股东增减持,上市公司股本变动,上市公司上市公告日期和预计解禁日期,受限股份实际解禁日期,限售解禁股,上市公司分红送股（除权除息）数据,批量查询数据库（新）,期货,期货交易标的列表,将标的代码转为聚宽标准代码,获取所有期货信息,获取期货可交易合约列表,期货交易信息⭐,指定日期的期货列表数据,期货主力合约,期货合约的信息新,期货保证金及手续费（新）,期货保证金新,期货手续费（新）,期货交易统计数据,期货龙虎榜会员持仓,期货仓单数据,期货结算价,期货持仓量,批量查询数据库（新）,商品期货量价信息,各量价接口的差异说明,get_price移动窗口,get_bars固定窗口,外盘日行情数据,获取当月次月当季隔季等合约拼接而成的bar行情新,get_ticks,金融期货量价信息,各量价接口的差异说明,get_price移动窗口,get_bars固定窗口,获取当月次月当季隔季等合约拼接而成的bar行情新,get_ticks,期货主力和品种指数的定义,期货列表,期权,期权交易标的列表,获取期权交易列表,期权交易信息,期权合约资料,期权日行情（查表）,期权风险指标,金融期权专项信息,期权交易和持仓排名统计,期权行权交收信息,期权合约调整记录,期权每日盘前静态文件,批量查询数据库（新）,金融期权量价信息,各量价接口的差异说明,get_price移动窗口,get_bars固定窗口,集合竞价数据,get_ticks,商品期权量价信息,各量价接口的差异说明,get_price移动窗口,get_bars固定窗口,get_ticks,期权列表,基金,基金交易标的列表,将标的代码转化为聚宽标准代码,获取基金交易列表,获取基金单只标的信息,基金主体信息,基金投资组合,基金持股信息,基金持有的债券信息,基金资产组合概况,基金财务指标,基金分红信息,净值及业绩表现,场内基金份额数据,货币基金收益日报信息,基金净值信息,净值数据,融资融券,融资融券信息,基金融资标的列表,基金融券标的列表,基金融资融券汇总数据,批量查询数据库（新）,获取ETF跟踪指数信息,基金量价信息,各量价接口的差异说明,get_price移动窗口,get_bars固定窗口,获取集合竞价数据,get_ticks,指数⭐,指数估值（新）,交易所指数,指数交易标的列表,指数成分股及权重,指数量价信息,聚宽特色指数单独售卖,获取聚宽特色指数列表,聚宽特色指数成分股,get_price移动窗口,get_bars固定窗口,债券（含可转债⭐）,债券基本资料,债券基本信息,债券票面利率,债券付息事件,国债逆回购日行情数据,可转债交易标的列表（新）,获取所有标的信息,获取单只标的信息,可转债基本资料,可转债基本资料,可转债转股价格调整,可转债每日转股统计,批量查询数据库（新,可转债量价信息,可转债日行情（查表）,各行情接口的区别,可转债集合竞价,get_pirce移动窗口,get_bars固定窗口,get_ticks,Tick数据,股票Tick,商品期货Tick,金融期货Tick,商品期权Tick,金融期权Tick,交易所指数Tick,基金Tick,可转债Tick,资金流因子,股票日分钟级资金流向,舆情数据,风险模型-风格因子（CNE5）⭐,获取聚宽因子名称,风格因子（CNE5）因子值,获取重点宽基指数的风格暴露新,CNE5风格因子分位数收益分析,获取因子看板列表数据,获取因子看板分位数历史收益率,CNE5风格因子收益率,获取风格因子回报率,获取特异收益率无法被风格因子解释的收益,获取风格因子协方差矩阵,行业因子,风险模型-风格因子pro（CNE6）⭐,获取聚宽因子名称,风格因子pro（CNE6）因子值,获取重点宽基指数的风格暴露（新）,CNE6风格因子pro分位数收益分析,获取因子看板列表数据,获取因子看板分位数历史收益率,CNE6风格因子pro收益率,获取风格因子pro回报率,获取特异收益率无法被风格因子解释的部分,获取风格因子pro协方差矩阵,聚宽因子库⭐,获取聚宽因子名称,因子分位数收益分析,获取因子看板列表数据,获取因子看板分位数历史收益率,财务基本面因子,质量类因子,基础类因子,成长类因子,每股类因子,量价因子,情绪类因子,风险类因子,动量类因子,技术类因子,行业因子,alpha101和alpha191,批量获取alpha101因子（新）,批量获取alpha191因子（新）,技术指标,宏观数据（或将停止更新）,指数成分股数据,指数成分股权重月度,各行情接口的差异说明,get_price移动窗口,get_bars固定窗口,获取集合竞价数据,get_ticks",
+    "name": "JQData使用说明 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}

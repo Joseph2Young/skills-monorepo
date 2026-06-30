@@ -1,0 +1,178 @@
+{
+  "data": {
+    "tree": [
+      {
+        "helpDocId": "1375",
+        "section": "1",
+        "fSection": "0",
+        "title": "<a href=\"#使用方法\">使用方法</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3360",
+            "section": "1.1",
+            "fSection": "1",
+            "title": "<a href=\"#获取因子值\">获取因子值</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3359",
+            "section": "1.2",
+            "fSection": "1",
+            "title": "<a href=\"#获取所有因子\">获取所有因子</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "10491",
+        "section": "2",
+        "fSection": "0",
+        "title": "<a href=\"#风险模型因子列表\">风险模型因子列表</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "3398",
+            "section": "2.1",
+            "fSection": "2",
+            "title": "<a href=\"#风格因子\">风格因子</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "3821",
+            "section": "2.2",
+            "fSection": "2",
+            "title": "<a href=\"#行业因子\">行业因子</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          },
+          {
+            "helpDocId": "10633",
+            "section": "2.3",
+            "fSection": "2",
+            "title": "<a href=\"#风格因子pro仅本地数据jqdatasdk可用\">风格因子pro(仅本地数据jqdatasdk可用)</a>",
+            "level": 2,
+            "products": [],
+            "type": "item"
+          }
+        ],
+        "type": "folder"
+      },
+      {
+        "helpDocId": "1374",
+        "section": "3",
+        "fSection": "0",
+        "title": "<a href=\"#基本面及量价因子列表\">基本面及量价因子列表</a>",
+        "level": 1,
+        "products": [
+          {
+            "helpDocId": "10475",
+            "section": "3.1",
+            "fSection": "3",
+            "title": "<a href=\"#财务基本面因子\">财务基本面因子</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1373",
+                "section": "3.1.1",
+                "fSection": "3.1",
+                "title": "<a href=\"#质量因子\">质量因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1372",
+                "section": "3.1.2",
+                "fSection": "3.1",
+                "title": "<a href=\"#基础因子\">基础因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1370",
+                "section": "3.1.3",
+                "fSection": "3.1",
+                "title": "<a href=\"#成长因子\">成长因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1368",
+                "section": "3.1.4",
+                "fSection": "3.1",
+                "title": "<a href=\"#每股因子\">每股因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          },
+          {
+            "helpDocId": "10476",
+            "section": "3.2",
+            "fSection": "3",
+            "title": "<a href=\"#量价因子\">量价因子</a>",
+            "level": 2,
+            "products": [
+              {
+                "helpDocId": "1371",
+                "section": "3.2.1",
+                "fSection": "3.2",
+                "title": "<a href=\"#情绪因子\">情绪因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "1369",
+                "section": "3.2.2",
+                "fSection": "3.2",
+                "title": "<a href=\"#风险因子\">风险因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "3397",
+                "section": "3.2.3",
+                "fSection": "3.2",
+                "title": "<a href=\"#技术因子\">技术因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              },
+              {
+                "helpDocId": "3396",
+                "section": "3.2.4",
+                "fSection": "3.2",
+                "title": "<a href=\"#动量因子\">动量因子</a>",
+                "level": 3,
+                "products": [],
+                "type": "item"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      }
+    ],
+    "idStr": "使用方法,获取因子值,获取所有因子,风险模型因子列表,风格因子,行业因子,风格因子pro仅本地数据jqdatasdk可用,基本面及量价因子列表,财务基本面因子,质量因子,基础因子,成长因子,每股因子,量价因子,情绪因子,风险因子,技术因子,动量因子",
+    "name": "因子库 - JoinQuant"
+  },
+  "status": "0",
+  "code": "00000",
+  "msg": ""
+}
