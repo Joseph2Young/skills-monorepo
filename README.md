@@ -19,13 +19,14 @@
 
 所有 skill 文件只存在于 ~/skills-monorepo/ 中。各工具通过 symlink 读取：
 
-| 工具路径 | 类型 | 指向 |
-|---------|------|------|
-| ~/.agents/skills/ | 目录级 symlink | -> monorepo/shared/ |
-| ~/.codex/skills/{skill}/ | 逐个 symlink | -> monorepo/shared/{skill}/ |
-| ~/.claude/skills/{skill}/ | 逐个 symlink | -> monorepo/shared/{skill}/ |
-| 项目 .agents/skills/{skill}/ | 逐个 symlink | -> monorepo/project/{skill}/ |
-| 项目 skills/{skill}/ | 逐个 symlink | -> monorepo/project/{skill}/ |
+| 工具路径 | 类型 | 指向 | 备注 |
+|---------|------|------|------|
+| ~/.agents/skills/ | 目录级 symlink | -> monorepo/shared/ | Codex + Claude Code 共用 |
+| ~/.codex/skills/{skill}/ | 逐个 symlink | -> monorepo/shared/{skill}/ | Codex 专属（不动 .system/） |
+| ~/.claude/skills/{skill}/ | 逐个 symlink | -> monorepo/shared/{skill}/ | Claude Code 专属 |
+| ~/.workbuddy/skills/{skill}/ | 逐个 symlink | -> monorepo/shared/{skill}/ | WorkBuddy（守护模式：仅当 ~/.workbuddy 存在才挂，跳过 builtin 真目录） |
+| 项目 .agents/skills/{skill}/ | 逐个 symlink | -> monorepo/project/{skill}/ | 项目级 |
+| 项目 skills/{skill}/ | 逐个 symlink | -> monorepo/project/{skill}/ | 项目级 |
 
 ~/.codex/skills/.system/ 是 Codex 内置目录，不纳入管理。
 

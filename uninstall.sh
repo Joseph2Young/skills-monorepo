@@ -31,7 +31,14 @@ for item in "$HOME/.claude/skills"/*/; do
   [ -L "${item%/}" ] && remove_symlink "${item%/}"
 done
 
-# 4. 项目级
+# 4. ~/.workbuddy/skills 下的 symlink（不动 builtin 真目录）
+if [ -d "$HOME/.workbuddy/skills" ]; then
+  for item in "$HOME/.workbuddy/skills"/*/; do
+    [ -L "${item%/}" ] && remove_symlink "${item%/}"
+  done
+fi
+
+# 5. 项目级
 WORKSPACE="$HOME/Desktop/量化投资程序"
 for item in "$WORKSPACE/.agents/skills"/*/; do
   [ -L "${item%/}" ] && remove_symlink "${item%/}"
