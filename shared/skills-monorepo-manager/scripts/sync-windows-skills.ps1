@@ -89,19 +89,6 @@ if ($allNew.Count -eq 0) {
     }
 }
 
-# 检查项目级 skills
-Write-Host "--- 检查项目级 skills ---"
-$projectClaude = Join-Path $ClaudeSkills "jq-full-optimizer"
-$projectDst = Join-Path $Project "jq-full-optimizer"
-if (Test-Path $projectClaude) {
-    if (!(Test-Path $projectDst)) {
-        Write-Host "[+] 复制项目级 skill: jq-full-optimizer" -ForegroundColor Cyan
-        Copy-Item -Path $projectClaude -Destination $projectDst -Recurse -Force
-    } else {
-        Write-Host "[已存在] project/jq-full-optimizer"
-    }
-}
-
 # 更新计数
 $sharedCount = (Get-ChildItem $Shared -Directory).Count
 $projectCount = (Get-ChildItem $Project -Directory -ErrorAction SilentlyContinue).Count

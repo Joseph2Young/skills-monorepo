@@ -76,6 +76,35 @@ if (Test-Path $Shared) {
     }
 }
 
+Write-Host "--- ~/.workbuddy/skills (WorkBuddy，跳过 builtin 真目录) ---"
+$WbSkills = Join-Path $env:USERPROFILE ".workbuddy\skills"
+if (Test-Path $Shared) {
+    Get-ChildItem $Shared -Directory | ForEach-Object {
+        $dst = Join-Path $WbSkills $_.Name
+        # 跳过 workbuddy 原生真目录（非 reparse point），避免覆盖 builtin
+        if ((Test-Path $dst) -and -not ((Get-Item $dst -Force).Attributes -band [System.IO.FileAttributes]::ReparsePoint)) {
+            return
+        }
+        Safe-Symlink -Src $_.FullName -Dst $dst
+    }
+}
+
+Write-Host "--- ~/.kimi-code/skills (Kimi) ---"
+$KimiCodeSkills = Join-Path $env:USERPROFILE ".kimi-code\skills"
+if (Test-Path $Shared) {
+    Get-ChildItem $Shared -Directory | ForEach-Object {
+        Safe-Symlink -Src $_.FullName -Dst (Join-Path $KimiCodeSkills $_.Name)
+    }
+}
+
+Write-Host "--- ~/.kimi/skills (Kimi 旧目录兼容) ---"
+$KimiSkills = Join-Path $env:USERPROFILE ".kimi\skills"
+if (Test-Path $Shared) {
+    Get-ChildItem $Shared -Directory | ForEach-Object {
+        Safe-Symlink -Src $_.FullName -Dst (Join-Path $KimiSkills $_.Name)
+    }
+}
+
 Write-Host "--- Project-level skills ---"
 $Workspace = Join-Path $MacHome "Desktop\量化投资程序"
 if (Test-Path $Project) {

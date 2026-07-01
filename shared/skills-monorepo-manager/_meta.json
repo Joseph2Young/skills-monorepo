@@ -1,4 +1,6 @@
 {
   "slug": "skills-monorepo-manager",
-  "version": "1.0.0"
+  "version": "1.1.0",
+  "description": "统一管理跨平台 Skills Monorepo：体检/同步/添加/删除/修改/查找/安装，gh CLI 推送，symlink 死链清理，Parallels 缺失自动退化",
+  "entrypoints": [".agents", ".codex", ".claude", ".workbuddy", ".kimi-code", ".kimi", "project"]
 }

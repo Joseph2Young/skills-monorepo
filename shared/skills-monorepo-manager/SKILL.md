@@ -1,283 +1,285 @@
 ---
 name: skills-monorepo-manager
-description: "统一管理跨平台 Skills Monorepo（macOS + Parallels Windows）。支持同步/添加/删除/修改/查找 skills，自动处理 GitHub 推送和 symlink 安装。触发词：管理skills、同步skills、添加skill、删除skill、修改skill、查找skill、安装skill、部署skills"
+description: "统一管理跨平台 Skills Monorepo（macOS + Parallels Windows）。支持体检/同步/添加/删除/修改/查找/安装 skills，自动处理 GitHub 推送（gh CLI）和 symlink 安装与死链清理。触发词：管理skills、同步skills、添加skill、删除skill、修改skill、查找skill、安装skill、部署skills、体检skills、skills状态"
 ---
 
 # Skills Monorepo Manager
 
-统一管理跨平台（macOS + Parallels Windows）的 skills 仓库。
+统一管理跨平台（macOS + Parallels Windows）的 skills 仓库。所有 skill 文件**只存一份**在 `~/skills-monorepo/`，各客户端通过 symlink 读取，改一处全局生效。
 
 ## 仓库结构
 
 ```
 ~/skills-monorepo/
-├── shared/          # 全局 skills（Codex + Claude Code 共用）
-├── project/         # 项目级 skills
-├── install.sh       # macOS symlink 安装
-├── install.ps1      # Windows symlink 安装
-├── uninstall.sh     # macOS 卸载
-└── README.md
+├── shared/                                       # 全局 skills（所有客户端共用）
+├── project/                                      # 项目级 skills（仅挂到指定工作区）
+├── install.sh / install.ps1                      # macOS / Windows symlink 安装
+├── uninstall.sh                                  # macOS 卸载
+├── README.md
+└── shared/skills-monorepo-manager/scripts/
+    ├── status.sh                                 # macOS 状态体检（只读）
+    └── sync-windows-skills.ps1                   # Windows → monorepo 同步（在 Windows 跑）
 ```
 
-## 前置条件检查
+## 核心心智模型（必须理解）
 
-在操作前先检查：
+数据流向是**双向但分职能**的，两个脚本各管一个方向：
 
-1. **monorepo 是否存在**: `ls ~/skills-monorepo/`
-2. **GitHub remote**: `cd ~/skills-monorepo && git remote -v`
-3. **GitHub token**: 若需推送但远程含 token 的 URL 失效，提示用户："请提供 GitHub Personal Access Token（需要 repo 权限）"
-4. **当前平台**: 通过 `uname` 检测（Darwin=macOS, 否则可能是 Parallels Windows）
+| 方向 | 用什么 | 做什么 |
+|------|--------|--------|
+| **Windows → monorepo** | `sync-windows-skills.ps1`（在 Windows 跑） | 把 Windows 独有的新 skill **复制文件**进 monorepo |
+| **monorepo → 各端** | `install.sh`（macOS）/ `install.ps1`（Windows） | 为每个客户端**建 symlink** 指向 monorepo |
+
+> ⚠️ 常见困惑：「我在 macOS 加了 skill，为什么 Windows 看不到？」→ 因为 Windows 端还没跑 `install.ps1` 重建 symlink。sync 只管进，install 只管铺。
+
+## 入口矩阵（install.sh 实际覆盖，操作时以此为准）
+
+| 客户端路径 | 挂载方式 | 备注 |
+|-----------|---------|------|
+| `~/.agents/skills` | 目录级 symlink → shared/ | Codex + Claude Code 共用 |
+| `~/.codex/skills/{skill}/` | 逐个 symlink | 不动 `.system/` 内置目录 |
+| `~/.claude/skills/{skill}/` | 逐个 symlink | Claude Code |
+| `~/.workbuddy/skills/{skill}/` | 逐个 symlink | 跳过 builtin 真目录，仅当 `~/.workbuddy` 存在 |
+| `~/.kimi-code/skills/{skill}/` | 逐个 symlink | Kimi |
+| `~/.kimi/skills/{skill}/` | 逐个 symlink | Kimi 旧目录兼容 |
+| `$WORKSPACE/.agents/skills/{skill}/`、`$WORKSPACE/skills/{skill}/` | 逐个 symlink | 项目级（来自 project/） |
+
+- `$WORKSPACE` 默认 `~/Desktop/量化投资程序`，可用环境变量覆盖；不存在则自动跳过项目级。
+- macOS 与 Windows 的 install 脚本**入口口径一致**（都覆盖上述全部入口）。
+
+---
+
+## 操作前必做：体检（status）
+
+**任何操作前先跑一次体检**，掌握当前状态再动手：
+
+```bash
+bash ~/skills-monorepo/shared/skills-monorepo-manager/scripts/status.sh
+```
+
+输出包含：各入口已装/缺失/死链计数、Parallels Windows 检测、`gh`/`git` 状态。**死链和缺失一目了然**，避免盲操作。
+
+---
 
 ## 操作命令参考
 
-### 1. 同步（sync）—— 跨平台 skills 同步
+### 1. 同步（sync）—— Windows → monorepo
 
-**场景**: 用户在 macOS 或 Windows 上积累了自己的 skills，需要同步到 monorepo。
+**场景**：Windows 端积累了新 skill，要收入 monorepo。
 
-**macOS 端同步**:
+**前置：Parallels 退化判断**（第 11 条铁律）。在 macOS 端发起同步前，必须先确认本机有可用的 Parallels Windows：
+
 ```bash
-# 检查 monorepo 是否存在
-cd ~/skills-monorepo
-
-# 查看当前的 skill 目录
-ls shared/
-ls project/
-
-# 检查是否安装了 symlink
-readlink ~/.agents/skills
-ls ~/.codex/skills/ | wc -l
-ls ~/.claude/skills/ | wc -l
+# 检测：prlctl 存在 且 有 Windows VM
+command -v prlctl >/dev/null 2>&1 && prlctl list --all 2>/dev/null | grep -iq 'windows'
 ```
 
-**Parallels Windows 端同步**（需要用户在 Windows 里执行）:
+- 返回 **0**（有 Parallels Windows）→ 让用户在 Windows 里跑下面的 `sync-windows-skills.ps1`。
+- 返回 **非 0**（无 prlctl 或无 Windows VM）→ **直接退化**：告知用户「未检测到 Parallels Windows，Windows 同步已跳过」，不要让用户白跑脚本。可直接 `bash scripts/status.sh` 看 Parallels 检测结果。
+
+**Windows 端执行**（用户在 Windows PowerShell 里跑，不要内联代码——直接调用脚本）：
+
 ```powershell
-# 在 Windows PowerShell 中执行
-$Monorepo = "\\Mac\Home\skills-monorepo"
-$Shared = Join-Path $Monorepo "shared"
-$ClaudeSkills = "$env:USERPROFILE\.claude\skills"
-
-# 找出 Windows 独有 skills（不在 monorepo 里的）
-$existing = @{}
-Get-ChildItem $Shared -Directory | ForEach-Object { $existing[$_.Name] = $true }
-
-$newSkills = Get-ChildItem $ClaudeSkills -Directory | Where-Object {
-    $name = $_.Name
-    # 跳过备份目录和版本化 duplicates
-    $name -notmatch '\.backup\.' -and
-    -not $existing.ContainsKey($name)
-}
-
-# 显示新 skills
-$newSkills | Select-Object Name
-Write-Host "发现 $($newSkills.Count) 个需要同步的新 skills"
-
-# 复制到 monorepo
-foreach ($skill in $newSkills) {
-    $dest = Join-Path $Shared $skill.Name
-    Copy-Item -Path $skill.FullName -Destination $dest -Recurse -Force
-    Write-Host "[OK] $($skill.Name)"
-}
-
-# 安装 symlink
-powershell -ExecutionPolicy Bypass -File (Join-Path $Monorepo "install.ps1")
+powershell -ExecutionPolicy Bypass -File \\Mac\Home\skills-monorepo\shared\skills-monorepo-manager\scripts\sync-windows-skills.ps1
 ```
 
-**同步后的 GitHub 推送**:
+脚本自动完成：跳过 `.backup.*`、跳过 monorepo 已有的同名 skill、从 Claude Code 和 Codex 两处收集独有 skill、复制进 `shared/`、末尾自动调用 `install.ps1` 重建 Windows symlink。
+
+**同步后推送**（macOS 端）：
+
 ```bash
 cd ~/skills-monorepo
 git add -A
 git commit -m "sync: 从 Windows 同步 N 个新 skills"
-# 尝试推送，若网络不通则用 API
-git push origin main 2>&1 || github_api_push
+push_to_git   # 见第 7 节
 ```
 
 ---
 
-### 2. 添加（add）—— 添加新 skill
+### 2. 添加（add）
 
-**场景**: 用户说"添加一个叫 xxx 的 skill" 或有新的 skill 目录要加入。
+**场景**：用户说「添加一个叫 xxx 的 skill」或有新 skill 目录要加入。
 
 ```bash
-# 1. 复制到 monorepo
+# 1. 复制到 monorepo（全局放 shared/，项目级放 project/）
 cp -r /path/to/new-skill ~/skills-monorepo/shared/
-# 或如果是项目级 skill
-cp -r /path/to/project-skill ~/skills-monorepo/project/
 
-# 2. 安装 symlink
+# 2. 安装 symlink（macOS）
 bash ~/skills-monorepo/install.sh
 
 # 3. 验证
-ls ~/.codex/skills/new-skill/
-ls ~/.claude/skills/new-skill/
+ls -la ~/.codex/skills/new-skill ~/.claude/skills/new-skill
 
-# 4. 提交到 git
+# 4. 提交推送
 cd ~/skills-monorepo
 git add shared/new-skill/
 git commit -m "add: new-skill - 简要描述"
-git push origin main 2>&1 || github_api_push
-# 如果 push 失败，提示用户在终端手动 git push
+push_to_git
 ```
+
+> 提醒用户：Windows 端也需要跑 `install.ps1` 才能看到新 skill。
 
 ---
 
-### 3. 删除（delete）—— 删除 skill
+### 3. 删除（delete）—— 带护栏 + 必须确认
 
-**场景**: 用户说"删除 xxx skill"。
+**场景**：用户说「删除 xxx skill」。
+
+**铁律（CLAUDE.md 权限红线）**：禁止 `rm -rf`。删除前必须①校验 skill 名非空且路径在 monorepo 下，②**列出 skill 内容与用户确认要删哪些**，③用 `rm -r`（非 `-rf`）或 `git rm -r`。
 
 ```bash
-# 1. 确认要删除的 skill 存在
-ls ~/skills-monorepo/shared/skill-name/
+SKILL=skill-name
+TARGET="$HOME/skills-monorepo/shared/$SKILL"
 
-# 2. 删除
-rm -rf ~/skills-monorepo/shared/skill-name/
+# ① 护栏：skill 名非空 + 路径在 monorepo 下
+[ -n "$SKILL" ] || { echo "[!] skill 名为空，中止"; exit 1; }
+REAL="$(cd "$TARGET" 2>/dev/null && pwd)" || { echo "[!] 不存在: $TARGET"; exit 1; }
+case "$REAL" in
+  "$HOME/skills-monorepo"/shared/*|"$HOME/skills-monorepo"/project/*) : ;;
+  *) echo "[!] 拒绝：路径越出 monorepo: $REAL"; exit 1 ;;
+esac
 
-# 3. 更新 symlink（重新安装会清理不存在的）
+# ② 列出内容，向用户确认（agent 用 AskUserQuestion 或文字确认，得到明确「删」才继续）
+echo "[i] 将删除: $REAL"; ls -la "$REAL"
+
+# ③ 确认后执行（rm -r，不是 -rf）
+rm -r "$REAL"
+
+# ④ 更新 symlink（install.sh 末尾会清理这个 skill 留下的死链）
 bash ~/skills-monorepo/install.sh
 
-# 4. 提交
+# ⑤ 提交推送
 cd ~/skills-monorepo
-git rm -r shared/skill-name/
-git commit -m "remove: skill-name"
-git push origin main 2>&1 || github_api_push
+git rm -r "shared/$SKILL"
+git commit -m "remove: $SKILL"
+push_to_git
 ```
 
 ---
 
-### 4. 修改（modify）—— 修改已有 skill
+### 4. 修改（modify）
 
-**场景**: 用户说"修改 xxx skill 的 SKILL.md" 或 "更新 xxx skill"。
+**场景**：用户说「修改 xxx skill 的 SKILL.md」或「更新 xxx skill」。
+
+**单文件编辑**（首选，最精准）：
 
 ```bash
-# 直接编辑 monorepo 中的文件
-vim ~/skills-monorepo/shared/skill-name/SKILL.md
-# 或替换整个 skill 目录
-rm -rf ~/skills-monorepo/shared/skill-name/
-cp -r /path/to/updated-skill/ ~/skills-monorepo/shared/skill-name/
+# 直接编辑 monorepo 中的文件（各客户端 symlink 即时生效）
+"${EDITOR:-vi}" ~/skills-monorepo/shared/skill-name/SKILL.md
+```
 
-# 提交
+**整目录替换**（仅当确实要整体替换时，套用与 delete 相同的护栏，先确认再 `rm -r` + `cp -r`）：
+
+```bash
+SKILL=skill-name
+TARGET="$HOME/skills-monorepo/shared/$SKILL"
+# 同 delete 的 ①②护栏 + 确认
+rm -r "$TARGET"
+cp -r /path/to/updated-skill/ "$TARGET"
+```
+
+```bash
 cd ~/skills-monorepo
 git add shared/skill-name/
 git commit -m "update: skill-name - 更新说明"
-git push origin main 2>&1 || github_api_push
+push_to_git
 ```
 
 ---
 
-### 5. 查找（find）—— 查找 skill
-
-**场景**: 用户说"查找 xxx skill" 或 "有没有关于 xxx 的 skill"。
+### 5. 查找（find）
 
 ```bash
-# 按名称搜索
+# 按名称
 ls ~/skills-monorepo/shared/ | grep -i keyword
 
-# 按描述搜索（从 SKILL.md 中找）
+# 按 SKILL.md 描述
 grep -rl "keyword" ~/skills-monorepo/shared/*/SKILL.md 2>/dev/null
 
-# 按文件内容搜索
+# 按文件内容
 grep -rl "keyword" ~/skills-monorepo/shared/*/ --include="*.md" 2>/dev/null
 
-# 查看 skill 详情
-head -10 ~/skills-monorepo/shared/skill-name/SKILL.md
+# 查看详情
+head -20 ~/skills-monorepo/shared/skill-name/SKILL.md
 ```
 
 ---
 
 ### 6. 安装（install）—— 安装/更新 symlink
 
-**场景**: 用户说"安装 skills" 或 "更新 symlink"。
+**macOS**：
 
-**macOS**:
 ```bash
 bash ~/skills-monorepo/install.sh
+# 脚本末尾自动清理各入口的死链（monorepo 里已删 skill 留下的断链）
 ```
 
-**Parallels Windows**（让用户在 Windows 执行）:
+**Parallels Windows**（让用户在 Windows 执行）：
+
 ```powershell
 powershell -ExecutionPolicy Bypass -File \\Mac\Home\skills-monorepo\install.ps1
 ```
 
-**验证安装**:
-```bash
-# macOS
-readlink ~/.agents/skills
-ls ~/.codex/skills/ | wc -l
-ls ~/.claude/skills/ | wc -l
-
-# Windows（在 CMD/PowerShell 中）
-dir %USERPROFILE%\.agents\skills
-dir %USERPROFILE%\.codex\skills | find /c "<DIR>"
-dir %USERPROFILE%\.claude\skills | find /c "<DIR>"
-```
+**验证**：跑 `bash scripts/status.sh`，看各入口「已装 / 应装」是否对齐、有无死链。
 
 ---
 
-### 7. GitHub 推送辅助（github_api_push）
+### 7. GitHub 推送辅助（push_to_git，默认 gh CLI）
 
-**场景**: 沙箱环境无法直连 github.com，需要用 GitHub API。
+**所有操作的推送统一调用此函数**（替代旧的空壳 `github_api_push`）。策略：先 `git push`，失败则用 `gh auth setup-git` 注入凭据后重试；再失败提示用户手动推。
 
 ```bash
-# haPushToGitHub(){
-#   local token="$1"  # 需要用户提供
-#   local repo="$2"   # Joseph2Young/skills-monorepo
-#   local msg="$3"    # commit message
-#   
-#   base64 -i install.ps1 | tr -d '\n'
-#   # 用 GitHub Contents API 推送关键文件
-#   curl -s -X PUT \
-#     -H "Authorization: token $token" \
-#     -H "Accept: application/vnd.github.v3+json" \
-#     "https://api.github.com/repos/$repo/contents/path/to/file" \
-#     -d "{\"message\":\"$msg\",\"content\":\"$b64\",\"sha\":\"$sha\",\"branch\":\"main\"}"
-# }
-```
-
-**常规推送（用户终端）**: 如果 agent 推不动，提示用户在自己的终端执行：
-```bash
-cd ~/skills-monorepo
-git push origin main
+push_to_git() {
+  cd ~/skills-monorepo || return 1
+  if git push origin main 2>&1; then
+    echo "[✓] 推送成功"
+    return 0
+  fi
+  echo "[!] git push 失败，尝试用 gh CLI 认证后重试..."
+  if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
+    gh auth setup-git && git push origin main && { echo "[✓] gh 重试成功"; return 0; }
+  fi
+  echo "[!] 自动推送失败。请在终端手动执行：cd ~/skills-monorepo && git push origin main"
+  return 1
+}
 ```
 
 ---
 
 ## 完整工作流示例
 
-### 用户说"同步 Windows 的 skills 到 monorepo"
+### 「同步 Windows 的 skills 到 monorepo」
 
-1. 检查 monorepo 是否存在 → `ls ~/skills-monorepo/`
-2. 确认当前是 macOS 还是 Windows
-3. 如果当前是 macOS：
-   - 告诉用户需要在 Windows 上执行同步脚本
-   - 提供 Windows PowerShell 命令
-4. 等待用户确认执行完毕
-5. 从 macOS 侧验证新 skills 已出现 → `ls ~/skills-monorepo/shared/`
-6. 检查 `jq-full-optimizer` 是否从 shared/ 移到了 project/
-7. 运行 `bash ~/skills-monorepo/install.sh` 更新 macOS symlink
-8. git add → commit → push
+1. macOS 端先检测 Parallels Windows（见第 1 节退化判断）；没有就直接退化、告知用户跳过。
+2. 有的话，让用户在 Windows 跑 `sync-windows-skills.ps1`。
+3. 等用户确认执行完毕。
+4. macOS 侧验证：`ls ~/skills-monorepo/shared/`（新 skill 已出现）。
+5. 跑 `install.sh` 更新 macOS symlink。
+6. `git add → commit → push_to_git`。
 
-### 用户说"添加一个新 skill"
+### 「添加一个新 skill」
 
-1. 确认 skill 名称和来源
-2. 决定是 shared（全局）还是 project（项目级）
-3. 复制到对应目录
-4. 运行 `install.sh`
-5. 验证 symlink
-6. git add → commit → push
-7. 告知用户 Windows 上也需要跑 `install.ps1`
+1. 确认 skill 名称和来源。
+2. 决定 shared（全局）还是 project（项目级）。
+3. 复制到对应目录 → `install.sh` → `status.sh` 验证 → git 提交推送。
+4. 提醒用户 Windows 端跑 `install.ps1`。
 
-### 用户说"查找关于回测的 skill"
+### 「查找关于回测的 skill」
 
 1. `ls ~/skills-monorepo/shared/ | grep -i backtest`
-2. `grep -rl -i "backtest\|回测" ~/skills-monorepo/shared/*/SKILL.md 2>/dev/null`
-3. 显示匹配的 skills 列表和简短描述
-4. 如果用户想查看详情，`head -20 shared/skill-name/SKILL.md`
+2. `grep -rl -i "backtest\|回测" ~/skills-monorepo/shared/*/SKILL.md`
+3. 展示匹配列表 + 简短描述，需要详情再 `head -20`。
+
+---
 
 ## 注意事项
 
-- **文件权限**: monorepo 目录在 `~/skills-monorepo/`，可能不在沙箱可写范围内，需要用 `require_escalated`
-- **网络限制**: 沙箱可能阻止出站 HTTPS，`git push` 失败时用 GitHub API 或提示用户手动执行
-- **Windows 路径**: 通过 Parallels 共享文件夹 `\\Mac\Home\skills-monorepo` 访问
-- **版本化 skills**: `skill-name` vs `skill-name-1.0.0` 是同一 skill 的不同版本，只保留最新的
-- **备份目录**: `.backup.*` 后缀的目录是自动备份，不需要同步到 monorepo
-- **项目级 skill**: 属于特定工作区的 skill 放 `project/`（如 `jq-full-optimizer`、`sop-factory`）
-- **.system 目录**: `~/.codex/skills/.system/` 是 Codex 内置系统 skill，不纳入管理
+- **文件权限**：monorepo 在 `~/skills-monorepo/`，沙箱不可写时用提权；写入受限时**不要**越过报错强推，按「错误降级策略」汇报。
+- **网络限制**：沙箱可能阻止出站 HTTPS。`git push` 失败走 `push_to_git`（gh 重试）；仍失败则**提示用户手动**，不要静默吞错。
+- **Windows 路径**：通过 Parallels 共享文件夹 `\\Mac\Home\skills-monorepo` 访问；本机无 Parallels 时退化、跳过 Windows 同步。
+- **删除红线**：禁止 `rm -rf`；删除/整体替换必须走第 3 节护栏（非空校验 + 路径在 monorepo 下 + 用户确认 + `rm -r`/`git rm -r`）。
+- **版本化 skills**：`skill-name` 与 `skill-name-1.0.0` 是同一 skill 的不同版本。规则是**带版本号的视为新版优先保留**，无版本号的同名 bare 目录视为旧版；`sync-windows-skills.ps1` 内置跳过表（brainstorming/executing-plans/frontend-design/skill-creator/writing-plans）即此规则的实例，新增版本化 skill 时更新该表。
+- **备份目录**：`.backup.*` 后缀是 install 时自动备份，**不纳入** monorepo、不提交 git。
+- **全局 vs 项目级**：`shared/` 放所有客户端共用的 skill；`project/` 仅放只属于某个工作区的 skill。当前 `jq-full-optimizer`、`sop-factory` 均为**全局共用**（在 shared/），`project/` 为空——勿再误当作项目级处理。
+- **.system 目录**：`~/.codex/skills/.system/` 是 Codex 内置系统 skill，**绝不**纳入管理。
+- **WORKSPACE**：项目级默认 `~/Desktop/量化投资程序`，可用 `WORKSPACE=/path bash install.sh` 覆盖；不存在则自动跳过项目级（不报错）。

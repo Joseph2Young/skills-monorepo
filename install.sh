@@ -79,9 +79,9 @@ else
   warn "~/.workbuddy/skills 不存在，跳过（WorkBuddy 未安装？）"
 fi
 
-# 5. 项目级
+# 5. 项目级（WORKSPACE 可用环境变量覆盖；不存在则跳过）
 echo "--- 项目级 skills ---"
-WORKSPACE="$HOME/Desktop/量化投资程序"
+WORKSPACE="${WORKSPACE:-$HOME/Desktop/量化投资程序}"
 if [ -d "$WORKSPACE" ]; then
   mkdir -p "$WORKSPACE/.agents/skills" "$WORKSPACE/skills"
   for skill_dir in "$PROJECT"/*/; do
@@ -90,6 +90,8 @@ if [ -d "$WORKSPACE" ]; then
     safe_symlink "$skill_dir" "$WORKSPACE/.agents/skills/$skill_name"
     safe_symlink "$skill_dir" "$WORKSPACE/skills/$skill_name"
   done
+else
+  warn "项目工作区不存在: $WORKSPACE（跳过项目级 skills；可用 WORKSPACE=... 覆盖）"
 fi
 
 # 6. ~/.kimi-code/skills 用户级
@@ -109,6 +111,27 @@ for skill_dir in "$SHARED"/*/; do
   [[ "$skill_name" == .* || "$skill_name" == *.backup.* ]] && continue
   safe_symlink "$skill_dir" "$HOME/.kimi/skills/$skill_name"
 done
+
+# 8. 清理断链（monorepo 中已删除的 skill 在各入口留下的死 symlink）
+echo "--- 清理断链 ---"
+cleanup_deadlinks() {
+  local dir="$1"
+  [ -d "$dir" ] || return 0
+  # find -type l 只列 symlink，避免 glob 不匹配时传入字面量
+  while IFS= read -r -d '' link; do
+    [ -e "$link" ] && continue   # 目标存在，正常 symlink
+    warn "清理死链: $link"
+    rm "$link"
+  done < <(find "$dir" -mindepth 1 -maxdepth 1 -type l -print0)
+}
+for entry in "$HOME/.codex/skills" "$HOME/.claude/skills" "$HOME/.workbuddy/skills" "$HOME/.kimi-code/skills" "$HOME/.kimi/skills"; do
+  cleanup_deadlinks "$entry"
+done
+WS_DEFAULT="${WORKSPACE:-$HOME/Desktop/量化投资程序}"
+if [ -d "$WS_DEFAULT" ]; then
+  cleanup_deadlinks "$WS_DEFAULT/.agents/skills"
+  cleanup_deadlinks "$WS_DEFAULT/skills"
+fi
 
 echo "============================================================"
 echo "  完成！共享: $(ls "$SHARED" | wc -l | tr -d ' ') 个 | 项目: $(ls "$PROJECT" 2>/dev/null | wc -l | tr -d ' ') 个"

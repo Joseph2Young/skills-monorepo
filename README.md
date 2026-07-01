@@ -6,13 +6,16 @@
 
 ```
 ~/skills-monorepo/
-├── shared/          # Codex + Claude Code 共用的 skills（79个）
-├── project/         # 项目级 skills（如 sop-factory）
+├── shared/          # 全局 skills，所有客户端共用（81个）
+├── project/         # 项目级 skills（仅挂到指定工作区，当前为空）
 ├── codex-system/    # Codex 内置 skills 的备份（仅供参考，不由本仓库管理）
-├── install.sh       # macOS 一键安装
-├── install.ps1      # Parallels Windows 一键安装
+├── install.sh       # macOS symlink 安装（末尾含死链清理）
+├── install.ps1      # Parallels Windows symlink 安装
 ├── uninstall.sh     # macOS 卸载
-└── README.md
+├── README.md
+└── shared/skills-monorepo-manager/scripts/
+    ├── status.sh                 # macOS 状态体检（只读）
+    └── sync-windows-skills.ps1   # Windows → monorepo 同步
 ```
 
 ## 工作原理
@@ -25,7 +28,9 @@
 | ~/.codex/skills/{skill}/ | 逐个 symlink | -> monorepo/shared/{skill}/ | Codex 专属（不动 .system/） |
 | ~/.claude/skills/{skill}/ | 逐个 symlink | -> monorepo/shared/{skill}/ | Claude Code 专属 |
 | ~/.workbuddy/skills/{skill}/ | 逐个 symlink | -> monorepo/shared/{skill}/ | WorkBuddy（守护模式：仅当 ~/.workbuddy 存在才挂，跳过 builtin 真目录） |
-| 项目 .agents/skills/{skill}/ | 逐个 symlink | -> monorepo/project/{skill}/ | 项目级 |
+| ~/.kimi-code/skills/{skill}/ | 逐个 symlink | -> monorepo/shared/{skill}/ | Kimi |
+| ~/.kimi/skills/{skill}/ | 逐个 symlink | -> monorepo/shared/{skill}/ | Kimi 旧目录兼容 |
+| 项目 .agents/skills/{skill}/ | 逐个 symlink | -> monorepo/project/{skill}/ | 项目级（$WORKSPACE，默认 ~/Desktop/量化投资程序） |
 | 项目 skills/{skill}/ | 逐个 symlink | -> monorepo/project/{skill}/ | 项目级 |
 
 ~/.codex/skills/.system/ 是 Codex 内置目录，不纳入管理。
@@ -33,8 +38,16 @@
 ## macOS 安装
 
 ```bash
-bash ~/skills-monorepo/install.sh
+bash ~/skills-monorepo/install.sh   # 末尾自动清理各入口死链
 ```
+
+## 状态体检（只读诊断）
+
+```bash
+bash ~/skills-monorepo/shared/skills-monorepo-manager/scripts/status.sh
+```
+
+输出：各入口已装/缺失/死链、Parallels Windows 检测、gh/git 状态。本机无 Parallels Windows 时，Windows 同步自动退化。
 
 ## Parallels Windows 安装
 

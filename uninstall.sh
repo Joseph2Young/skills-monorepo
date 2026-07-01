@@ -38,13 +38,29 @@ if [ -d "$HOME/.workbuddy/skills" ]; then
   done
 fi
 
-# 5. 项目级
-WORKSPACE="$HOME/Desktop/量化投资程序"
-for item in "$WORKSPACE/.agents/skills"/*/; do
-  [ -L "${item%/}" ] && remove_symlink "${item%/}"
-done
-for item in "$WORKSPACE/skills"/*/; do
-  [ -L "${item%/}" ] && remove_symlink "${item%/}"
-done
+# 5. ~/.kimi-code/skills
+if [ -d "$HOME/.kimi-code/skills" ]; then
+  for item in "$HOME/.kimi-code/skills"/*/; do
+    [ -L "${item%/}" ] && remove_symlink "${item%/}"
+  done
+fi
+
+# 6. ~/.kimi/skills（旧版 Kimi 兼容）
+if [ -d "$HOME/.kimi/skills" ]; then
+  for item in "$HOME/.kimi/skills"/*/; do
+    [ -L "${item%/}" ] && remove_symlink "${item%/}"
+  done
+fi
+
+# 7. 项目级（WORKSPACE 可用环境变量覆盖；不存在则跳过）
+WORKSPACE="${WORKSPACE:-$HOME/Desktop/量化投资程序}"
+if [ -d "$WORKSPACE" ]; then
+  for item in "$WORKSPACE/.agents/skills"/*/; do
+    [ -L "${item%/}" ] && remove_symlink "${item%/}"
+  done
+  for item in "$WORKSPACE/skills"/*/; do
+    [ -L "${item%/}" ] && remove_symlink "${item%/}"
+  done
+fi
 
 echo "卸载完成。如需恢复，运行: bash ~/skills-monorepo/install.sh"
