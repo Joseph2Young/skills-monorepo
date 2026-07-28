@@ -116,14 +116,14 @@ WorkBuddy 内调用方必须二选一:
 4. **回测时间 > 1h**：主人规则 (2026-07-28)，轮询超时 1 小时强制终止
 5. **路径含空格**："vibe quant" 必须用双引号
 6. **BT3 类策略**：缺私库的策略直接放弃，不要等
-7. **Sharpe 过度拟合**: Sharpe >= 3.0 视为过度拟合，主人规则 (2026-07-28) 跳过
+7. **Sharpe 太低**: Sharpe <= 0.8 视为低质策略，主人规则 (2026-07-28) 跳过
 
 ## 关键约束 (主人规则 2026-07-28)
 
 - **每天独立完整任务**: 每日 automation 触发后, agent 跑完整 step 1-6, 不跨天接续
 - **不用 launchd daemon**: 不安装后台服务, 完全靠 agent 任务窗口
 - **step 4 用 run_in_background + TaskOutput**: agent 启动 step4_poll.py 后台跑, 用 TaskOutput 轮询输出, **超时 1 小时 (3600s) 强制终止**
-- **Sharpe 过滤**: `1 < sharpe < 3` (避免过度拟合), 不在此范围的策略不生成 markdown
+- **Sharpe 过滤**: `sharpe > 0.8` (主人规则 2026-07-28)
 - **WorkBuddy 严格模式**: 必须用 MCP 连接器 (ima-mcp), 禁止降级 HTTPS API. 设 `WORKBUDDY_REQUIRE_CONNECTOR=1`
 
 ## 安装步骤
