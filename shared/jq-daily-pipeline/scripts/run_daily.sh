@@ -6,11 +6,19 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JQS="${JQS:-/Users/ytf/Library/Python/3.9/bin/jqcli}"  # 可 export JQS=... 覆盖
 export PATH="$(dirname $JQS):$PATH"
+
+# WorkBuddy 规则: 必须使用 IMA 连接器, 禁止降级到 HTTPS
+# 非 WorkBuddy 环境 (CI/手动/非 workbuddy agent) 可设 IMA_ALLOW_HTTPS=1 关闭
+if [ "${IMA_ALLOW_HTTPS:-0}" != "1" ]; then
+  export WORKBUDDY_REQUIRE_CONNECTOR=1
+fi
+
 LOG="/tmp/jq_daily_$(date +%Y%m%d).log"
 
 mkdir -p /tmp/jq_codes /tmp/jq_uploads
 exec > "$LOG" 2>&1
 echo "==== jq-daily-pipeline start $(date) ===="
+echo "WorkBuddy 严格模式: WORKBUDDY_REQUIRE_CONNECTOR=${WORKBUDDY_REQUIRE_CONNECTOR:-0}"
 
 # Step 1
 echo ""

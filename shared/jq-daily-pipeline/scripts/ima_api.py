@@ -221,49 +221,92 @@ _mode: str = ""
 
 def detect_client(prefer: str = "auto") -> IMAClient:
     """智能检测可用的 IMA 客户端
-    
+
+    优先级链 (auto 模式):
+      1. MCP 连接器 (IMA_MCP_CALLBACK)        ← WorkBuddy 默认首选
+      2. 外部 connector 脚本 (IMA_CONNECTOR)
+      3. PATH 里的 ima-connector 命令
+      4. (workbuddy_strict=True 时) 报错退出, 不允许降级
+      5. (workbuddy_strict=False 时) 降级到 HTTPS API (ima skills)
+
     prefer:
-      - "auto"   : 按优先级自动检测 (connector > MCP > direct)
-      - "connector": 强制 connector
-      - "direct" : 强制直接 HTTPS
+      - "auto"      : 按上述优先级自动检测
+      - "connector" : 强制 connector/MCP, 没就报错
+      - "direct"    : 强制直接 HTTPS (无视 workbuddy_strict)
+
+    WorkBuddy 严格模式:
+      设了环境变量 WORKBUDDY_REQUIRE_CONNECTOR=1 后, 若未检测到 MCP/connector
+      会抛出 RuntimeError, 禁止降级到 HTTPS。这是为了确保 WorkBuddy 内永远
+      走连接器, 避免 HTTPS API 凭证问题。
     """
     global _client, _mode
-    
+
     if _client is not None:
         return _client
-    
-    # 0. 强制模式
+
+    # 强制 HTTPS 模式 (绕过 workbuddy_strict)
     if prefer == "direct":
         _client = DirectIMAClient()
         _mode = "direct"
         return _client
-    
-    # 1. 优先: 环境变量 IMA_CONNECTOR
-    if connector := os.environ.get("IMA_CONNECTOR"):
-        if Path(connector).exists():
-            _client = ConnectorIMAClient([connector])
-            _mode = f"connector:{connector}"
-            return _client
-    
-    # 2. PATH 里的命令
-    if cmd := shutil.which("ima-connector"):
-        _client = ConnectorIMAClient([cmd])
-        _mode = f"connector-cmd:{cmd}"
+
+    workbuddy_strict = os.environ.get(
+        "WORKBUDDY_REQUIRE_CONNECTOR", ""
+    ).lower() in ("1", "true", "yes")
+
+    def _load_mcp() -> Optional[IMAClient]:
+        spec_path = os.environ.get("IMA_MCP_CALLBACK")
+        if not spec_path:
+            return None
+        try:
+            import importlib.util
+            spec = importlib.util.spec_from_file_location("mcp_cb", spec_path)
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            return MCPIMAClient(mod.call_mcp)
+        except Exception as e:
+            if workbuddy_strict:
+                raise RuntimeError(
+                    f"❌ MCP callback 加载失败 (workbuddy_strict 模式不允许降级): {e}"
+                ) from e
+            return None
+
+    def _load_connector() -> Optional[IMAClient]:
+        # 环境变量指向 connector 脚本
+        if connector := os.environ.get("IMA_CONNECTOR"):
+            if Path(connector).exists():
+                return ConnectorIMAClient([connector])
+        # PATH 里的命令
+        if cmd := shutil.which("ima-connector"):
+            return ConnectorIMAClient([cmd])
+        return None
+
+    # 1. MCP 连接器 (最高优先级)
+    if client := _load_mcp():
+        _client = client
+        _mode = f"mcp:{os.environ['IMA_MCP_CALLBACK']}"
         return _client
-    
-    # 3. MCP (需要 agent 显式注入 call_mcp 回调)
-    if os.environ.get("IMA_MCP_CALLBACK"):
-        # agent 注册了 MCP callback
-        import importlib.util
-        spec_path = os.environ["IMA_MCP_CALLBACK"]
-        spec = importlib.util.spec_from_file_location("mcp_cb", spec_path)
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-        _client = MCPIMAClient(mod.call_mcp)
-        _mode = f"mcp:{spec_path}"
+
+    # 2-3. 外部 connector
+    if client := _load_connector():
+        _client = client
+        if os.environ.get("IMA_CONNECTOR"):
+            _mode = f"connector:{os.environ['IMA_CONNECTOR']}"
+        else:
+            _mode = f"connector-cmd:{shutil.which('ima-connector')}"
         return _client
-    
-    # 4. 降级: 直接 HTTPS
+
+    # 4. WorkBuddy 严格模式: 没 connector/MCP 就报错, 禁止降级
+    if workbuddy_strict:
+        raise RuntimeError(
+            "❌ WorkBuddy 内必须使用 IMA 连接器, 但当前没检测到任何连接器。\n"
+            "请二选一:\n"
+            "  1) 启用 ima-mcp MCP 服务 + 设置 IMA_MCP_CALLBACK=<wrapper_path>\n"
+            "  2) 设置 IMA_CONNECTOR=<脚本路径> 或安装 ima-connector CLI\n"
+            "如在非 WorkBuddy 环境运行, 取消 WORKBUDDY_REQUIRE_CONNECTOR 即可降级到 HTTPS API。"
+        )
+
+    # 5. 降级: HTTPS API (ima skills 模式)
     _client = DirectIMAClient()
     _mode = "direct"
     return _client

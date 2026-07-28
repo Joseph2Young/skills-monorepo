@@ -73,18 +73,27 @@ metadata:
 | 入库查重 | 按年度 |
 | **命名格式** | **`{年份}_{类型编号}_{类型简称}_{原标题核心}.md`** |
 
-## IMA 接口（智能降级）
+## IMA 接口（智能降级 + WorkBuddy 强制连接器）
 
-**绝不依赖 MCP 或 ima-skill**。3 层降级策略（`scripts/ima_api.py`）：
+**WorkBuddy 内强制走连接器, 不允许降级到 HTTPS**。4 层连接器 + 1 个降级：
 
 ```
-优先级 1: 环境变量 IMA_CONNECTOR (脚本路径) → 用 connector 调
-优先级 2: PATH 里的 `ima-connector` 命令 → 用命令调
-优先级 3: 环境变量 IMA_MCP_CALLBACK (Python 文件) → 用 agent 注入的 MCP
-降级默认: 直接 HTTPS (X-IMA-CLIENTID/APIKEY headers) ✨
+优先级 1: 环境变量 IMA_MCP_CALLBACK (Python 文件) → MCP 连接器  ← WorkBuddy 默认首选
+优先级 2: 环境变量 IMA_CONNECTOR (脚本路径)        → connector 脚本
+优先级 3: PATH 里的 `ima-connector` 命令           → connector 命令
+优先级 4: 环境变量 WORKBUDDY_REQUIRE_CONNECTOR=1 时, 没 connector/MCP 就报错退出
+优先级 5: (默认) 降级到直接 HTTPS (ima-openapi-clientid/apikey headers)
 ```
 
-无需任何 connector 即可工作。详见 `references/connectors.md`。
+详见 `references/connectors.md`。
+
+### 重要: WorkBuddy 内必须用连接器
+
+设了 `WORKBUDDY_REQUIRE_CONNECTOR=1` 后, 脚本检测不到任何 connector/MCP 时会**直接报错退出**, 不会降级到 HTTPS。这是 WorkBuddy 的强制规则, 防止 HTTPS API 凭证问题导致流水线失败。
+
+WorkBuddy 内调用方必须二选一:
+- **MCP 优先**: 启用 `ima-mcp` MCP 服务 + 设置 `IMA_MCP_CALLBACK=<wrapper_path>`
+- **Connector 备选**: 安装 `ima-connector` CLI, 或设置 `IMA_CONNECTOR=<脚本路径>`
 
 ## 分类逻辑
 
