@@ -1,36 +1,33 @@
 #!/bin/bash
-# 聚宽每日策略扫描 → IMA 入库 主入口
-# 由 Codex agent 内的定时任务每天 09:00 触发
+# 聚宽每日策略流水线 - 纯 jqcli 部分 (step 1, 3, 4, 5)
+# 由 daily 9:00 automation 触发, 在 agent 任务窗口里跑
+#
+# 工作流 (agent 任务窗口完整流程):
+#   1. agent 跑 step1_filter.py             (jqcli 拉候选)
+#   2. agent 用 MCP get_knowledge_list 查重  ← 不在这个脚本里
+#   3. agent 写 /tmp/jq_dedup_result.json    ← 不在这个脚本里
+#   4. run_daily.sh 跑 step 3 克隆 + step 4 回测阻塞 + step 5 生成 markdown
+#   5. agent 用 MCP 上传 markdown            ← 不在这个脚本里
+#
+# 主人规则 (2026-07-28): 每天独立完整任务, 所有 step 跑完, 不跨天接续.
+# WorkBuddy 内不允许降级 HTTPS, step 2 和 step 6 必须 agent 用 MCP 完成.
 
 set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-JQS="${JQS:-/Users/ytf/Library/Python/3.9/bin/jqcli}"  # 可 export JQS=... 覆盖
+JQS="${JQS:-/Users/ytf/Library/Python/3.9/bin/jqcli}"
 export PATH="$(dirname $JQS):$PATH"
 
-# WorkBuddy 规则: 必须使用 IMA 连接器, 禁止降级到 HTTPS
-# 非 WorkBuddy 环境 (CI/手动/非 workbuddy agent) 可设 IMA_ALLOW_HTTPS=1 关闭
-if [ "${IMA_ALLOW_HTTPS:-0}" != "1" ]; then
-  export WORKBUDDY_REQUIRE_CONNECTOR=1
-fi
-
 LOG="/tmp/jq_daily_$(date +%Y%m%d).log"
-
-mkdir -p /tmp/jq_codes /tmp/jq_uploads
 exec > "$LOG" 2>&1
-echo "==== jq-daily-pipeline start $(date) ===="
-echo "WorkBuddy 严格模式: WORKBUDDY_REQUIRE_CONNECTOR=${WORKBUDDY_REQUIRE_CONNECTOR:-0}"
+echo "==== jq-daily-pipeline run_daily.sh start $(date) ===="
+echo "注: step 2 (IMA 查重) 和 step 6 (IMA 上传) 由 agent 用 MCP 完成, 不在这个脚本里"
 
-# Step 1
+# Step 1: 拉候选
 echo ""
 echo "==== Step 1: 拉候选 + 24h 窗口 + 去重 ===="
 python3 "$SCRIPT_DIR/step1_filter.py"
 
-# Step 2
-echo ""
-echo "==== Step 2: IMA 年度查重 ===="
-python3 "$SCRIPT_DIR/step2_ima_dedup.py"
-
-# 检查是否还有候选
+# 检查 dedup_result.json (agent 已经生成)
 REMAINING=$(python3 -c "
 import json
 try:
@@ -43,25 +40,21 @@ if [ "$REMAINING" = "0" ]; then
   exit 0
 fi
 
-# Step 3
+# Step 3: 克隆
 echo ""
 echo "==== Step 3: 克隆 + 拉代码 ===="
 python3 "$SCRIPT_DIR/step3_clone.py"
 
-# Step 4
+# Step 4: 启动回测 + 阻塞等完成 (1-5 小时)
 echo ""
-echo "==== Step 4: 跑回测 + 取 Sharpe ===="
+echo "==== Step 4: 启动回测 + 阻塞等完成 (1-5 小时) ===="
 python3 "$SCRIPT_DIR/step4_backtest.py"
 
-# Step 5
+# Step 5: AI 审查 + 生成 markdown
 echo ""
 echo "==== Step 5: AI 审查 + 生成 markdown ===="
 python3 "$SCRIPT_DIR/step5_review_build.py"
 
-# Step 6
 echo ""
-echo "==== Step 6: 上传 IMA ===="
-python3 "$SCRIPT_DIR/step6_upload.py"
-
-echo ""
-echo "==== 全部完成 $(date) ===="
+echo "==== run_daily.sh 完成 $(date), 等 agent 用 MCP 上传 ===="
+echo "见 /tmp/jq_uploads/*.md"
