@@ -12,7 +12,9 @@ SHARPE_FILE = Path("/tmp/jq_real_sharpe.json")
 REVIEWS_FILE = Path("/tmp/jq_reviews.json")
 UPLOAD_DIR = Path("/tmp/jq_uploads")
 CODES_DIR = Path("/tmp/jq_codes")
-SHARPE_THRESHOLD = 1.0
+# Sharpe 过滤条件: 1 < sharpe < 3 (主人规则 2026-07-28)
+SHARPE_MIN = 1.0
+SHARPE_MAX = 3.0
 
 TYPES = {
     "T01": "趋势跟踪", "T02": "均值回归", "T03": "多因子选股",
@@ -117,11 +119,17 @@ def main():
         review["real_backtest"] = sharpes.get(sid, {})
         reviews[sid] = review
         
-        # 生成 markdown (Sharpe 过滤)
+        # 生成 markdown (Sharpe 过滤: 1 < sharpe < 3)
         real = sharpes.get(sid, {})
         sharpe = real.get("sharpe")
-        if sharpe is None or sharpe < SHARPE_THRESHOLD:
-            print(f"  ❌ {sid} Sharpe={sharpe} 跳过 (<{SHARPE_THRESHOLD})")
+        if sharpe is None:
+            print(f"  ❌ {sid} Sharpe=None 跳过 (无 Sharpe)")
+            continue
+        if sharpe <= SHARPE_MIN:
+            print(f"  ❌ {sid} Sharpe={sharpe:.4f} 跳过 (<={SHARPE_MIN})")
+            continue
+        if sharpe >= SHARPE_MAX:
+            print(f"  ❌ {sid} Sharpe={sharpe:.4f} 跳过 (>={SHARPE_MAX}, 过度拟合)")
             continue
         
         new_name = review["meta"]["ai_new_name"]
