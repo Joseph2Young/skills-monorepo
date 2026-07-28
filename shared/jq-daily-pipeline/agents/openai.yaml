@@ -1,0 +1,4 @@
+interface:
+  display_name: "聚宽每日策略扫描"
+  short_description: "每天扫描过去 24h 聚宽 Top 3 策略，跑 7.5 年回测+AI 审查+入库 IMA"
+  default_prompt: "执行 jq-daily-pipeline skill：扫描过去 24 小时聚宽新发布的最热门 Top 3 策略，跑 7.5 年（2019-01-01 至昨日）回测，Sharpe ≥ 1.0 通过后按聚宽策略审查分类提示词 v1.0 分类（12 大类），按 {年份}_{类型}_{简称}_{标题核心}.md 命名后上传到 IMA 知识库。直接调 bash run_daily.sh 即可。"
