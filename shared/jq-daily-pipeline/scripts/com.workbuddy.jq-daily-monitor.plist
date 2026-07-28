@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.workbuddy.jq-daily-monitor</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-l</string>
+        <string>-c</string>
+        <string>JQS=/opt/miniconda3/bin/jqcli bash /Users/yangjingsong/skills-monorepo/shared/jq-daily-pipeline/scripts/monitor_pipeline.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/yangjingsong/Desktop/量化投资程序</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/miniconda3/bin:/usr/local/bin:/usr/bin:/bin</string>
+        <key>JQS</key>
+        <string>/opt/miniconda3/bin/jqcli</string>
+    </dict>
+
+    <key>StartInterval</key>
+    <integer>300</integer>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/jq_monitor_launchd.out.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/tmp/jq_monitor_launchd.err.log</string>
+</dict>
+</plist>
