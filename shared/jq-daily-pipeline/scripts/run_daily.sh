@@ -4,7 +4,7 @@
 
 set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-JQS="/Users/ytf/Library/Python/3.9/bin/jqcli"  # 改成你电脑上的实际路径
+JQS="${JQS:-/Users/ytf/Library/Python/3.9/bin/jqcli}"  # 可 export JQS=... 覆盖
 export PATH="$(dirname $JQS):$PATH"
 LOG="/tmp/jq_daily_$(date +%Y%m%d).log"
 

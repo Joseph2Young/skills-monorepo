@@ -3,13 +3,14 @@
 Step 1: 拉 30 页 → 过去 24h 窗口 → 名称去重 → Top 3
 """
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime, timedelta
 from difflib import SequenceMatcher
 from pathlib import Path
 
-JQS = "/Users/ytf/Library/Python/3.9/bin/jqcli"  # 可改
+JQS = os.environ.get("JQS", "/Users/ytf/Library/Python/3.9/bin/jqcli")  # 可改或 export JQS=...
 TOP_N = 3
 NAME_SIM_THRESHOLD = 0.80
 WINDOW_HOURS = 24

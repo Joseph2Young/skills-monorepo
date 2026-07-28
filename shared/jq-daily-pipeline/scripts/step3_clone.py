@@ -3,11 +3,12 @@
 Step 3: 克隆 Top 3 + 拉策略代码
 """
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
 
-JQS = "/Users/ytf/Library/Python/3.9/bin/jqcli"
+JQS = os.environ.get("JQS", "/Users/ytf/Library/Python/3.9/bin/jqcli")
 DEDUP_FILE = Path("/tmp/jq_dedup_result.json")
 CODES_DIR = Path("/tmp/jq_codes")
 

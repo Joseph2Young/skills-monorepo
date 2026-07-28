@@ -157,8 +157,8 @@ class DirectIMAClient(IMAClient):
     def call(self, api_path: str, params: Dict[str, Any], timeout: int = 30) -> Dict[str, Any]:
         url = f"{BASE_URL}{api_path}"
         headers = {
-            "X-IMA-CLIENTID": self.client_id,
-            "X-IMA-APIKEY": self.api_key,
+            "ima-openapi-clientid": self.client_id,
+            "ima-openapi-apikey": self.api_key,
             "Content-Type": "application/json",
         }
         r = requests.post(url, headers=headers, json=params, timeout=timeout)

@@ -4,12 +4,13 @@ Step 4: 跑 2019-01-01 ~ T-1 回测 + 取 Sharpe
 """
 import json
 import math
+import os
 import subprocess
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
 
-JQS = "/Users/ytf/Library/Python/3.9/bin/jqcli"
+JQS = os.environ.get("JQS", "/Users/ytf/Library/Python/3.9/bin/jqcli")
 DEDUP_FILE = Path("/tmp/jq_dedup_result.json")
 SHARPE_FILE = Path("/tmp/jq_real_sharpe.json")
 CODES_DIR = Path("/tmp/jq_codes")
