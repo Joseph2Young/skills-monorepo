@@ -14,7 +14,7 @@
 # 主人规则 (2026-07-28):
 #   - 每天独立完整任务, 所有 step 跑完, 不跨天接续
 #   - step 4 launch 后立即返回, 后续 polling 由 agent 用 TaskOutput 跑
-#   - Sharpe 过滤条件: 1 < sharpe < 3
+#   - Sharpe 过滤条件: 0.8 < sharpe <= 3.0 (下限不带等号, 上限带等号)
 #   - WorkBuddy 内不允许降级 HTTPS, step 2 和 step 6 必须 agent 用 MCP 完成
 
 set -e

@@ -1,6 +1,6 @@
 ---
 name: jq-daily-pipeline
-description: 聚宽（JoinQuant）每日热门策略自动扫描 + IMA 入库流水线。每天定时拉取过去 24 小时内聚宽社区新发布的最热门策略 Top 3，跑 7.5 年（2019-01-01 至昨日）回测，筛选 Sharpe ≥ 1.0 的策略，按聚宽策略审查分类提示词 v1.0 进行 12 大分类（趋势跟踪/均值回归/多因子选股/指数增强/事件驱动/资金流向/板块轮动/统计套利/技术形态/ML-AI 选股/波动率策略/成长股策略），按命名规则 `{年份}_{类型编号}_{类型简称}_{原标题核心}.md` 重命名后上传到腾讯 IMA 知识库。使用时机：用户希望搭建或运行聚宽策略自动扫描 + IMA 入库流水线、跨电脑移植该工作流、或调整阈值/命名规则/调度时间。
+description: 聚宽（JoinQuant）每日热门策略自动扫描 + IMA 入库流水线。每天定时拉取过去 24 小时内聚宽社区新发布的最热门策略 Top 3，跑 7.5 年（2019-01-01 至昨日）回测，筛选 0.8 < Sharpe <= 3.0 的策略，按聚宽策略审查分类提示词 v1.0 进行 12 大分类（趋势跟踪/均值回归/多因子选股/指数增强/事件驱动/资金流向/板块轮动/统计套利/技术形态/ML-AI 选股/波动率策略/成长股策略），按命名规则 `{年份}_{T编号}_{T简称}_{作者}_{标题核心}_s{Sharpe.2f}.md` 重命名后上传到腾讯 IMA 知识库。使用时机：用户希望搭建或运行聚宽策略自动扫描 + IMA 入库流水线、跨电脑移植该工作流、或调整阈值/命名规则/调度时间。
 metadata:
   short-description: 聚宽策略每日扫描 + IMA 自动入库
 ---
@@ -28,7 +28,7 @@ metadata:
 2. step2_ima_dedup.py      按年度查重 IMA → 过滤已入库
 3. step3_clone.py          克隆 Top 3 + 拉策略代码
 4. step4_backtest.py       跑 2019-01-01 ~ T-1 回测
-5. step5_review_build.py   AI 审查 + 生成 markdown (阈值 Sharpe ≥ 1.0)
+5. step5_review_build.py   AI 审查 + 生成 markdown (阈值 0.8 < Sharpe <= 3.0)
 6. step6_upload.py         上传到 IMA 当年文件夹
 ```
 
@@ -130,7 +130,7 @@ WorkBuddy 内调用方必须二选一:
 
 1. **积分耗尽**：回测会卡在 37%，需充值或等免费队列
 2. **私库依赖**（`from jqmt import *`）：克隆不带私库，回测必失败
-3. **IMA 无删除 API**：命名规则确定后别轻易改
+3. **IMA 无删除 / rename API**: 命名规则调整后, **存量条目按新规则走 IMA 重传** (旧条目留作历史)。IMA 上会同时存在新旧两种命名的同策略 markdown, 这是正常的。批量整理可参考 `IMA_策略重命名提示词.md` (在主项目目录)。
 4. **回测时间 > 1h**：主人规则 (2026-07-28)，轮询超时 1 小时强制终止
 5. **路径含空格**："vibe quant" 必须用双引号
 6. **BT3 类策略**：缺私库的策略直接放弃，不要等
@@ -139,12 +139,13 @@ WorkBuddy 内调用方必须二选一:
 9. **step4_poll.py check_sharpe 崩溃 (2026-07-29 修复)**: jqcli `backtest show` 在 running 状态时 `metrics` 字段是**空 list 不是 dict**，原版 `metrics.get("sharpe")` 直接抛 `AttributeError`。脚本已修：先看 `status=="running"` 短路返回 running；metrics 非 dict 也按 running 处理。如果轮询突然死在第一行 AttributeError，多半是这个坑回潮。
 10. **step5_review_build.py author 字段兼容 (2026-07-29 修复)**: `/tmp/jq_dedup_result.json` 的 `top3_after_dedup` 候选中 `author` 在 `step1_filter.py` 原始输出里是 dict (`{id, name}`)，但 agent 在 step2 手动生成的简化版用的是 `author_name` 平铺字段。原脚本 `c["author"]["name"]` 在简化版上 KeyError。已修：build_review 兼容 dict 和 `author_name` 两种形态。WorkBuddy 内 agent 自己跑 step2 时务必走平铺简化版（节省 MCP 查重调用次数），脚本不能假设上游格式。
 
-## 关键约束 (主人规则 2026-07-28)
+## 关键约束 (主人规则 2026-07-28 / 2026-07-29)
 
 - **每天独立完整任务**: 每日 automation 触发后, agent 跑完整 step 1-6, 不跨天接续
 - **不用 launchd daemon**: 不安装后台服务, 完全靠 agent 任务窗口
 - **step 4 用 run_in_background + TaskOutput**: agent 启动 step4_poll.py 后台跑, 用 TaskOutput 轮询输出, **超时 1 小时 (3600s) 强制终止**
 - **Sharpe 过滤**: `0.8 < sharpe <= 3.0` (下限不带等号, 上限带等号)
+- **入库命名**: `{year}_{Tcode}_{Tname}_{author}_{title_core}_s{sharpe}.md` (作者段空白换 `-`, Sharpe 段放最后, 总长 <= 80 字符, 无 Sharpe 省略段)
 - **WorkBuddy 严格模式**: 必须用 MCP 连接器 (ima-mcp), 禁止降级 HTTPS API. 设 `WORKBUDDY_REQUIRE_CONNECTOR=1`
 
 ## 安装步骤
