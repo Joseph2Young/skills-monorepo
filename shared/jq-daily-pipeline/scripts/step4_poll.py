@@ -60,17 +60,21 @@ def check_sharpe(bt_id: str):
         d = json.loads(r.stdout)
     except:
         return "error", None
-    metrics = d.get("metrics", {})
+
+    # running 状态直接返回 (jqcli running 时 metrics 通常是空 list)
+    status_str = (d.get("status") or "").lower()
+    if status_str == "running":
+        return "running", None
+
+    metrics = d.get("metrics")
+    # running 中 metrics 通常是 list / 空 dict; 都按未完成处理
+    if not isinstance(metrics, dict):
+        return "running", None
+
     sharpe = metrics.get("sharpe")
     if sharpe is not None:
         return "done", sharpe
-    # 没 Sharpe, 看 report 是否完成
-    if "sharpe" not in d and not metrics:
-        return "running", None
-    # 没 stats 但有 metrics 字段, 尝试计算
-    sharpe = compute_sharpe_from_timeseries(bt_id)
-    if sharpe is not None:
-        return "done", sharpe
+    # 有 metrics 但无 sharpe 字段 → 还在算 → 视为 running
     return "running", None
 
 

@@ -62,16 +62,23 @@ def build_review(c: dict, code: str) -> dict:
     init = re.search(r'def initialize\(context\):(.*?)(?=\ndef |\Z)', code, re.DOTALL)
     init_code = init.group(1) if init else ""
     primary, primary_name, reason = classify(code, init_code)
-    
+
     year = c["published_at"][:4]
     title_core = extract_title_core(c["title"])
     new_name = f"{year}_{primary}_{primary_name}_{title_core}"
-    
+
+    # 兼容 author dict 和 author_name 平铺字段
+    author = c.get("author")
+    if isinstance(author, dict):
+        author_name = author.get("name", "")
+    else:
+        author_name = c.get("author_name") or (str(author) if author else "")
+
     return {
         "meta": {
             "post_id": c["id"],
             "original_title": c["title"],
-            "author": c["author"]["name"],
+            "author": author_name,
             "published_at": c["published_at"],
             "view_count": c["view_count"],
             "year": year,

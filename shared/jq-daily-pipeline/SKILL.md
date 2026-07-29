@@ -118,6 +118,8 @@ WorkBuddy 内调用方必须二选一:
 6. **BT3 类策略**：缺私库的策略直接放弃，不要等
 7. **Sharpe 太低**: Sharpe <= 0.8 视为低质策略，主人规则 (2026-07-28) 跳过
 8. **Sharpe 过度拟合**: Sharpe > 3.0 视为过度拟合，主人规则 (2026-07-28) 跳过 (等于 3.0 通过)
+9. **step4_poll.py check_sharpe 崩溃 (2026-07-29 修复)**: jqcli `backtest show` 在 running 状态时 `metrics` 字段是**空 list 不是 dict**，原版 `metrics.get("sharpe")` 直接抛 `AttributeError`。脚本已修：先看 `status=="running"` 短路返回 running；metrics 非 dict 也按 running 处理。如果轮询突然死在第一行 AttributeError，多半是这个坑回潮。
+10. **step5_review_build.py author 字段兼容 (2026-07-29 修复)**: `/tmp/jq_dedup_result.json` 的 `top3_after_dedup` 候选中 `author` 在 `step1_filter.py` 原始输出里是 dict (`{id, name}`)，但 agent 在 step2 手动生成的简化版用的是 `author_name` 平铺字段。原脚本 `c["author"]["name"]` 在简化版上 KeyError。已修：build_review 兼容 dict 和 `author_name` 两种形态。WorkBuddy 内 agent 自己跑 step2 时务必走平铺简化版（节省 MCP 查重调用次数），脚本不能假设上游格式。
 
 ## 关键约束 (主人规则 2026-07-28)
 
