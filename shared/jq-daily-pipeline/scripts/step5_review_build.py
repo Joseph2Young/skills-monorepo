@@ -1,6 +1,16 @@
 #!/usr/bin/env python3
 """
 Step 5: AI 审查 (聚宽策略审查分类提示词 v1.0) + 生成 markdown
+
+入库命名格式 (主人规则 2026-07-29):
+  {year}_{Tcode}_{Tname}_{author_safe}_{sharpe}_{title_core}.md
+  例: 2026_T07_板块轮动_Tcya_s0.85_减法出奇迹_一个ETF轮动策略的科学提纯之路.md
+
+- author_safe: 去空白 + 去特殊字符 (<>:"/\\|?*), 截 30 字符
+- sharpe: 格式 `_s{sharpe:.2f}`, 如 _s0.85 / _s2.40
+- title_core: 标点换 _, 去空白, 截 50 字符
+- agent 可在 dedup_result.candidates[i] 里填 `condensed_title_core` 字段覆盖
+- 总长度超过 MAX_FILENAME_LEN 时告警, 提示 agent 自己浓缩
 """
 import json
 import re
@@ -15,6 +25,8 @@ CODES_DIR = Path("/tmp/jq_codes")
 # Sharpe 过滤条件: 0.8 < sharpe <= 3 (主人规则 2026-07-28)
 SHARPE_MIN = 0.8
 SHARPE_MAX = 3.0
+# 入库文件名总长度上限 (含 .md 后缀), 超过 agent 应该自己 condensed_title_core
+MAX_FILENAME_LEN = 80
 
 TYPES = {
     "T01": "趋势跟踪", "T02": "均值回归", "T03": "多因子选股",
@@ -53,19 +65,59 @@ def classify(code: str, init_code: str) -> tuple:
 
 
 def extract_title_core(title: str) -> str:
+    """从原标题提取核心: 标点换 _ → 去空白 → 多下划线合并 → 截 50 字符
+
+    agent 可在 candidate 里填 condensed_title_core 覆盖这个结果
+    """
     t = re.sub(r'[?!？！,，:：;；。、]+', '_', title)
+    t = re.sub(r'\s+', '', t)
     t = re.sub(r'_+', '_', t).strip('_')
     return t[:50]
 
 
-def build_review(c: dict, code: str) -> dict:
+def safe_author(author: str) -> str:
+    """作者字段去空白 + 去文件系统非法字符, 截 30 字符"""
+    a = re.sub(r'\s+', '', author or '')
+    a = re.sub(r'[<>:"/\\|?*\x00-\x1f]+', '', a)
+    return a[:30]
+
+
+def sharpe_segment(sharpe) -> str:
+    """Sharpe 段: s0.85 / s2.40, None 退化为 s?
+    注意不带前导下划线 (build_filename 用 _ join, 否则会双下划线)
+    """
+    if sharpe is None:
+        return "s?"
+    try:
+        return f"s{float(sharpe):.2f}"
+    except (TypeError, ValueError):
+        return "s?"
+
+
+def build_filename(year: str, tcode: str, tname: str, author: str,
+                   sharpe, title_core: str) -> tuple[str, int]:
+    """构造最终文件名 + 返回含 .md 后缀的总长度
+
+    新格式: {year}_{Tcode}_{Tname}_{author_safe}_{sharpe}_{title_core}.md
+    """
+    parts = [
+        year,
+        tcode,
+        tname,
+        safe_author(author),
+        sharpe_segment(sharpe),
+        title_core,
+    ]
+    name = "_".join(parts)
+    return name, len(name) + len(".md")
+
+
+def build_review(c: dict, code: str, sharpe=None) -> dict:
     init = re.search(r'def initialize\(context\):(.*?)(?=\ndef |\Z)', code, re.DOTALL)
     init_code = init.group(1) if init else ""
     primary, primary_name, reason = classify(code, init_code)
 
     year = c["published_at"][:4]
-    title_core = extract_title_core(c["title"])
-    new_name = f"{year}_{primary}_{primary_name}_{title_core}"
 
     # 兼容 author dict 和 author_name 平铺字段
     author = c.get("author")
@@ -73,6 +125,18 @@ def build_review(c: dict, code: str) -> dict:
         author_name = author.get("name", "")
     else:
         author_name = c.get("author_name") or (str(author) if author else "")
+
+    # 浓缩标题: agent 可在 dedup_result.candidates[i] 里填 condensed_title_core 覆盖
+    title_core = c.get("condensed_title_core") or extract_title_core(c["title"])
+
+    new_name, full_len = build_filename(
+        year=year,
+        tcode=primary,
+        tname=primary_name,
+        author=author_name,
+        sharpe=sharpe,
+        title_core=title_core,
+    )
 
     return {
         "meta": {
@@ -82,7 +146,10 @@ def build_review(c: dict, code: str) -> dict:
             "published_at": c["published_at"],
             "view_count": c["view_count"],
             "year": year,
+            "sharpe": sharpe,
             "ai_new_name": new_name,
+            "filename_len": full_len,
+            "too_long": full_len > MAX_FILENAME_LEN,
         },
         "strategy_classification": {
             "primary_type": primary,
@@ -100,33 +167,29 @@ def main():
     if not DEDUP_FILE.exists() or not SHARPE_FILE.exists():
         print("❌ 缺少 step2/step4 输出文件")
         return
-    
+
     data = json.load(open(DEDUP_FILE))
     candidates = data.get("top3_after_dedup", [])
     sharpes = {x["sid"]: x for x in json.load(open(SHARPE_FILE))}
-    
+
     UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
     # 清空旧
     for f in UPLOAD_DIR.glob("*.md"):
         f.unlink()
-    
+
     reviews = {}
     for i, c in enumerate(candidates, 1):
         sid = f"s{i}"
         code_path = CODES_DIR / f"{sid}_code.json"
         if not code_path.exists():
             continue
-        
+
         try:
             code = json.load(open(code_path)).get("code", "")
         except:
             continue
-        
-        review = build_review(c, code)
-        review["real_backtest"] = sharpes.get(sid, {})
-        reviews[sid] = review
-        
-        # 生成 markdown (Sharpe 过滤: 0.8 < sharpe <= 3)
+
+        # Sharpe 过滤: 0.8 < sharpe <= 3
         real = sharpes.get(sid, {})
         sharpe = real.get("sharpe")
         if sharpe is None:
@@ -138,7 +201,17 @@ def main():
         if sharpe > SHARPE_MAX:
             print(f"  ❌ {sid} Sharpe={sharpe:.4f} 跳过 (>{SHARPE_MAX}, 过度拟合)")
             continue
-        
+
+        review = build_review(c, code, sharpe=sharpe)
+        review["real_backtest"] = real
+        reviews[sid] = review
+
+        # 长度超阈值告警 — 提醒 agent 应该在 dedup_result 里填 condensed_title_core
+        if review["meta"]["too_long"]:
+            print(f"  ⚠️  {sid} 文件名 {review['meta']['filename_len']} 字符 > {MAX_FILENAME_LEN}, "
+                  f"agent 应在 candidate 里填 condensed_title_core 浓缩标题")
+            print(f"      当前: {review['meta']['ai_new_name']}.md")
+
         new_name = review["meta"]["ai_new_name"]
         md = f"""# {new_name}
 
@@ -166,7 +239,7 @@ def main():
 """
         (UPLOAD_DIR / f"{new_name}.md").write_text(md, encoding="utf-8")
         print(f"  ✅ {new_name}.md")
-    
+
     REVIEWS_FILE.write_text(json.dumps(reviews, ensure_ascii=False, indent=2))
     print(f"\n💾 {REVIEWS_FILE}")
 
