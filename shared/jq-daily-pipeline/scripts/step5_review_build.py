@@ -3,11 +3,11 @@
 Step 5: AI 审查 (聚宽策略审查分类提示词 v1.0) + 生成 markdown
 
 入库命名格式 (主人规则 2026-07-29):
-  {year}_{Tcode}_{Tname}_{author_safe}_{sharpe}_{title_core}.md
-  例: 2026_T07_板块轮动_Tcya_s0.85_减法出奇迹_一个ETF轮动策略的科学提纯之路.md
+  {year}_{Tcode}_{Tname}_{author_safe}_{title_core}_s{sharpe}.md
+  例: 2026_T07_板块轮动_Tcya_减法出奇迹_一个ETF轮动策略的科学提纯之路_s0.85.md
 
 - author_safe: 去空白 + 去特殊字符 (<>:"/\\|?*), 截 30 字符
-- sharpe: 格式 `_s{sharpe:.2f}`, 如 _s0.85 / _s2.40
+- sharpe: 末段 `_s{sharpe:.2f}`, 如 _s0.85 / _s2.40
 - title_core: 标点换 _, 去空白, 截 50 字符
 - agent 可在 dedup_result.candidates[i] 里填 `condensed_title_core` 字段覆盖
 - 总长度超过 MAX_FILENAME_LEN 时告警, 提示 agent 自己浓缩
@@ -98,15 +98,16 @@ def build_filename(year: str, tcode: str, tname: str, author: str,
                    sharpe, title_core: str) -> tuple[str, int]:
     """构造最终文件名 + 返回含 .md 后缀的总长度
 
-    新格式: {year}_{Tcode}_{Tname}_{author_safe}_{sharpe}_{title_core}.md
+    新格式: {year}_{Tcode}_{Tname}_{author_safe}_{title_core}_s{sharpe}.md
+    Sharpe 段放最后, 方便人眼按质量排序时一眼看到尾部
     """
     parts = [
         year,
         tcode,
         tname,
         safe_author(author),
-        sharpe_segment(sharpe),
         title_core,
+        sharpe_segment(sharpe),
     ]
     name = "_".join(parts)
     return name, len(name) + len(".md")
