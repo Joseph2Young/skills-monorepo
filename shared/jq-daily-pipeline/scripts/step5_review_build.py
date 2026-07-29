@@ -76,9 +76,14 @@ def extract_title_core(title: str) -> str:
 
 
 def safe_author(author: str) -> str:
-    """作者字段去空白 + 去文件系统非法字符, 截 30 字符"""
-    a = re.sub(r'\s+', '', author or '')
+    """作者字段: 空白换 - (跟主分隔符 _ 不冲突) + 去文件系统非法字符 + 截 30 字符
+
+    例: 'will be rich man' -> 'will-be-rich-man'
+    """
+    a = re.sub(r'\s+', '-', author or '')
     a = re.sub(r'[<>:"/\\|?*\x00-\x1f]+', '', a)
+    # 合并连续 -, 去首尾 -
+    a = re.sub(r'-+', '-', a).strip('-')
     return a[:30]
 
 

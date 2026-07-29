@@ -85,7 +85,7 @@ metadata:
 - `year`: `published_at` 前 4 位
 - `Tcode`: 12 大分类代码（T01~T12）
 - `Tname`: 分类中文简称
-- `author_safe`: 原作者名去空白 + 去文件系统非法字符，截 30 字符
+- `author_safe`: 原作者名，**空白换 `-`**（跟主分隔符 `_` 不冲突，如 `will be rich man → will-be-rich-man`）+ 去文件系统非法字符，截 30 字符
 - `title_core`: 标点换 `_`、去空白、合并连续下划线、截 50 字符
 - `_s{sharpe.2f}`: 实测 Sharpe，2 位小数（如 `s0.85`），**放在文件名末尾**
 
