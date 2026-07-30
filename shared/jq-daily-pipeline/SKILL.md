@@ -138,6 +138,8 @@ WorkBuddy 内调用方必须二选一:
 8. **Sharpe 过度拟合**: Sharpe > 3.0 视为过度拟合，主人规则 (2026-07-28) 跳过 (等于 3.0 通过)
 9. **step4_poll.py check_sharpe 崩溃 (2026-07-29 修复)**: jqcli `backtest show` 在 running 状态时 `metrics` 字段是**空 list 不是 dict**，原版 `metrics.get("sharpe")` 直接抛 `AttributeError`。脚本已修：先看 `status=="running"` 短路返回 running；metrics 非 dict 也按 running 处理。如果轮询突然死在第一行 AttributeError，多半是这个坑回潮。
 10. **step5_review_build.py author 字段兼容 (2026-07-29 修复)**: `/tmp/jq_dedup_result.json` 的 `top3_after_dedup` 候选中 `author` 在 `step1_filter.py` 原始输出里是 dict (`{id, name}`)，但 agent 在 step2 手动生成的简化版用的是 `author_name` 平铺字段。原脚本 `c["author"]["name"]` 在简化版上 KeyError。已修：build_review 兼容 dict 和 `author_name` 两种形态。WorkBuddy 内 agent 自己跑 step2 时务必走平铺简化版（节省 MCP 查重调用次数），脚本不能假设上游格式。
+11. **step4_poll.py stdout 块缓冲 (2026-07-30 修复)**: Python pipe 模式默认 block buffering (4KB 才 flush), 跑后台 + `run_in_background=true` 时 `TaskOutput` 整小时看不到任何 print 输出，只能看 `/tmp/jq_real_sharpe.json` mtime 推断。已修：`sys.stdout.reconfigure(line_buffering=True)` + `sys.stderr.reconfigure(line_buffering=True)` (Python 3.7+), 老版本兜底 `PYTHONUNBUFFERED=1`。
+12. **mcp__ima-mcp__add_knowledge 并发冲突 (2026-07-30 现身)**: WorkBuddy agent 跑 step 6 时如果**同时发起**多个 `add_knowledge` 调用，第二个会报 `222000 文件夹不存在`（实际存在）。IMA 服务端有 per-folder 锁。**WorkBuddy 内 agent 必须串行调用**: 一个 `add_knowledge` 全部完成后才发起下一个。建议在两次调用之间 sleep 0.5-1s 让服务端落库。脚本 `step6_upload.py` 用的是 for 循环（已串行），问题只在 agent 直接调 MCP 时出现。
 
 ## 关键约束 (主人规则 2026-07-28 / 2026-07-29)
 
@@ -147,6 +149,30 @@ WorkBuddy 内调用方必须二选一:
 - **Sharpe 过滤**: `0.8 < sharpe <= 3.0` (下限不带等号, 上限带等号)
 - **入库命名**: `{year}_{Tcode}_{Tname}_{author}_{title_core}_s{sharpe}.md` (作者段空白换 `-`, Sharpe 段放最后, 总长 <= 80 字符, 无 Sharpe 省略段)
 - **WorkBuddy 严格模式**: 必须用 MCP 连接器 (ima-mcp), 禁止降级 HTTPS API. 设 `WORKBUDDY_REQUIRE_CONNECTOR=1`
+
+## WorkBuddy Agent 操作 SOP (step 6 MCP 上传)
+
+**Step 6 串行上传** — agent 调 MCP 工具必须**串行**进行:
+
+```python
+for md in [/tmp/jq_uploads/*.md]:
+    # 1) create_media (拿 media_id + cos_credential)
+    media = await mcp.ima.create_media(...)
+    # 2) 客户端用 cos-python-sdk-v5 PUT 文件 (用 cos_credential.bucket/region/keys/cos_key)
+    upload_to_cos(md, media["cos_credential"])
+    # 3) add_knowledge (串行!) — 一旦返回成功才能发起下一个
+    await mcp.ima.add_knowledge(
+        media_id=media["media_id"],
+        folder_id=DEDUP.target_folder_id,
+        kb_id=DEDUP.knowledge_base_id,
+    )
+    # 4) 短暂 sleep 让服务端落库, 避免下一轮并发锁
+    await asyncio.sleep(0.5)
+```
+
+**为什么串行**: IMA 服务端 per-folder 有锁, 并发调 `add_knowledge` 时第二个会返回 `222000 文件夹不存在` (实际存在)。串行 + 0.5s sleep 稳过。
+
+**为什么不能用脚本**: `step6_upload.py` 用 `ima_api` (HTTPS/connector 模式), 不被 `WORKBUDDY_REQUIRE_CONNECTOR=1` 接受。WorkBuddy 内 agent 必须直接调 MCP。
 
 ## 安装步骤
 

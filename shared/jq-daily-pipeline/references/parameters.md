@@ -86,3 +86,5 @@ Base URL: `https://ima.qq.com`
 3. **IMA 无删除 / rename API**: 命名规则调整后, 存量策略按新规则走 IMA 重传, 旧条目留作历史。IMA 上会同时存在新旧两种命名的同策略 markdown, 这是正常的。
 4. **回测 > 24h**：7.5 年可能 5+ 小时
 5. **路径含空格**："vibe quant" 必须双引号
+6. **step4_poll.py stdout 块缓冲 (2026-07-30 修复)**: pipe 模式下默认块缓冲, run_in_background + TaskOutput 看不到 print。已加 `sys.stdout.reconfigure(line_buffering=True)`。
+7. **mcp__ima-mcp__add_knowledge 并发冲突 (2026-07-30 现身)**: IMA 服务端 per-folder 锁, agent 并发两个 add_knowledge 第二个报 222000。WorkBuddy 内必须**串行调用 + sleep 0.5~1s**。

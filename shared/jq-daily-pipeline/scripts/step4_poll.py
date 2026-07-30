@@ -20,6 +20,15 @@ import sys
 import time
 from pathlib import Path
 
+# --- stdout/stderr 行缓冲 (解决 pipe 模式下块缓冲导致 TaskOutput 看不到 print 的问题)
+# Python 3.7+ stdout.reconfigure 支持 line_buffering=True, 直接 setflush=True 即可.
+# 老版本兜底: PYTHONUNBUFFERED=1 让 stdbuf 影响子进程输出.
+try:
+    sys.stdout.reconfigure(line_buffering=True)
+    sys.stderr.reconfigure(line_buffering=True)
+except (AttributeError, ValueError):
+    os.environ.setdefault("PYTHONUNBUFFERED", "1")
+
 JQS = os.environ.get("JQS", "/Users/ytf/Library/Python/3.9/bin/jqcli")
 DEDUP_FILE = Path("/tmp/jq_dedup_result.json")
 SHARPE_FILE = Path("/tmp/jq_real_sharpe.json")

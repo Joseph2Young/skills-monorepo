@@ -16,6 +16,13 @@
 #   - step 4 launch 后立即返回, 后续 polling 由 agent 用 TaskOutput 跑
 #   - Sharpe 过滤条件: 0.8 < sharpe <= 3.0 (下限不带等号, 上限带等号)
 #   - WorkBuddy 内不允许降级 HTTPS, step 2 和 step 6 必须 agent 用 MCP 完成
+#
+# ⚠️ WorkBuddy agent 必读 (2026-07-30):
+#   - step6 上传 MCP 调 add_knowledge 必须串行, 不能并发多个调用
+#     (IMA 服务端 per-folder 锁, 并发第二个会报 222000)
+#   - 两次调用之间建议 sleep 0.5~1s, 让服务端落库
+#   - step4_poll.py 已加 sys.stdout.reconfigure(line_buffering=True) 输出非缓冲
+#     (之前是块缓冲 TaskOutput 看不到 print)
 
 set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
