@@ -36,8 +36,10 @@ TYPES = {
 }
 
 # 决策树: (类型, (关键词列表, AND/OR), 理由)
+# 注: T04 移到末尾 + 加严 AND 特征 (2026-07-31 修复)
+#     原 `set_benchmark AND get_index_stocks` 太宽松, 几乎所有策略都命中, 90% 被打成"指数增强"
+#     新规则: 必须同时含 `指数增强` 关键词, 且前面具体分类 (T07/T03 等) 没命中
 DECISION_RULES = [
-    ("T04", (["set_benchmark", "get_index_stocks"], "AND"), "对标指数+成分内选股"),
     ("T08", (["协整", "价差", "Z-score", "对冲", "pairs"], "OR"), "配对/多空对冲"),
     ("T02", (["RSI", "KDJ", "布林", "BIAS", "乖离", "reversal", "反转", "超卖"], "OR"), "反转"),
     ("T10", (["XGBoost", "LSTM", "tensorflow", "torch", "RandomForest"], "OR"), "ML训练预测"),
@@ -49,6 +51,8 @@ DECISION_RULES = [
     ("T11", (["ATR", "vol-targeting", "波动率"], "OR"), "波动率"),
     ("T12", (["PEG", "高增速", "inc_revenue"], "OR"), "成长股"),
     ("T01", (["momentum", "MA", "EMA", "均线", "金叉", "多头排列", "ADX", "唐奇安", "动量"], "OR"), "趋势"),
+    # T04 兜底: 必须同时出现 set_benchmark + get_index_stocks + 中文"指数增强" 才算
+    ("T04", (["set_benchmark", "get_index_stocks", "指数增强"], "AND"), "对标指数+指数增强"),
 ]
 
 

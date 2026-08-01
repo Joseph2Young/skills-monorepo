@@ -140,6 +140,8 @@ WorkBuddy 内调用方必须二选一:
 10. **step5_review_build.py author 字段兼容 (2026-07-29 修复)**: `/tmp/jq_dedup_result.json` 的 `top3_after_dedup` 候选中 `author` 在 `step1_filter.py` 原始输出里是 dict (`{id, name}`)，但 agent 在 step2 手动生成的简化版用的是 `author_name` 平铺字段。原脚本 `c["author"]["name"]` 在简化版上 KeyError。已修：build_review 兼容 dict 和 `author_name` 两种形态。WorkBuddy 内 agent 自己跑 step2 时务必走平铺简化版（节省 MCP 查重调用次数），脚本不能假设上游格式。
 11. **step4_poll.py stdout 块缓冲 (2026-07-30 修复)**: Python pipe 模式默认 block buffering (4KB 才 flush), 跑后台 + `run_in_background=true` 时 `TaskOutput` 整小时看不到任何 print 输出，只能看 `/tmp/jq_real_sharpe.json` mtime 推断。已修：`sys.stdout.reconfigure(line_buffering=True)` + `sys.stderr.reconfigure(line_buffering=True)` (Python 3.7+), 老版本兜底 `PYTHONUNBUFFERED=1`。
 12. **mcp__ima-mcp__add_knowledge 并发冲突 (2026-07-30 现身)**: WorkBuddy agent 跑 step 6 时如果**同时发起**多个 `add_knowledge` 调用，第二个会报 `222000 文件夹不存在`（实际存在）。IMA 服务端有 per-folder 锁。**WorkBuddy 内 agent 必须串行调用**: 一个 `add_knowledge` 全部完成后才发起下一个。建议在两次调用之间 sleep 0.5-1s 让服务端落库。脚本 `step6_upload.py` 用的是 for 循环（已串行），问题只在 agent 直接调 MCP 时出现。
+13. **dedup_result.json content_preview 含双引号导致 JSON 解析失败 (2026-07-31 现身)**: agent 在 step2 手动生成 `/tmp/jq_dedup_result.json` 时复制了 step1 的 `content_preview` 字段，里面的中文 `"大A走弱"` 直接是 ASCII `"`，写入后 run_daily.sh 第 44-50 行 `json.load` 抛 `Expecting ',' delimiter: line 14 column 148`, try/except 静默返 0, 报"全部被查重"直接退出 step3 后续全空跑。**修法**: agent 写 dedup_result.json 时**不要带 content_preview 字段**, 或者预先 `replace('"', '\\"')` 转义。
+14. **COS 上传 cos_key 复制粘贴陷阱 (2026-07-31 现身)**: `create_media` 返回的 cos_key 是 32字符hex + `.md`, 直接复制到 `python -c "..."` 的单行字符串里**容易丢字符** (32 → 31), 症状 `CosServiceError AccessDenied`, resource 字段显示跟传进去一致 (看着像没复制错), 实际长度差一。**修法**: 用 heredoc (`<< PYEOF`) 写脚本, key 单独一行; 上传前 `print('len:', len(key))` 长度校验 (应该 == 73 含 `2/cvh...md`)。或者把 create_media 返回的 JSON 整个 dump 到临时文件, 脚本 `json.load` 拿 cos_key, 不走人肉复制。
 
 ## 关键约束 (主人规则 2026-07-28 / 2026-07-29)
 
@@ -157,6 +159,8 @@ WorkBuddy 内调用方必须二选一:
 ```python
 for md in [/tmp/jq_uploads/*.md]:
     # 1) create_media (拿 media_id + cos_credential)
+    # 拿到返回的 cos_credential 后, **不要再人肉复制 cos_key 到下一条 shell 命令**
+    # 详见下方"防 cos_key 复制陷阱"小节
     media = await mcp.ima.create_media(...)
     # 2) 客户端用 cos-python-sdk-v5 PUT 文件 (用 cos_credential.bucket/region/keys/cos_key)
     upload_to_cos(md, media["cos_credential"])
@@ -173,6 +177,30 @@ for md in [/tmp/jq_uploads/*.md]:
 **为什么串行**: IMA 服务端 per-folder 有锁, 并发调 `add_knowledge` 时第二个会返回 `222000 文件夹不存在` (实际存在)。串行 + 0.5s sleep 稳过。
 
 **为什么不能用脚本**: `step6_upload.py` 用 `ima_api` (HTTPS/connector 模式), 不被 `WORKBUDDY_REQUIRE_CONNECTOR=1` 接受。WorkBuddy 内 agent 必须直接调 MCP。
+
+### 防 cos_key 复制陷阱 (2026-07-31 修复)
+
+`create_media` 返回的 `cos_key` 是 32字符hex + `.md`, 直接复制到 `python -c "..."` 单行字符串里容易丢字符。**正确做法**:
+
+**方案 A: heredoc 写脚本 + 单独 key 行 + 长度校验 (推荐)**
+```python
+# 把 create_media 整个返回 JSON dump 到临时文件
+import json
+cred = json.loads(open('/tmp/cos_cred_1.json').read())
+key = cred['cos_credential']['cos_key']
+assert len(key) == 73, f"cos_key 长度异常: {len(key)} != 73"  # 2/cvh...{32hex}.md
+# ... 用 key 调 cos SDK
+```
+
+**方案 B: 把 cred 直接传给 python 脚本, 不要再 shell 里手抄**
+```bash
+# create_media 后把 cred dump 到文件
+echo "$RESPONSE" > /tmp/cos_cred_1.json
+# 然后用脚本读, 不走人肉复制
+python3 upload_one.py /tmp/jq_uploads/foo.md /tmp/cos_cred_1.json
+```
+
+**绝对禁止**: 把 `cos_key` 直接复制粘贴到 `python3 -c "..."` 的单行字符串里 — 32位hex 太容易漏一字符, 错误信息还显示 resource 路径正常, 极难调试。
 
 ## 安装步骤
 
