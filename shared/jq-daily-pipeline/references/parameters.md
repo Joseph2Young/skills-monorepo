@@ -43,7 +43,7 @@
 | T01 趋势跟踪 | momentum, MA, EMA, 均线, 金叉, 多头排列, ADX, 唐奇安, 动量 |
 | T02 均值回归 | RSI, KDJ, 布林, BIAS, 乖离, reversal, 反转, 超卖 |
 | T03 多因子选股 | get_fundamentals, get_factor_values, Alpha101, Alpha191 |
-| T04 指数增强 | **set_benchmark AND get_index_stocks** (都需出现) |
+| T04 指数增强 | **set_benchmark AND get_index_stocks AND 中文"指数增强"** (三个 AND 命中, 2026-08-01 加严避免误判, 决策树末尾) |
 | T05 事件驱动 | 业绩预告, 回购, 分红, 事件, 公告 |
 | T06 资金流向 | 北向, 融资余额, 龙虎榜, 大单, 资金流 |
 | T07 板块轮动 | get_industry_stocks, get_concept_stocks, ETF池, etf_pool |
@@ -58,8 +58,8 @@
 | 资源 | 查找方法 |
 |---|---|
 | YTF的知识库 | `openapi/wiki/v1/search_knowledge_base` 查 "YTF" |
-| 聚宽量化策略库 folder_id | 在知识库下查 "聚宽量化策略库" |
-| 1.聚宽策略合集{YYYY}年 folder_id | 在聚宽量化策略库下查 "1.聚宽策略合集{YYYY}年" |
+| 聚宽量化策略库 folder_id | 在知识库下查 "聚宽量化策略库" (**2026-08-02 起作为入库目标文件夹, 不再按年度分子文件夹**) |
+| ~~1.聚宽策略合集{YYYY}年 folder_id~~ | (2026-08-02 起废弃) 历史策略仍留在该子文件夹, 新策略直接进聚宽量化策略库 |
 | 凭证 | `~/.config/ima/client_id` 和 `~/.config/ima/api_key` |
 
 ## IMA API 端点
@@ -88,3 +88,5 @@ Base URL: `https://ima.qq.com`
 5. **路径含空格**："vibe quant" 必须双引号
 6. **step4_poll.py stdout 块缓冲 (2026-07-30 修复)**: pipe 模式下默认块缓冲, run_in_background + TaskOutput 看不到 print。已加 `sys.stdout.reconfigure(line_buffering=True)`。
 7. **mcp__ima-mcp__add_knowledge 并发冲突 (2026-07-30 现身)**: IMA 服务端 per-folder 锁, agent 并发两个 add_knowledge 第二个报 222000。WorkBuddy 内必须**串行调用 + sleep 0.5~1s**。
+8. **T04 误判 (2026-08-01 加严)**: 原 `set_benchmark AND get_index_stocks` 太宽松, 几乎所有策略命中。已修: T04 移到决策树末尾 + AND 增加中文"指数增强"关键词。回归测试: 科技股ETF → T07, 小市值龙头 → T03。
+9. **入库文件夹路径调整 (2026-08-02 主人规则)**: 不再按年度分子文件夹, 新的入库目标直接是 `聚宽量化策略库` (`folder_7403603866166189`)。历史的 `1.聚宽策略合集{YYYY}年` 子文件夹保留不动, 不迁移。**dedup_result.json 写 `target_folder_id = folder_7403603866166189`**。

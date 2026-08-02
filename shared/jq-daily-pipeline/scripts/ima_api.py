@@ -28,8 +28,13 @@ CLIENT_ID, API_KEY = _load_creds()
 BASE_URL = "https://ima.qq.com"
 
 # 默认 IMA 资源 ID
+# 注: 2026-08-02 主人规则调整, 入库直接进"聚宽量化策略库"父文件夹,
+#     不再按年度分子文件夹 (1.聚宽策略合集2026年 等)
 KB_ID = os.environ.get("IMA_KB_ID", "AZo_6kQ-8psF9GTr152Bn0Uj4cS60sdH6SO_AJLDsrE=")
-PARENT_FOLDER_ID = os.environ.get("IMA_PARENT_FOLDER_ID", "folder_7403603866166189")
+TARGET_FOLDER_ID = os.environ.get("IMA_TARGET_FOLDER_ID", "folder_7403603866166189")
+# 兼容旧引用 (PARENT_FOLDER_ID 已废弃)
+PARENT_FOLDER_ID = TARGET_FOLDER_ID
+# 历史年度映射 (2026-08-02 起不再使用, 仅保留兼容旧代码)
 YEAR_FOLDER_MAP = {
     "2026": "folder_7460938768731745",
 }
@@ -79,15 +84,9 @@ class IMAClient(ABC):
         return resp.get("data", {}).get("folder_id", "")
     
     def find_or_create_year_folder(self, year: str) -> str:
-        if year in YEAR_FOLDER_MAP:
-            return YEAR_FOLDER_MAP[year]
-        items = self.get_knowledge_list(KB_ID, PARENT_FOLDER_ID, 50)
-        for item in items:
-            if item.get("media_type") == 99 and year in item.get("title", ""):
-                return item.get("media_id")
-        new_id = self.create_folder(KB_ID, f"1.聚宽策略合集{year}年", PARENT_FOLDER_ID)
-        YEAR_FOLDER_MAP[year] = new_id
-        return new_id
+        # 2026-08-02 主人规则调整: 不再按年度创建子文件夹, 直接返回 target folder
+        # 历史: 旧逻辑会按 year 查/建 "1.聚宽策略合集{year}年" 子文件夹
+        return TARGET_FOLDER_ID
     
     def get_existing_titles_in_folder(self, folder_id: str) -> set:
         items = self.get_knowledge_list(KB_ID, folder_id, 50)
@@ -364,7 +363,8 @@ def upload_to_cos(file_path: Path, cos_credential: dict, content_type: str,
 # 重新导出
 YEAR_FOLDER_MAP = YEAR_FOLDER_MAP
 KB_ID = KB_ID
-PARENT_FOLDER_ID = PARENT_FOLDER_ID
+TARGET_FOLDER_ID = TARGET_FOLDER_ID
+PARENT_FOLDER_ID = PARENT_FOLDER_ID  # 兼容旧引用
 
 
 # ============================================================

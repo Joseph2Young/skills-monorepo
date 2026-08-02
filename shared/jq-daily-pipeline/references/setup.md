@@ -68,11 +68,11 @@ curl -s -X POST "https://ima.qq.com/openapi/wiki/v1/search_knowledge_base" \
   -H "X-IMA-CLIENTID: $IMA_CID" -H "X-IMA-APIKEY: $IMA_KEY" \
   -d '{"query":"YTF","cursor":"","limit":5}'
 
-# 2. 拿到 kb_id 后查聚宽量化策略库 folder_id
-# 3. 拿到聚宽 folder_id 后查 "1.聚宽策略合集2026年" folder_id
+# 2. 拿到 kb_id 后查聚宽量化策略库 folder_id (2026-08-02 起, 这是入库目标文件夹)
+# 注: 不再查 "1.聚宽策略合集2026年" 子文件夹, 新的入库直接进"聚宽量化策略库"根
 ```
 
-把这些 ID 替换到 `scripts/step2_ima_dedup.py` 和 `scripts/step6_upload.py` 的对应变量。
+把这些 ID 替换到 `scripts/ima_api.py` 的 `KB_ID` 和 `TARGET_FOLDER_ID` 默认值, 或通过环境变量 `IMA_KB_ID` / `IMA_TARGET_FOLDER_ID` 注入。
 
 ### 6. 在 Codex agent 里设置定时任务
 
