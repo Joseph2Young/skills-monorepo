@@ -36,7 +36,7 @@ metadata:
 
 ## 前置条件
 
-- `jqcli` 已安装并已登录聚宽（`jqcli auth status` 须显示"已配置"）
+- `jqcli` 已安装并已登录聚宽（`jqcli auth status` 须显示"已配置"）；本地为 fork editable 安装（`聚宽策略研究/jqcli`，conda quantenv），**上游 https://github.com/breakhearts/jqcli.git 是别人的仓库，仅作拉取更新源，不要往它提交**
 - 腾讯 IMA OpenAPI 凭证：Client ID + API Key（在 https://ima.qq.com/agent-interface 申请）
 - IMA 凭证存到 `~/.config/ima/client_id` 和 `~/.config/ima/api_key`（每行一个值）
 - Python 3.9+，依赖 `requests` 库
@@ -142,6 +142,20 @@ WorkBuddy 内调用方必须二选一:
 12. **mcp__ima-mcp__add_knowledge 并发冲突 (2026-07-30 现身)**: WorkBuddy agent 跑 step 6 时如果**同时发起**多个 `add_knowledge` 调用，第二个会报 `222000 文件夹不存在`（实际存在）。IMA 服务端有 per-folder 锁。**WorkBuddy 内 agent 必须串行调用**: 一个 `add_knowledge` 全部完成后才发起下一个。建议在两次调用之间 sleep 0.5-1s 让服务端落库。脚本 `step6_upload.py` 用的是 for 循环（已串行），问题只在 agent 直接调 MCP 时出现。
 13. **dedup_result.json content_preview 含双引号导致 JSON 解析失败 (2026-07-31 现身)**: agent 在 step2 手动生成 `/tmp/jq_dedup_result.json` 时复制了 step1 的 `content_preview` 字段，里面的中文 `"大A走弱"` 直接是 ASCII `"`，写入后 run_daily.sh 第 44-50 行 `json.load` 抛 `Expecting ',' delimiter: line 14 column 148`, try/except 静默返 0, 报"全部被查重"直接退出 step3 后续全空跑。**修法**: agent 写 dedup_result.json 时**不要带 content_preview 字段**, 或者预先 `replace('"', '\\"')` 转义。
 14. **COS 上传 cos_key 复制粘贴陷阱 (2026-07-31 现身)**: `create_media` 返回的 cos_key 是 32字符hex + `.md`, 直接复制到 `python -c "..."` 的单行字符串里**容易丢字符** (32 → 31), 症状 `CosServiceError AccessDenied`, resource 字段显示跟传进去一致 (看着像没复制错), 实际长度差一。**修法**: 用 heredoc (`<< PYEOF`) 写脚本, key 单独一行; 上传前 `print('len:', len(key))` 长度校验 (应该 == 73 含 `2/cvh...md`)。或者把 create_media 返回的 JSON 整个 dump 到临时文件, 脚本 `json.load` 拿 cos_key, 不走人肉复制。
+15. **step3_clone.py 默认 JQS 路径错 (2026-08-04 现身)**: `step3_clone.py:11` 默认 `JQS = /Users/ytf/Library/Python/3.9/bin/jqcli`, 但实际 jqcli 在 `/opt/miniconda3/bin/jqcli` 或 `/opt/miniconda3/envs/quantenv/bin/jqcli`, 直接跑 `bash run_daily.sh` 会报 `FileNotFoundError`。**修法**: 必须 `export JQS=/opt/miniconda3/bin/jqcli && bash run_daily.sh` **同一条命令** (子 shell 才会继承 export, 单独 export 无效)。建议改 step3 脚本默认值或加路径探测。
+16. **cos-python-sdk-v5 ContentLength=int 报错 (2026-08-04 现身)**: `client.put_object(ContentLength=file_size)` (file_size 是 int) 抛 `InvalidHeader: Header part (N) must be of type str or bytes, not int`。**修法**: 不传 ContentLength 参数, SDK 会自动从 Body 计算。
+17. **IMA KB 重建 (2026-08-05 解决, 2026-08-02 ~ 08-04 失效)**: `folder_7403603866166189` (聚宽量化策略库) 和 `folder_7460938768731745` (1.聚宽策略合集2026年) 在 YTF 的 KB (`0019ec5242003ac7`) 里报 `222000 文件夹不存在` 持续 4 天 (8/2 ~ 8/4)。8/5 主人新建独立 KB `7489478692198610` (聚宽量化策略库), 7 个年度子目录 (1.2026 / 2.2025 / 3.2024 / 4.2023 / 5.2022 / 6.2021 / 7.代码详注) 全在, 595+ 条历史策略完整迁移。**当前激活参数**:
+    - KB ID: `7489478692198610` (聚宽量化策略库)
+    - 目标 folder: `folder_7489478742522939` (1.聚宽策略合集2026年)
+    - COS bucket: `ima-share-kb-1258344701` (新 KB 用 share bucket, 不是 `ima-media-prod`)
+    - COS region: `ap-shanghai`
+    - 历史 YTF 的 KB (`0019ec5242003ac7`) 和它的 folder 全失效, 不要用
+    - 跨 KB 查重用 `mcp__ima-mcp__search_knowledge_base` 找新 KB ID, 不要凭印象
+18. **Sharpe 0.7~0.8 观察名单 (2026-08-05 主人确认)**: 之前 `0.8 < sharpe <= 3.0` 直接跳过 < 0.8 的策略。8/5 主人确认可观察名单, 改规则为 `0.7 <= sharpe <= 3.0` 且 `<= 0.8` 的进 `/tmp/jq_watchlist.json` 保留观察 (不立刻入库), `> 0.8` 照常入库。**待实现**: step5_review_build.py 加 `--watchlist` flag + write `/tmp/jq_watchlist.json`; step6 跳过 watchlist 文件。
+19. **jqcli 能力更新 (2026-08-16 同步)**: 本地 jqcli 已更新到含以下能力, 写新脚本时优先用原生命令而不是自写轮询/解析:
+    - `backtest wait {bt_id} --wait-timeout 14400 --poll-interval 30`: 独立轮询**已有**回测, 不新建回测 (run --wait 每次调用都新建)。step4_poll.py 的自写轮询未来可迁移到这条命令 (注意它内部已处理 `metrics` 空 list 的坑, 见第 9 条)。
+    - `backtest export {bt_id} --type all --output ./dir`: 导出日志/交易详情/持仓&收益/收益概述 4 件套; **导出的 CSV 是 GBK 编码**, 读取须 `encoding=gbk`。
+    - `research ls/show/exec/run/kernels/sessions/...`: 新增研究平台文件管理 + 临时会话远端执行命令组; **需 Cookie 登录态** (只有 Bearer token 时先 `jqcli auth login`); 本流水线暂未用到, 但跨电脑移植验证时 `jqcli research ls` 可作为 Cookie 有效性检查。
 
 ## 关键约束 (主人规则 2026-07-28 / 2026-07-29)
 

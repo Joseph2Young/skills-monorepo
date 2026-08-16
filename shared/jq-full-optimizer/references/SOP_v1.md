@@ -1054,9 +1054,17 @@ jqcli strategy edit {algo_id} --file strategy.py # 更新策略代码
 jqcli backtest run {algo_id} \
   --start 2020-01-01 --end 2025-12-31 \
   --capital 1000000 --freq minute               # 提交回测
+jqcli backtest wait {bt_id} \
+  --wait-timeout 14400 --poll-interval 30       # 独立轮询已有回测，不新建（2026-08-16 起可用；长回测勿用 run --wait，瞬断 exit 5）
 jqcli backtest show {bt_id}                      # 查看回测状态
 jqcli backtest stats {bt_id} --format json       # 获取回测统计
 jqcli backtest logs {bt_id}                      # 查看回测日志
+jqcli backtest export {bt_id} --type all \
+  --output ./exports                             # 导出日志/交易详情/持仓&收益/收益概述；CSV 是 GBK 编码，读取须 encoding=gbk
+
+# 研究平台（2026-08-16 新增；需 Cookie 登录态，只有 token 时先 jqcli auth login）
+jqcli research ls                                # 研究工作区文件列表
+jqcli research exec / run                        # 临时会话远端执行代码/Notebook（自动清理）
 
 # 批量操作（脚本中）
 python sweep_script.py     # 运行扫描脚本

@@ -9,15 +9,17 @@
 ### 1. 安装基础工具
 
 ```bash
-# jqcli
-pip3 install jqcli
+# jqcli（本地 fork，editable 安装；上游 https://github.com/breakhearts/jqcli.git 仅作拉取更新源，不是本人仓库）
+cd "/path/to/量化投资程序/聚宽策略研究/jqcli"
+conda run -n quantenv pip install -e ".[test]"   # 2026-08 起 research 命令组依赖 websockets，会自动装上
 jqcli auth status  # 登录聚宽
 
 # Python 依赖
 pip3 install requests
 
 # 验证
-which jqcli && jqcli --help
+which jqcli && jqcli --help          # 命令组应含 backtest/strategy/community/research/web
+conda run -n quantenv jqcli research ls   # research 新命令组需 Cookie 登录态（token 不够，须先 auth login）
 python3 -c "import requests; print('OK')"
 ```
 

@@ -1,6 +1,9 @@
 ---
 name: jq-full-optimizer
-description: 聚宽策略全流程优化器。涵盖策略解构、架构重构、缓存层设计（collect/sweep/live 三模式）、择时条件开发、参数寻优、稳健性检验到报告撰写的完整 8 阶段 SOP。适用于所有聚宽量化策略。Trigger when user wants to optimize, refactor, or add cache/sweep to a JoinQuant strategy.
+description: 聚宽策略全流程优化器。涵盖策略解构、架构重构、缓存层设计（collect/sweep/live
+  三模式）、择时条件开发、参数寻优、稳健性检验到报告撰写的完整 8 阶段 SOP。适用于所有聚宽量化策略。Trigger when user wants to
+  optimize, refactor, or add cache/sweep to a JoinQuant strategy.
+disable: true
 ---
 
 # 聚宽策略全流程优化器
@@ -20,7 +23,7 @@ description: 聚宽策略全流程优化器。涵盖策略解构、架构重构�
 
 | # | 步骤 | 命令 / 操作 | 没装怎么办 |
 |---|------|------------|-----------|
-| 1 | 检测 jqcli | `jqcli --version` | `pip install git+https://github.com/breakhearts/jqcli.git` |
+| 1 | 检测 jqcli | `jqcli --version` | 本机已有 fork：`cd 聚宽策略研究/jqcli && conda run -n quantenv pip install -e ".[test]"`（源在上游 `github.com/breakhearts/jqcli`，**别人的仓库仅作拉取更新源，不要提交**；2026-08-16 已同步至 V1.0，含 research 命令组/backtest wait/export） |
 | 2 | 配置认证 | `jqcli auth status` | 浏览器 F12 抓 Cookie 写到 `~/.config/jqcli/cp/config.json` 的 `JQCLI_COOKIE` 字段 |
 | 3 | 准备策略 | 提供 `.py` 路径 + Algo ID | 用户手动在聚宽网页创建策略后把 Algo ID 给 AI |
 
