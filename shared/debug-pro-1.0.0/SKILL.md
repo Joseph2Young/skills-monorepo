@@ -1,3 +1,7 @@
+---
+disable: true
+---
+
 # debug-pro
 
 Systematic debugging methodology and language-specific debugging commands.

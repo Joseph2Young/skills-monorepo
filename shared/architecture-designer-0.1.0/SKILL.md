@@ -1,6 +1,8 @@
 ---
 name: architecture-designer
-description: Use when designing new system architecture, reviewing existing designs, or making architectural decisions. Invoke for system design, architecture review, design patterns, ADRs, scalability planning.
+description: Use when designing new system architecture, reviewing existing
+  designs, or making architectural decisions. Invoke for system design,
+  architecture review, design patterns, ADRs, scalability planning.
 triggers:
   - architecture
   - system design
@@ -13,6 +15,7 @@ triggers:
 role: expert
 scope: design
 output-format: document
+disable: true
 ---
 
 # Architecture Designer

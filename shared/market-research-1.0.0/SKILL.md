@@ -1,7 +1,9 @@
 ---
 name: Market Research
 slug: market-research
-description: "Size markets, analyze competitors, and validate opportunities with practical frameworks and free data sources."
+description: Size markets, analyze competitors, and validate opportunities with
+  practical frameworks and free data sources.
+disable: true
 ---
 
 ## Core Framework

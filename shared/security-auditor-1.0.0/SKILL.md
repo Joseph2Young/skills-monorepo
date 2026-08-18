@@ -1,7 +1,10 @@
 ---
 name: security-auditor
 version: 1.0.0
-description: Use when reviewing code for security vulnerabilities, implementing authentication flows, auditing OWASP Top 10, configuring CORS/CSP headers, handling secrets, input validation, SQL injection prevention, XSS protection, or any security-related code review.
+description: Use when reviewing code for security vulnerabilities, implementing
+  authentication flows, auditing OWASP Top 10, configuring CORS/CSP headers,
+  handling secrets, input validation, SQL injection prevention, XSS protection,
+  or any security-related code review.
 triggers:
   - security
   - vulnerability
@@ -24,6 +27,7 @@ triggers:
 role: specialist
 scope: review
 output-format: structured
+disable: true
 ---
 
 # Security Auditor

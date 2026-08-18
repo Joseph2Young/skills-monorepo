@@ -1,11 +1,18 @@
 ---
 name: seo-content-writer
-description: 'Use when the user asks to "write SEO content", "create a blog post", "write an article", "content writing", "draft optimized content", "write me an article", "create a blog post about", "help me write SEO content", or "draft content for". Creates high-quality, SEO-optimized content that ranks in search engines. Applies on-page SEO best practices, keyword optimization, and content structure for maximum visibility and engagement. For AI citation optimization, see geo-content-optimizer. For updating existing content, see content-refresher.'
+description: Use when the user asks to "write SEO content", "create a blog
+  post", "write an article", "content writing", "draft optimized content",
+  "write me an article", "create a blog post about", "help me write SEO
+  content", or "draft content for". Creates high-quality, SEO-optimized content
+  that ranks in search engines. Applies on-page SEO best practices, keyword
+  optimization, and content structure for maximum visibility and engagement. For
+  AI citation optimization, see geo-content-optimizer. For updating existing
+  content, see content-refresher.
 license: Apache-2.0
 metadata:
   author: aaron-he-zhu
-  version: "2.0.0"
-  geo-relevance: "medium"
+  version: 2.0.0
+  geo-relevance: medium
   tags:
     - seo
     - content writing
@@ -15,17 +22,18 @@ metadata:
     - content creation
     - on-page seo
   triggers:
-    - "write SEO content"
-    - "create blog post"
-    - "write an article"
-    - "content writing"
-    - "draft optimized content"
-    - "write for SEO"
-    - "blog writing"
-    - "write me an article"
-    - "create a blog post about"
-    - "help me write SEO content"
-    - "draft content for"
+    - write SEO content
+    - create blog post
+    - write an article
+    - content writing
+    - draft optimized content
+    - write for SEO
+    - blog writing
+    - write me an article
+    - create a blog post about
+    - help me write SEO content
+    - draft content for
+disable: true
 ---
 
 # SEO Content Writer

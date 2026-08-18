@@ -1,9 +1,16 @@
 ---
 name: academic-search
-description: |
-  学术论文搜索、引用分析、开放获取 PDF 判定与结构化元数据提取专用 Skill。Use when the user asks to search/find papers, do literature review/survey/systematic review/PRISMA work, get citation counts, export BibTeX/RIS-style references, find papers by author, inspect PDF/open-access availability, or work with arXiv, Semantic Scholar, OpenAlex, Crossref, Unpaywall, PubMed, Google Scholar, ACM DL, IEEE Xplore, Papers with Code, CNKI, ScienceDirect, Wiley, Springer, ACS, MeSH, JEL, MSC, or ACM CCS.
+description: >
+  学术论文搜索、引用分析、开放获取 PDF 判定与结构化元数据提取专用 Skill。Use when the user asks to search/find
+  papers, do literature review/survey/systematic review/PRISMA work, get
+  citation counts, export BibTeX/RIS-style references, find papers by author,
+  inspect PDF/open-access availability, or work with arXiv, Semantic Scholar,
+  OpenAlex, Crossref, Unpaywall, PubMed, Google Scholar, ACM DL, IEEE Xplore,
+  Papers with Code, CNKI, ScienceDirect, Wiley, Springer, ACS, MeSH, JEL, MSC,
+  or ACM CCS.
 metadata:
-  version: "1.2.0"
+  version: 1.2.0
+disable: true
 ---
 
 # academic-search Skill

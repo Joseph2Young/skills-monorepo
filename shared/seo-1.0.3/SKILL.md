@@ -3,9 +3,19 @@ name: SEO (Site Audit + Content Writer + Competitor Analysis)
 slug: seo
 version: 1.0.3
 homepage: https://clawic.com/skills/seo
-changelog: "Improved name clarity with key capabilities"
-description: SEO specialist agent with site audits, content writing, keyword research, technical fixes, link building, and ranking strategies.
-metadata: {"clawdbot":{"emoji":"🔍","requires":{"bins":[]},"os":["linux","darwin","win32"]}}
+changelog: Improved name clarity with key capabilities
+description: SEO specialist agent with site audits, content writing, keyword
+  research, technical fixes, link building, and ranking strategies.
+metadata:
+  clawdbot:
+    emoji: 🔍
+    requires:
+      bins: []
+    os:
+      - linux
+      - darwin
+      - win32
+disable: true
 ---
 
 ## Setup

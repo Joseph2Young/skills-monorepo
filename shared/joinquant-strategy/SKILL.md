@@ -1,3 +1,10 @@
+---
+name: joinquant-strategy
+description: 聚宽(JoinQuant)本地文档检索器，为大模型提供按需检索的 JQ 知识底座。包含 77 个 JQ API 章节与 1694
+  个数据字典 chunk 的本地镜像。
+disable: false
+---
+
 # joinquant-strategy Skill
 
 聚宽(JoinQuant)本地文档检索器，为大模型提供按需检索的 JQ 知识底座。

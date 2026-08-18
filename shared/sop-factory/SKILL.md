@@ -1,14 +1,15 @@
 ---
 name: sop-factory
-description: Turn rough workflows into standard operating procedures with roles, inputs,
-  outputs, checkpoints, and exception handling.
+description: Turn rough workflows into standard operating procedures with roles,
+  inputs, outputs, checkpoints, and exception handling.
 version: 1.1.0
 metadata:
   openclaw:
     requires:
       bins:
-      - python3
+        - python3
     emoji: 🧰
+disable: true
 ---
 
 # SOP Factory

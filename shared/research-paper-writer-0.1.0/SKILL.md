@@ -1,6 +1,10 @@
 ---
 name: research-paper-writer
-description: Creates formal academic research papers following IEEE/ACM formatting standards with proper structure, citations, and scholarly writing style. Use when the user asks to write a research paper, academic paper, or conference paper on any topic.
+description: Creates formal academic research papers following IEEE/ACM
+  formatting standards with proper structure, citations, and scholarly writing
+  style. Use when the user asks to write a research paper, academic paper, or
+  conference paper on any topic.
+disable: true
 ---
 
 # Research Paper Writer

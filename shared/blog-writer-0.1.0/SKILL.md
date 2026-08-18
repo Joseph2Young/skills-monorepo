@@ -1,6 +1,14 @@
 ---
 name: blog-writer
-description: This skill should be used when writing blog posts, articles, or long-form content in the writer's distinctive writing style. It produces authentic, opinionated content that matches the writer's voice—direct, conversational, and grounded in personal experience. The skill handles the complete workflow from research review through Notion publication. Use this skill for drafting blog posts, thought leadership pieces, or any writing meant to reflect the writer's perspective on AI, productivity, sales, marketing, or technology topics.
+description: This skill should be used when writing blog posts, articles, or
+  long-form content in the writer's distinctive writing style. It produces
+  authentic, opinionated content that matches the writer's voice—direct,
+  conversational, and grounded in personal experience. The skill handles the
+  complete workflow from research review through Notion publication. Use this
+  skill for drafting blog posts, thought leadership pieces, or any writing meant
+  to reflect the writer's perspective on AI, productivity, sales, marketing, or
+  technology topics.
+disable: true
 ---
 
 # Blog Writer

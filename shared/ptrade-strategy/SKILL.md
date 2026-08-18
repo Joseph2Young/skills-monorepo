@@ -6,7 +6,8 @@ description: |
   触发关键词：PTRADE、ptrade、量化策略、量化交易、生成策略、写策略代码�?
 metadata:
   openclaw:
-    emoji: "📈"
+    emoji: 📈
+disable: true
 ---
 
 # PTRADE 量化策略生成 Skill

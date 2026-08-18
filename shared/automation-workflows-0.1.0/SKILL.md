@@ -1,6 +1,13 @@
 ---
 name: automation-workflows
-description: Design and implement automation workflows to save time and scale operations as a solopreneur. Use when identifying repetitive tasks to automate, building workflows across tools, setting up triggers and actions, or optimizing existing automations. Covers automation opportunity identification, workflow design, tool selection (Zapier, Make, n8n), testing, and maintenance. Trigger on "automate", "automation", "workflow automation", "save time", "reduce manual work", "automate my business", "no-code automation".
+description: Design and implement automation workflows to save time and scale
+  operations as a solopreneur. Use when identifying repetitive tasks to
+  automate, building workflows across tools, setting up triggers and actions, or
+  optimizing existing automations. Covers automation opportunity identification,
+  workflow design, tool selection (Zapier, Make, n8n), testing, and maintenance.
+  Trigger on "automate", "automation", "workflow automation", "save time",
+  "reduce manual work", "automate my business", "no-code automation".
+disable: true
 ---
 
 # Automation Workflows

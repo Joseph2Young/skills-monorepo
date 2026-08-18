@@ -1,0 +1,23 @@
+{
+  "date": "2026-07-24",
+  "scope": "project",
+  "lockFile": "/Users/yangjingsong/skills-lock.json",
+  "lockFound": true,
+  "command": "npx skills add git@gitee.com:wind_info/wind-skills.git --skill wind-find-finance-skill -y",
+  "method": "add",
+  "sourceType": "github",
+  "updatedAt": "2026-07-24T01:43:14.668Z",
+  "status": "failed",
+  "finishedAt": "2026-07-24T01:43:14.668Z",
+  "exitCode": 1,
+  "usedFallback": true,
+  "fallbackReason": "remote changed but update did not change local files",
+  "error": "npx skills add reported failure",
+  "remoteHead": "94c00f94a3b6e8b61ebf375ad9c5cb87da34cd12",
+  "remoteChanged": true,
+  "lastAppliedRemoteHead": null,
+  "changed": true,
+  "beforeHash": "b6fb9dba132c661a9f86099a6c6fd9cc30556ce8478863511181572f6a297c3b",
+  "afterHash": "c2346126c64dab3584cf00fd50faa982c13c395a410f546060fac66cfcec9f1e",
+  "output": "E_DELETE_BULK_CONFIRM_REQUIRED] {\"count\":50,\"threshold\":50,\"scope\":\"turn\",\"targets\":[\"/Users/yangjingsong/.agents/skills/wind-find-finance-skill/README.md\"],\"targetCount\":1}\n│\n│    ✗ wind-find-finance-skill → Warp: [safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED] {\"count\":50,\"threshold\":50,\"scope\":\"turn\",\"targets\":[\"/Users/yangjingsong/.agents/skills/wind-find-finance-skill/README.md\"],\"targetCount\":1}\n│\n│    ✗ wind-find-finance-skill → Zed: [safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED] {\"count\":50,\"threshold\":50,\"scope\":\"turn\",\"targets\":[\"/Users/yangjingsong/.agents/skills/wind-find-finance-skill/README.md\"],\"targetCount\":1}\n│\n│    ✗ wind-find-finance-skill → PromptScript: [safe-delete][SAFE_DELETE_BULK_CONFIRM_REQUIRED] {\"count\":50,\"threshold\":50,\"scope\":\"turn\",\"targets\":[\"/Users/yangjingsong/.agents/skills/wind-find-finance-skill/README.md\"],\"targetCount\":1}\n\n│\n└  Done!  Review skills before use; they run with full agent permissions.\n\n--- fallback: npx skills add ---\n\n\u001b[38;5;250m███████╗██╗  ██╗██╗██╗     ██╗     ███████╗\u001b[0m\n\u001b[38;5;248m██╔════╝██║ ██╔╝██║██║     ██║     ██╔════╝\u001b[0m\n\u001b[38;5;245m███████╗█████╔╝ ██║██║     ██║     ███████╗\u001b[0m\n\u001b[38;5;243m╚════██║██╔═██╗ ██║██║     ██║     ╚════██║\u001b[0m\n\u001b[38;5;240m███████║██║  ██╗██║███████╗███████╗███████║\u001b[0m\n\u001b[38;5;238m╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚══════╝\u001b[0m\n\n┌   skills \n│\n│  Tip: use the --yes (-y) and --global (-g) flags to install without prompts.\n\u001b[?25l│\n◇  Source: git@gitee.com:wind_info/wind-skills.git\n\u001b[?25h\u001b[?25l│\n◒  Cloning repository…\u001b[1G\u001b[J◐  Cloning repository…\u001b[1G\u001b[J◓  Cloning repository…│\n■  Failed to clone repository\n│\n│  Failed to clone git@gitee.com:wind_info/wind-skills.git: Cloning into '/var/folders/_l/x4bpjgt57sq7qt5js6mzm1ph0000gn/T/skills-n4m5cq'...\n│\n│  Host key verification failed.\r\n│\n│  fatal: Could not read from remote repository.\n│\n│\n│\n│  Please make sure you have the correct access rights\n│\n│  and the repository exists.\n│\n│\n│\n└  Installation failed\n\n\u001b[1G\u001b[J■  Canceled\n\u001b[?25h"
+}
