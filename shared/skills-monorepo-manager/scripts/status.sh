@@ -77,13 +77,18 @@ fi
 
 hdr 2 "Parallels Windows 检测"
 if command -v prlctl >/dev/null 2>&1; then
-  win_vm="$(prlctl list --all 2>/dev/null | tail -n +2 | awk '{ $1=$2=$3=""; sub(/^   /,""); print }' | grep -i 'windows' || true)"
-  if [ -n "$win_vm" ]; then
-    ok "prlctl 已安装，检测到 Windows VM: $(echo "$win_vm" | head -1)"
-    ok "→ Windows 同步功能: 可用（可跑 sync-windows-skills.ps1）"
-  else
+  win_line="$(prlctl list --all 2>/dev/null | tail -n +2 | grep -i 'windows' | head -1 || true)"
+  win_status="$(echo "$win_line" | awk '{print $2}')"
+  win_name="$(echo "$win_line" | awk '{ $1=$2=$3=""; sub(/^   /,""); print }')"
+  if [ -z "$win_line" ]; then
     warn "prlctl 已安装，但未检测到 Windows VM"
     warn "→ Windows 同步功能: 退化（无 Windows 目标，跳过同步）"
+  elif [ "$win_status" = "invalid" ]; then
+    warn "检测到 Windows VM ($win_name)，但状态为 invalid（VM 损坏/不可用）"
+    warn "→ Windows 同步功能: 退化（VM 不可用，跳过同步）"
+  else
+    ok "prlctl 已安装，检测到 Windows VM: $win_name（状态: $win_status）"
+    ok "→ Windows 同步功能: 可用（可跑 sync-windows-skills.ps1）"
   fi
 else
   warn "prlctl 未安装（本机无 Parallels Desktop）"

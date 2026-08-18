@@ -70,12 +70,13 @@ bash ~/skills-monorepo/shared/skills-monorepo-manager/scripts/status.sh
 **前置：Parallels 退化判断**（第 11 条铁律）。在 macOS 端发起同步前，必须先确认本机有可用的 Parallels Windows：
 
 ```bash
-# 检测：prlctl 存在 且 有 Windows VM
-command -v prlctl >/dev/null 2>&1 && prlctl list --all 2>/dev/null | grep -iq 'windows'
+# 检测：prlctl 存在 且 有可用 Windows VM（状态为 invalid 的 VM 视为不可用）
+command -v prlctl >/dev/null 2>&1 && \
+  prlctl list --all 2>/dev/null | tail -n +2 | grep -i 'windows' | grep -qvi 'invalid'
 ```
 
-- 返回 **0**（有 Parallels Windows）→ 让用户在 Windows 里跑下面的 `sync-windows-skills.ps1`。
-- 返回 **非 0**（无 prlctl 或无 Windows VM）→ **直接退化**：告知用户「未检测到 Parallels Windows，Windows 同步已跳过」，不要让用户白跑脚本。可直接 `bash scripts/status.sh` 看 Parallels 检测结果。
+- 返回 **0**（有可用的 Parallels Windows）→ 让用户在 Windows 里跑下面的 `sync-windows-skills.ps1`。
+- 返回 **非 0**（无 prlctl、无 Windows VM、或 VM 状态为 invalid 损坏不可用）→ **直接退化**：告知用户「未检测到可用的 Parallels Windows，Windows 同步已跳过」，只做 macOS 侧同步，不要让用户白跑脚本。可直接 `bash scripts/status.sh` 看 Parallels 检测结果（含 VM 状态）。
 
 **Windows 端执行**（用户在 Windows PowerShell 里跑，不要内联代码——直接调用脚本）：
 
@@ -276,7 +277,7 @@ push_to_git() {
 
 - **文件权限**：monorepo 在 `~/skills-monorepo/`，沙箱不可写时用提权；写入受限时**不要**越过报错强推，按「错误降级策略」汇报。
 - **网络限制**：沙箱可能阻止出站 HTTPS。`git push` 失败走 `push_to_git`（gh 重试）；仍失败则**提示用户手动**，不要静默吞错。
-- **Windows 路径**：通过 Parallels 共享文件夹 `\\Mac\Home\skills-monorepo` 访问；本机无 Parallels 时退化、跳过 Windows 同步。
+- **Windows 路径**：通过 Parallels 共享文件夹 `\\Mac\Home\skills-monorepo` 访问；本机无 Parallels、无 Windows VM 或 VM 状态为 invalid 时退化、跳过 Windows 同步（只做 macOS 侧）。
 - **删除红线**：禁止 `rm -rf`；删除/整体替换必须走第 3 节护栏（非空校验 + 路径在 monorepo 下 + 用户确认 + `rm -r`/`git rm -r`）。
 - **版本化 skills**：`skill-name` 与 `skill-name-1.0.0` 是同一 skill 的不同版本。规则是**带版本号的视为新版优先保留**，无版本号的同名 bare 目录视为旧版；`sync-windows-skills.ps1` 内置跳过表（brainstorming/executing-plans/frontend-design/skill-creator/writing-plans）即此规则的实例，新增版本化 skill 时更新该表。
 - **备份目录**：`.backup.*` 后缀是 install 时自动备份，**不纳入** monorepo、不提交 git。
