@@ -61,8 +61,17 @@ def check_sharpe(bt_id: str):
     """
     if not bt_id:
         return "notfound", None
-    r = subprocess.run([JQS, "--format", "json", "backtest", "show", bt_id],
-                       capture_output=True, text=True, timeout=30)
+    # 2026-08-30 修复: subprocess 30s timeout 太短, jqcli backtest show 在 running 状态经常 hang >30s
+    # 抛 TimeoutExpired 直接 crash. 修法: 120s timeout + 1 次重试, 仍失败按 running 处理 (继续轮询)
+    for attempt in (1, 2):
+        try:
+            r = subprocess.run([JQS, "--format", "json", "backtest", "show", bt_id],
+                               capture_output=True, text=True, timeout=120)
+            break
+        except subprocess.TimeoutExpired:
+            if attempt == 2:
+                return "running", None
+            continue
     if r.returncode != 0:
         return "error", None
     try:
