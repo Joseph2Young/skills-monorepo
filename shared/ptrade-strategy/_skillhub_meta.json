@@ -3,5 +3,6 @@
   "name": "PTRADE量化策略生成器",
   "version": "1.0.2",
   "installedAt": 1781755886269,
-  "source": "skillhub"
+  "source": "skillhub",
+  "installedContentHash": "sha256:2bdeb069c11e14c6c1c5d7535e53f2af93928f7f177ba8303f33316607c06844"
 }
