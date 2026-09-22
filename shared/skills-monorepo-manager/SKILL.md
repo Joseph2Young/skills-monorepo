@@ -284,3 +284,34 @@ push_to_git() {
 - **全局 vs 项目级**：`shared/` 放所有客户端共用的 skill；`project/` 仅放只属于某个工作区的 skill。当前 `jq-full-optimizer`、`sop-factory` 均为**全局共用**（在 shared/），`project/` 为空——勿再误当作项目级处理。
 - **.system 目录**：`~/.codex/skills/.system/` 是 Codex 内置系统 skill，**绝不**纳入管理。
 - **WORKSPACE**：项目级默认 `~/Desktop/量化投资程序`，可用 `WORKSPACE=/path bash install.sh` 覆盖；不存在则自动跳过项目级（不报错）。
+
+---
+
+## 排错（实战踩坑记录）
+
+### 1. install.sh 会「静默卸载」源目录已丢失的 skill ⚠️
+
+`install.sh` 第 8 节对五个入口跑 `cleanup_deadlinks`，逻辑是 `find -type l` + `[ -e "$link" ] || rm "$link"`。
+**后果**：若 `shared/<skill>/` 被误删（工作区出现未提交的 `D`），此时跑 `install.sh` 会把这个 skill 在各客户端的 symlink **全部删掉**——等于静默卸载，屏幕上只有一行「清理死链」，极易漏看。
+
+**跑 install.sh / 同步前必查**：
+
+```bash
+cd ~/skills-monorepo && git status --short   # 重点看有无意外的 " D shared/<skill>/"
+```
+
+出现未提交的 `D` 先判明意图：误删则 `git checkout -- shared/<skill>/` 恢复，再跑 `install.sh`；确实要卸载才让它清理。
+
+### 2. 陈旧的 `.git/index.lock` 会静默卡死所有提交
+
+git 操作被中断（Ctrl-C、崩溃、编辑器异常退出）后残留的 `index.lock`，会让之后每次 `git commit/add` 都报 `Another git process seems to be running`，可能连续数天无人察觉，工作区改动越积越多。
+
+**判断**：`ls -la ~/skills-monorepo/.git/index.lock` —— 若为 0 字节且时间戳明显早于当前（数天前），基本可判定为陈旧锁。
+**清理**：确认无 git 进程在跑后 `rm ~/skills-monorepo/.git/index.lock`。（沙箱内 `ps` 常不可用，以时间戳为准。）
+
+### 3. 提交前用精确 `git add`，别用 `git add -A`
+
+monorepo 工作区常同时存在与本次操作无关的改动（别处的 WIP、未跟踪的新 skill）。
+`git add -A` 会把它们一起卷进本次提交。按操作范围精确 `git add shared/<skill>/`，并拆成聚焦提交。
+
+> 注：本文件正文中 sync 示例里的 `git add -A` 仅适用于「确认工作区只有本次同步产物」的场景。
