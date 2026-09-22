@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
+# glob 不匹配时展开为空。否则 "$PROJECT"/*/ 在 project/ 为空时会传入字面量 *，
+# 被当成技能名建出名为 * 的 symlink（随后又被第 8 节当死链删掉，每跑一次建一次）。
+shopt -s nullglob
 MONOREPO="$(cd "$(dirname "$0")" && pwd)"
 SHARED="$MONOREPO/shared"
 PROJECT="$MONOREPO/project"

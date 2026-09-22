@@ -315,3 +315,10 @@ monorepo 工作区常同时存在与本次操作无关的改动（别处的 WIP�
 `git add -A` 会把它们一起卷进本次提交。按操作范围精确 `git add shared/<skill>/`，并拆成聚焦提交。
 
 > 注：本文件正文中 sync 示例里的 `git add -A` 仅适用于「确认工作区只有本次同步产物」的场景。
+
+### 4. 空 `project/` 会造出名为 `*` 的垃圾 symlink（已修）
+
+`install.sh` 第 5 节 `for skill_dir in "$PROJECT"/*/` 原本没有 nullglob 兜底：`project/` 为空时 glob 不匹配，会把**字面量 `*`** 当成技能名，建出
+`$WORKSPACE/.agents/skills/*` 和 `$WORKSPACE/skills/*` 两个指向不存在路径的 symlink，随后又被第 8 节当死链删掉——**每跑一次建一次删一次，净效果为零**，所以长期没被发现（清理日志里的「清理死链: …/skills/*」就是它）。
+
+**已修**：脚本头部加 `shopt -s nullglob`。若日后再现「已创建: …/skills/*」，说明该行被回退了。
