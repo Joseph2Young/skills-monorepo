@@ -57,3 +57,36 @@ else:
 ## 六、文本未变的单元格一律不碰
 
 文本完全未变的单元格直接 return，一格不动，保留原稿既有痕迹。
+
+## 七、整表重建（改行结构时唯一安全做法）
+
+本文件单元格为 inline-string，openpyxl 的 `insert_rows`／`delete_rows` 在保存时会**随机丢失被移动的单元格**（实测：仅 insert + save 即可复现）。需要增行／删行／重排时，一律整表重建：
+
+```python
+import openpyxl
+from copy import copy
+
+wb = openpyxl.load_workbook(path, rich_text=True)
+old = wb[sheet_name]
+idx = wb.sheetnames.index(sheet_name)
+tabcolor = old.sheet_properties.tabColor
+colwidths = {c: old.column_dimensions[c].width for c in 'ABCDE' if c in old.column_dimensions}
+hdr = {c: (copy(old.cell(1, c).font), copy(old.cell(1, c).fill),
+           copy(old.cell(1, c).alignment), copy(old.cell(1, c).border)) for c in range(1, 6)}
+
+wb.remove(old)
+ws = wb.create_sheet(sheet_name)
+if wb.sheetnames.index(sheet_name) != idx:
+    wb.move_sheet(sheet_name, offset=idx - wb.sheetnames.index(sheet_name))
+ws.sheet_properties.tabColor = tabcolor
+for c, w in colwidths.items():
+    ws.column_dimensions[c].width = w
+# 写表头：复用 hdr 快照的 font/fill/alignment/border
+# 逐行写数据：value + Font/Alignment/Border + CellRichText（红/灰/黑 runs）
+# 重算行高
+wb.save(path)
+```
+
+要点：
+- 快照 tabColor（如黄色待核对标记）、列宽、表头样式，重建后逐项恢复；
+- 重建后核验：sheet 总数不变、tab 颜色保留、其余 sheet 未受影响、富文本颜色正确。
