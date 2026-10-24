@@ -151,11 +151,46 @@ WorkBuddy 内调用方必须二选一:
     - COS region: `ap-shanghai`
     - 历史 YTF 的 KB (`0019ec5242003ac7`) 和它的 folder 全失效, 不要用
     - 跨 KB 查重用 `mcp__ima-mcp__search_knowledge_base` 找新 KB ID, 不要凭印象
+    - **2026-10-23 再变**: 数字 ID `7489478692198610` 已报 `code:220001 knowledge_base_id 无效`, 新格式为 `ima_kb_cAS2tUN4`。**folder ID `folder_7489478742522939` 依然有效不变**。若 KB ID 又报错, 先调 `mcp__ima-mcp__get_knowledge_base_list` 拿当前真实 ID, 不要凭印象。
+    - `get_knowledge_list` 的 `limit` 上限 **50** (传 100 会报 `code:51`); 分页用 `cursor` (形如 `CDI=`), **不要传 `version`** (含小数点会报 `code:51` 只允许字母数字)
 18. **Sharpe 0.7~0.8 观察名单 (2026-08-05 主人确认)**: 之前 `0.8 < sharpe <= 3.0` 直接跳过 < 0.8 的策略。8/5 主人确认可观察名单, 改规则为 `0.7 <= sharpe <= 3.0` 且 `<= 0.8` 的进 `/tmp/jq_watchlist.json` 保留观察 (不立刻入库), `> 0.8` 照常入库。**待实现**: step5_review_build.py 加 `--watchlist` flag + write `/tmp/jq_watchlist.json`; step6 跳过 watchlist 文件。
 19. **jqcli 能力更新 (2026-08-16 同步)**: 本地 jqcli 已更新到含以下能力, 写新脚本时优先用原生命令而不是自写轮询/解析:
     - `backtest wait {bt_id} --wait-timeout 14400 --poll-interval 30`: 独立轮询**已有**回测, 不新建回测 (run --wait 每次调用都新建)。step4_poll.py 的自写轮询未来可迁移到这条命令 (注意它内部已处理 `metrics` 空 list 的坑, 见第 9 条)。
     - `backtest export {bt_id} --type all --output ./dir`: 导出日志/交易详情/持仓&收益/收益概述 4 件套; **导出的 CSV 是 GBK 编码**, 读取须 `encoding=gbk`。
     - `research ls/show/exec/run/kernels/sessions/...`: 新增研究平台文件管理 + 临时会话远端执行命令组; **需 Cookie 登录态** (只有 Bearer token 时先 `jqcli auth login`); 本流水线暂未用到, 但跨电脑移植验证时 `jqcli research ls` 可作为 Cookie 有效性检查。
+20. **COS 上传必须用 qcloud_cos SDK + 冻结 time.time (2026-10-23 实测唯一解)**: `create_media` 返回的 `cos_credential` 里 `start_time`/`expired_time` 是**腾讯云服务端时钟**, 本机时钟有漂移 (实测 -116 秒)。后果:
+    - **手写 V1 SHA1 签名**(无论 digest 版 `hmac.new(b"", skey+key_time)` 还是 hexdigest 版 `hmac.new(skey, key_time).hexdigest()`, 无论 format_str 第二行是否带前导斜杠) → 一律 **403 AccessDenied**(鉴权过了但策略拒)
+    - **原生 qcloud_cos SDK 用真实系统时钟** → `InvalidAccessKeyId` / AK 不存在
+    - **✅ 正确做法**: `unittest.mock.patch("time.time", return_value=int(cred["start_time"]) + 60)` 冻结时钟, 再调原生 SDK `put_object`。SDK 内部 `sign_time = now-60 ~ now+expire(默认 10000s)`, 冻结后窗口必落在临时密钥有效期内。**不要再手写签名, 也不要直接用不冻结时钟的 SDK。**
+    - Python 解释器用 managed 版: `/Users/yangjingsong/.workbuddy/binaries/python/envs/default/bin/python3` (系统 python3 没有 qcloud_cos)
+    - 实测模板:
+      ```python
+      from unittest.mock import patch
+      from qcloud_cos import CosConfig, CosS3Client
+      c = CosS3Client(CosConfig(Region=cred["region"], SecretId=cred["secret_id"],
+                                SecretKey=cred["secret_key"], Token=cred["token"], Scheme="https"))
+      with patch("time.time", return_value=int(cred["start_time"]) + 60):
+          c.put_object(Bucket=cred["bucket_name"], Key=cred["cos_key"],
+                       Body=open(path, "rb").read(), ContentType="text/markdown")
+      ```
+21. **2026-10-23 观察: ETF 类策略 Sharpe 常爆表**: "这个策略有点太恐怖了"(bluestttt, 全市场 ETF 5 只) Sharpe **11.64**, 7.5 年区间近乎单边持有。当前 3.0 上限已能正确拦截; 若主人想更严, 可考虑收到 2.5。
+22. **MCP 工具未加载时: 直连 ima.qq.com/mcp 兜底 (2026-10-24 实测可用)**: 会话里 `mcp__ima-mcp__*` 工具可能**不加载**到工具索引 (`list_installed_plugins` 仍显示 `connected`, `workbuddy_request_mcp_connection` 无人值守时返回 `skipped`, `reconnect_plugin` 被拒)。此时**不要降级到 OpenAPI HTTPS**, 改为**直连同一个 MCP 端点**:
+    - 端点 `https://ima.qq.com/mcp` (streamable-http, 无需 Mcp-Session-Id, 服务端无状态)
+    - 令牌来源: `~/.workbuddy/connectors/<userId>/connector-states.json` → `headerOverrides.ima-mcp.Authorization` (AES-256-GCM 加密)
+    - 解密参数 (从 `app.asar` 反查确认):
+      - master key: `~/.workbuddy/connectors/<userId>/.master.key` (32 bytes raw, 非 base64)
+      - HKDF: `HKDF-SHA256(ikm = master_key || userId_utf8, salt = header.encryption.salt, info = "workbuddy-oauth-credentials-v1", len = 32)`
+      - AAD: `` `${userId}|${serverKey}|${fieldName}` ``, 其中 `serverKey = "connector-states:headerOverrides:ima-mcp"`, `fieldName = "Authorization"`
+      - 校验位: `userIdCheck = base64(sha256(userId_utf8 + salt)[:16])`, `keyCheck = base64(sha256(master_key + salt)[:16])`
+    - ⚠️ **Python 坑**: `hashlib.sha256(x).update(y)` 返回 `None` (Node 返回 `this`), 必须拆开写, 否则报 `'NoneType' object has no attribute 'digest'`
+    - 解出的令牌**不带 `Bearer ` 前缀** (存储时被剥离), 请求时自己拼 `Authorization: Bearer <token>`
+    - 现成脚本: `scripts/ima_decrypt.py` (解密) + `scripts/ima_mcp_client.py` (JSON-RPC 客户端) + `scripts/ima_fetch_titles.py` (拉文件夹标题)
+    - 这条路径**仍是 MCP 通道**, 不是 OpenAPI 降级, 符合主人"严格模式必须走 MCP"的规则
+23. **Step5 分类决策树误命中 (2026-10-24 修复)**: 决策树是纯关键词匹配, 会误命中:
+    - `pairs` 命中 pandas 的 `_pairs` 变量 → 全天候策略被误判 T08 统计套利
+    - `RSI` 等辅助信号 → 主信号是 MACD/HRP 时仍被 T02 抢先
+    - **修法**: agent 读代码后可在候选 dict 里填 `classification_override = {"primary_type": "T07", "reason": "..."}` 覆盖 (step5_review_build.py 已支持, 2026-10-24 加入)
+    - 同时可填 `condensed_title_core` 压缩标题, 保证文件名 ≤ 80 字符
 
 ## 关键约束 (主人规则 2026-07-28 / 2026-07-29)
 

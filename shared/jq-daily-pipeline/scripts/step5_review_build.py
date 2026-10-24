@@ -127,6 +127,16 @@ def build_review(c: dict, code: str, sharpe=None) -> dict:
     init_code = init.group(1) if init else ""
     primary, primary_name, reason = classify(code, init_code)
 
+    # agent 分类覆盖 (2026-10-24 新增):
+    # 决策树是关键词匹配, 存在误命中 (如 pandas 的 _pairs 变量命中 T08 "pairs";
+    # RSI 辅助信号命中 T02 而非主信号). agent 读代码后可在候选里填
+    # classification_override 字段纠正: {"primary_type": "T07", "reason": "..."}
+    override = c.get("classification_override") or {}
+    if override.get("primary_type"):
+        primary = override["primary_type"]
+        primary_name = TYPES.get(primary, primary_name)
+        reason = override.get("reason", reason)
+
     year = c["published_at"][:4]
 
     # 兼容 author dict 和 author_name 平铺字段

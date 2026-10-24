@@ -72,12 +72,15 @@ def check_sharpe(bt_id: str):
             if attempt == 2:
                 return "running", None
             continue
+    # 2026-10-22 修复: jqcli 瞬时失败 (非 0 退出码 / stdout 非 JSON, 通常是 CLI 层偶发报错)
+    # 不是回测失败, 按 running 继续轮询。原版返回 "error" 且不计入 pending,
+    # 会让其他策略一完成就提前退出轮询, 白跑一小时。
     if r.returncode != 0:
-        return "error", None
+        return "running", None
     try:
         d = json.loads(r.stdout)
     except:
-        return "error", None
+        return "running", None
 
     # running 状态直接返回 (jqcli running 时 metrics 通常是空 list)
     status_str = (d.get("status") or "").lower()
