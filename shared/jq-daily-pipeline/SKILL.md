@@ -191,6 +191,9 @@ WorkBuddy 内调用方必须二选一:
     - `RSI` 等辅助信号 → 主信号是 MACD/HRP 时仍被 T02 抢先
     - **修法**: agent 读代码后可在候选 dict 里填 `classification_override = {"primary_type": "T07", "reason": "..."}` 覆盖 (step5_review_build.py 已支持, 2026-10-24 加入)
     - 同时可填 `condensed_title_core` 压缩标题, 保证文件名 ≤ 80 字符
+    - **补充案例 (2026-10-25)**: `价差` 出现在 ETF 流动性/溢价说明**注释**里 → 被 T08 统计套利抢先命中, 实际是 3 标的 ETF 轮动 (T07)。**判定原则: 关键词在注释里出现不等于策略用了该机制, 必须读上下文**。
+24. **T10 分类简称含 `/` 导致文件名非法 (2026-10-25 修复)**: `TYPES["T10"] = "ML/AI选股"`, 含 `/` 会被文件系统当目录分隔符, `write_text` 直接抛 `FileNotFoundError` (目录不存在)。修法: `build_filename` 里用新增的 `safe_tname()` 去掉非法字符 → `MLAI选股`, 与库内既有条目 `2026_T10_MLAI选股_...` 命名一致。**任何含斜杠的分类简称都要过一遍 `safe_tname`**。
+25. **clone-strategy 偶发 network_error (2026-10-25 现身)**: `jqcli community clone-strategy` 报 `network_error 无法连接到聚宽服务器` (瞬时故障, 重试即成功)。**修法: 直接重试该策略的克隆**, 不要重跑整个 `run_daily.sh` (会重复启动已 clone 的策略回测, 浪费回测额度)。重试成功后需单独为它 `launch_backtest` 并把 bt_id 写回 `dedup_result.json` 的 `backtest_ids` 对应位。
 
 ## 关键约束 (主人规则 2026-07-28 / 2026-07-29)
 

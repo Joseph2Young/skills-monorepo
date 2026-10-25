@@ -91,6 +91,16 @@ def safe_author(author: str) -> str:
     return a[:30]
 
 
+def safe_tname(tname: str) -> str:
+    """分类简称字段: 去文件系统非法字符 (2026-10-25 修复)
+
+    T10 的原始名是 'ML/AI选股', 含 '/' 会被当成目录分隔符,
+    write_text 直接抛 FileNotFoundError。去掉 '/' 后为 'MLAI选股',
+    与库内既有条目 '2026_T10_MLAI选股_...' 命名保持一致。
+    """
+    return re.sub(r'[<>:"/\\|?*\x00-\x1f]+', '', tname or '')
+
+
 def sharpe_segment(sharpe) -> str:
     """Sharpe 段: s0.85 / s2.40, None 退化为 s?
     注意不带前导下划线 (build_filename 用 _ join, 否则会双下划线)
@@ -113,7 +123,7 @@ def build_filename(year: str, tcode: str, tname: str, author: str,
     parts = [
         year,
         tcode,
-        tname,
+        safe_tname(tname),
         safe_author(author),
         title_core,
         sharpe_segment(sharpe),
