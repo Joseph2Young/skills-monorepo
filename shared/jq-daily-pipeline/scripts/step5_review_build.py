@@ -20,11 +20,15 @@ from pathlib import Path
 DEDUP_FILE = Path("/tmp/jq_dedup_result.json")
 SHARPE_FILE = Path("/tmp/jq_real_sharpe.json")
 REVIEWS_FILE = Path("/tmp/jq_reviews.json")
+WATCHLIST_FILE = Path("/tmp/jq_watchlist.json")
 UPLOAD_DIR = Path("/tmp/jq_uploads")
 CODES_DIR = Path("/tmp/jq_codes")
 # Sharpe 过滤条件: 0.8 < sharpe <= 3 (主人规则 2026-07-28)
 SHARPE_MIN = 0.8
 SHARPE_MAX = 3.0
+# 观察名单: 0.7 <= sharpe <= 0.8 (2026-08-05 主人确认, 当时未实现, 2026-10-27 补上)
+# 这些策略不入库, 但保留到 /tmp/jq_watchlist.json, 便于主人后续人工判断
+WATCH_MIN = 0.7
 # 入库文件名总长度上限 (含 .md 后缀), 超过 agent 应该自己 condensed_title_core
 MAX_FILENAME_LEN = 80
 
@@ -208,6 +212,7 @@ def main():
         f.unlink()
 
     reviews = {}
+    watchlist = []
     for i, c in enumerate(candidates, 1):
         sid = f"s{i}"
         code_path = CODES_DIR / f"{sid}_code.json"
@@ -219,14 +224,34 @@ def main():
         except:
             continue
 
-        # Sharpe 过滤: 0.8 < sharpe <= 3
+        # Sharpe 过滤: 0.8 < sharpe <= 3 入库
+        # 0.7 <= sharpe <= 0.8 进观察名单 (2026-08-05 主人确认, 2026-10-27 实现)
+        # sharpe < 0.7 丢弃
         real = sharpes.get(sid, {})
         sharpe = real.get("sharpe")
         if sharpe is None:
             print(f"  ❌ {sid} Sharpe=None 跳过 (无 Sharpe)")
             continue
+        if sharpe < WATCH_MIN:
+            print(f"  ❌ {sid} Sharpe={sharpe:.4f} 跳过 (<{WATCH_MIN})")
+            continue
         if sharpe <= SHARPE_MIN:
-            print(f"  ❌ {sid} Sharpe={sharpe:.4f} 跳过 (<={SHARPE_MIN})")
+            review = build_review(c, code, sharpe=sharpe)
+            watchlist.append({
+                "sid": sid,
+                "title": c["title"],
+                "author": review["meta"]["author"],
+                "post_id": c["id"],
+                "published_at": c["published_at"],
+                "view_count": c["view_count"],
+                "sharpe": sharpe,
+                "primary_type": review["strategy_classification"]["primary_type"],
+                "primary_name": review["strategy_classification"]["primary_name"],
+                "suggested_name": review["meta"]["ai_new_name"],
+                "backtest_id": real.get("backtest_id", ""),
+                "note": f"Sharpe {sharpe:.4f} 落在 {WATCH_MIN}~{SHARPE_MIN} 观察区间, 未入库",
+            })
+            print(f"  👀 {sid} Sharpe={sharpe:.4f} 进观察名单 (观察区间 {WATCH_MIN}~{SHARPE_MIN})")
             continue
         if sharpe > SHARPE_MAX:
             print(f"  ❌ {sid} Sharpe={sharpe:.4f} 跳过 (>{SHARPE_MAX}, 过度拟合)")
@@ -272,6 +297,23 @@ def main():
 
     REVIEWS_FILE.write_text(json.dumps(reviews, ensure_ascii=False, indent=2))
     print(f"\n💾 {REVIEWS_FILE}")
+
+    # 观察名单: 累积保留历史条目, 便于主人后续人工判断是否放宽阈值入库
+    old_watch = []
+    if WATCHLIST_FILE.exists():
+        try:
+            old_watch = json.loads(WATCHLIST_FILE.read_text(encoding="utf-8")).get("items", [])
+        except Exception:
+            old_watch = []
+    known = {w.get("post_id") for w in old_watch}
+    merged = old_watch + [w for w in watchlist if w.get("post_id") not in known]
+    WATCHLIST_FILE.write_text(json.dumps(
+        {"updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+         "rule": f"{WATCH_MIN} <= sharpe <= {SHARPE_MIN} (2026-08-05 主人确认)",
+         "items": merged},
+        ensure_ascii=False, indent=2))
+    if merged:
+        print(f"👀 {WATCHLIST_FILE} (观察名单累计 {len(merged)} 条, 本次新增 {len(watchlist)} 条)")
 
 
 if __name__ == "__main__":
