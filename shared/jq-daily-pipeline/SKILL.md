@@ -153,7 +153,7 @@ WorkBuddy 内调用方必须二选一:
     - 跨 KB 查重用 `mcp__ima-mcp__search_knowledge_base` 找新 KB ID, 不要凭印象
     - **2026-10-23 再变**: 数字 ID `7489478692198610` 已报 `code:220001 knowledge_base_id 无效`, 新格式为 `ima_kb_cAS2tUN4`。**folder ID `folder_7489478742522939` 依然有效不变**。若 KB ID 又报错, 先调 `mcp__ima-mcp__get_knowledge_base_list` 拿当前真实 ID, 不要凭印象。
     - `get_knowledge_list` 的 `limit` 上限 **50** (传 100 会报 `code:51`); 分页用 `cursor` (形如 `CDI=`), **不要传 `version`** (含小数点会报 `code:51` 只允许字母数字)
-18. **Sharpe 0.7~0.8 观察名单 (2026-08-05 主人确认)**: 之前 `0.8 < sharpe <= 3.0` 直接跳过 < 0.8 的策略。8/5 主人确认可观察名单, 改规则为 `0.7 <= sharpe <= 3.0` 且 `<= 0.8` 的进 `/tmp/jq_watchlist.json` 保留观察 (不立刻入库), `> 0.8` 照常入库。**待实现**: step5_review_build.py 加 `--watchlist` flag + write `/tmp/jq_watchlist.json`; step6 跳过 watchlist 文件。
+18. **Sharpe 0.7~0.8 观察名单 (2026-08-05 主人确认, 2026-10-27 实现)**: 之前 `0.8 < sharpe <= 3.0` 直接跳过 < 0.8 的策略。8/5 主人确认可观察名单。**已实现** (commit `75dff9ef`): `step5_review_build.py` 三段过滤 —— `< 0.7` 丢弃 / `0.7 <= sharpe <= 0.8` 写进 `/tmp/jq_watchlist.json` 观察名单 (不入库, 不生成 markdown) / `0.8 < sharpe <= 3.0` 正常入库。观察名单**累积保留历史条目** (按 post_id 去重), 字段含 sid/title/author/post_id/sharpe/分类/suggested_name/backtest_id。主人可后续人工决定是否放宽下限入库。**注意**: 观察名单条目**不生成 markdown 文件**, 所以 Step 6 无需特殊处理 (只扫 `/tmp/jq_uploads/*.md`)。
 19. **jqcli 能力更新 (2026-08-16 同步)**: 本地 jqcli 已更新到含以下能力, 写新脚本时优先用原生命令而不是自写轮询/解析:
     - `backtest wait {bt_id} --wait-timeout 14400 --poll-interval 30`: 独立轮询**已有**回测, 不新建回测 (run --wait 每次调用都新建)。step4_poll.py 的自写轮询未来可迁移到这条命令 (注意它内部已处理 `metrics` 空 list 的坑, 见第 9 条)。
     - `backtest export {bt_id} --type all --output ./dir`: 导出日志/交易详情/持仓&收益/收益概述 4 件套; **导出的 CSV 是 GBK 编码**, 读取须 `encoding=gbk`。
