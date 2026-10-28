@@ -1,0 +1,13 @@
+interface:
+  display_name: A股主线与核心候选筛选
+  short_description: 按主线、涨停梯队、广度和成交容量筛选候选，保留对照与风险说明
+  default_prompt: 使用 $select-ashare-core-candidates，依据指定截止日期的数据，筛选高度、接力与容量核心候选。
+  icon_small: assets/icon.svg
+  icon_large: assets/icon.svg
+policy:
+  allow_implicit_invocation: false
+  products:
+  - chatgpt
+  - codex
+  - api
+  - atlas
