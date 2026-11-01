@@ -20,7 +20,12 @@ from pathlib import Path
 DEDUP_FILE = Path("/tmp/jq_dedup_result.json")
 SHARPE_FILE = Path("/tmp/jq_real_sharpe.json")
 REVIEWS_FILE = Path("/tmp/jq_reviews.json")
-WATCHLIST_FILE = Path("/tmp/jq_watchlist.json")
+# 观察名单是**跨天累积**的数据, 不能放 /tmp —— macOS 会定期清理 /tmp,
+# 2026-11-01 发现 10-27 那条 0.7557 条目被系统清掉, 累积功能实际失效。
+# 改放 ~/.workbuddy/ 持久目录, 并保留旧路径自动迁移 (见下方 migrate_watchlist)。
+WATCHLIST_DIR = Path.home() / ".workbuddy"
+WATCHLIST_FILE = WATCHLIST_DIR / "jq_watchlist.json"
+WATCHLIST_LEGACY = Path("/tmp/jq_watchlist.json")
 UPLOAD_DIR = Path("/tmp/jq_uploads")
 CODES_DIR = Path("/tmp/jq_codes")
 # Sharpe 过滤条件: 0.8 < sharpe <= 3 (主人规则 2026-07-28)
@@ -305,8 +310,17 @@ def main():
             old_watch = json.loads(WATCHLIST_FILE.read_text(encoding="utf-8")).get("items", [])
         except Exception:
             old_watch = []
+    # 迁移: 旧版把观察名单放在 /tmp, macOS 定期清理会误删 → 一次性搬到持久目录
+    elif WATCHLIST_LEGACY.exists():
+        try:
+            old_watch = json.loads(WATCHLIST_LEGACY.read_text(encoding="utf-8")).get("items", [])
+            if old_watch:
+                print(f"📦 从 {WATCHLIST_LEGACY} 迁移 {len(old_watch)} 条历史条目")
+        except Exception:
+            old_watch = []
     known = {w.get("post_id") for w in old_watch}
     merged = old_watch + [w for w in watchlist if w.get("post_id") not in known]
+    WATCHLIST_DIR.mkdir(parents=True, exist_ok=True)
     WATCHLIST_FILE.write_text(json.dumps(
         {"updated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
          "rule": f"{WATCH_MIN} <= sharpe <= {SHARPE_MIN} (2026-08-05 主人确认)",

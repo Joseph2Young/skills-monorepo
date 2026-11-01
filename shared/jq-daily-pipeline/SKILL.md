@@ -197,6 +197,11 @@ WorkBuddy 内调用方必须二选一:
 26. **决策树 `MA` 关键词是子串匹配, 一处 `MA5` 即误判 T01 (2026-10-26 现身)**: 首板/打板类策略的卖出止损条件 `if cp < ma5 * 0.97` 会被 T01 关键词 `MA` 命中, 决策树直接判成"趋势跟踪"。**修法: agent 读代码时凡见 T01 判定必须人工核对**, 主信号是涨停形态识别就 override 成 T09。**判断标准**: 有无多因子打分排序? 无 → 不是 T03; 主信号是 K 线/涨停形态 → T09。
 27. **决策树 `get_fundamentals` 命中 ≠ 多因子选股 (2026-10-26 现身)**: 打板策略用 `get_fundamentals(query(valuation.circulating_cap)...)` 只查单个流通股本字段来算封单占比, 决策树照样判 T03。**修法: 必须看 `query(...)` 里查了什么字段** — 多字段估值/盈利打分排序才是 T03, 单字段辅助计算要 override 成实际主类型 (通常是 T09 技术形态)。
 28. **打板类大代码策略回测极慢 (2026-10-26 复现)**: 66KB / 60+ 函数 / 分钟级打板策略, 7.5 年回测跑满 3600s 仍未出 Sharpe。叠加其他大代码策略时, 一天 3 个候选里常出现 1-2 个 timeout。**预期**: 每天实际入库 1-2 条是常态, 0 条也不算异常。
+29. **观察名单放 /tmp 会被 macOS 定期清理误删 (2026-11-01 修复)**: 观察名单是**跨天累积**数据, 原先放 `/tmp/jq_watchlist.json`, macOS 会定期清理 /tmp —— 2026-11-01 发现 10-27 那条 Sharpe=0.7557 条目被系统清掉, "累积保留历史条目" 功能实际失效 (还波及 `/tmp/jq_candidates_cache.json`)。**修法**: `step5_review_build.py` 的 `WATCHLIST_FILE` 改到 `~/.workbuddy/jq_watchlist.json` (持久目录), 并保留旧 `/tmp` 路径的自动迁移逻辑。**推论: 任何需要跨天累积的状态文件都不能放 /tmp** (同理适用于 pending 队列、历史索引等)。
+30. **决策树 `RSI` 会命中 `VERSION` 变量名 (2026-11-01 现身)**: 策略里 `VERSION = "v2.3.5"` 这类**变量名**含 "RSI" 子串 → T02 均值回归抢先命中。同类还有 `MA`/`ATR`/`pairs` 等英文关键词的子串陷阱 (见 #26/#23)。**判定原则: 决策树关键词命中后必须 grep 出命中行看上下文**, 是变量名/注释/字符串 → 误判, override 成实际主类型。
+31. **`get_fundamentals` 只用来求全A总市值 ≠ 多因子选股 (2026-11-01 现身)**: s3「稳健配置流策略」用 `get_fundamentals(query(valuation.code, valuation.market_cap))` 求**全市场总市值**算巴菲特指标(市值/GDP)做宏观择时, 从头到尾不选个股, 决策树照样判 T03。**判据**: 该 API 的结果是用来给**个股打分排序** (选股), 还是用来算**整体指标/择时信号**? 后者应 override 成实际主类型 (ETF 配置轮动 → T07)。
+32. **`create_media` 偶发 Streamable HTTP internal_error (2026-11-01 现身)**: 连续调 3 次时第 2 次报 `[MCP] Failed to callTool "create_media": Streamable HTTP error: Error POSTing to endpoint: {"error":"internal_error"}`, **原样重试一次即成功**。这是瞬时故障, 不是权限/参数问题 —— 不要因此改参数或换路径。
+
 
 
 ## 关键约束 (主人规则 2026-07-28 / 2026-07-29)
