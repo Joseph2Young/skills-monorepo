@@ -205,6 +205,21 @@ WorkBuddy 内调用方必须二选一:
 34. **ETF 轮动策略里几乎必有「均线/MA」, 但多是过滤条件 (2026-11-03 现身)**: s2「ETF轮动熔断+商品M60防御仓」决策树因 `momentum`/`MA`/`均线` 命中 T01, 实际 MA10 只是**弱势期过滤**和**熔断解除条件**, 主信号是 120 只 ETF 池 + 25 日加权对数回归年化斜率×R² 打分排序 → override T07。**判据**: 主信号是「对标的池打分排序」→ T07; 是「对单只标的做趋势跟随」→ T01。
 35. **规则生成 ETF 池的新范式 (2026-11-03 现身)**: 库内首次出现「无硬编码 ETF 代码」的轮动池 —— `get_all_securities(['etf'], date=...)` 取当日真实存在的全部 ETF (点时数据, 天然排除未来上市的品种), 再按基金名称关键词归入大类分组, 每组取成交额最大者。**分类时别因为代码里看不到 `etf_pool` 字面量就判错 T07**, 要 grep `get_all_securities` + 关键词分组表。
 36. **`create_media` 的 `secret_key` 是 base64 不是 hex (2026-11-03 现身)**: 长度 44 字符 (base64), 不是 40 字符 hex。**不要用 "长度必须 == 40" 做凭证校验**, 否则误报失败。真正该校验的是 `cos_key` 长度 == 73 和 `media_id` 非空。
+37. **`create_media` 可能返回 `upload_mode: 1` (预签名直传), 不是 0/2 (2026-11-04 首次遇到)**: 即使按工具 schema 传 `apply_upload_mode: 1`, 服务端**仍可能返回 `upload_mode: 1` + `upload_url.presigned_url` + `auth_headers`**, 此时 **`cos_credential` 为 null、没有 cos_key**。**不要去拼 COS 凭证、也不需要 qcloud_cos SDK、不需要冻结时钟** (绕开了 10-23 的时钟漂移坑)。正确做法:
+    ```python
+    import urllib.request
+    body = open(path, "rb").read()
+    assert len(body) == int(resp["upload_url"]["auth_headers"]["Content-Length"])  # 必须一致
+    req = urllib.request.Request(resp["upload_url"]["presigned_url"], data=body, method="PUT")
+    for k, v in resp["upload_url"]["auth_headers"].items():
+        req.add_header(k, v)          # Content-Length / Content-Type / x-cos-acl 全部原样带上
+    with urllib.request.urlopen(req, timeout=120) as r:
+        assert r.status == 200         # HTTP 200 即成功
+    ```
+    **两种 upload_mode 都要分支处理, 别写死 0**: `upload_mode == 1` → 预签名直传; 否则 (`0` / 缺省 / `2`) → 走 `cos_credential` + qcloud_cos SDK + 冻结 `time.time`。
+38. **决策树 `MA` 子串第三种误命中形态: 常量名/配置项名 (2026-11-04 现身)**: s2「逆市狂飙147%」代码里 `MA` 出现在常量 `MAX_POSITIONS_DEFAULT` 中, 决策树判 T01 趋势跟踪, 实际是涨停龙头打板策略 → override T09。至此 `MA` 的误命中来源已有三种: ① 卖出止损 `MA5` (10-26) ② 变量名 `VERSION` 里的 `RSI` 同类 (11-01) ③ 常量名/配置项名 (11-04)。**判据不变: grep 命中行看上下文**。
+39. **打板策略 Sharpe 可能为负, 标题里的夏普一律不作数 (2026-11-04 现身)**: s2 标题写「夏普3.87的神策」, 7.5 年真实回测 **Sharpe = -1.1140**。作者标题里的夏普通常是短区间/加杠杆/精选时段的口径。**入库依据只能是 step4 的实测 Sharpe**, 绝不按标题预判。
+40. **483KB 六形态策略跑满 1 小时无 Sharpe (2026-11-04 复现)**: s3「多形态趋势跟踪」代码 483KB (六形态 K 线识别 + 经济次分 + ATR 跟踪止损 + 强趋势管理), 7.5 年回测 3600s 未完成 → timeout。与 10-22/10-25/10-26 记录一致。**预期: 每日入库 1-2 条是常态, 0 条不算异常**。
 
 
 
@@ -223,12 +238,20 @@ WorkBuddy 内调用方必须二选一:
 
 ```python
 for md in [/tmp/jq_uploads/*.md]:
-    # 1) create_media (拿 media_id + cos_credential)
-    # 拿到返回的 cos_credential 后, **不要再人肉复制 cos_key 到下一条 shell 命令**
-    # 详见下方"防 cos_key 复制陷阱"小节
-    media = await mcp.ima.create_media(...)
-    # 2) 客户端用 cos-python-sdk-v5 PUT 文件 (用 cos_credential.bucket/region/keys/cos_key)
-    upload_to_cos(md, media["cos_credential"])
+    # 1) create_media (拿 media_id + 上传方式)
+    media = await mcp.ima.create_media(
+        knowledge_base_id=KB, file_name=md.name, file_size=len(md_bytes),
+        file_ext="md", content_type="text/markdown", apply_upload_mode=1)
+    # 2) 按 upload_mode 分支上传 (两种模式都可能遇到!)
+    if media.get("upload_mode") == 1:
+        # 预签名直传: 原样携带 auth_headers, Content-Length 必须 == file_size
+        req = urllib.request.Request(media["upload_url"]["presigned_url"], data=md_bytes, method="PUT")
+        for k, v in media["upload_url"]["auth_headers"].items():
+            req.add_header(k, v)
+        urllib.request.urlopen(req, timeout=120)     # HTTP 200 即成功
+    else:
+        # cos_credential 分支: qcloud_cos SDK + 冻结 time.time (见避雷点 #20)
+        upload_to_cos(md, media["cos_credential"])
     # 3) add_knowledge (串行!) — 一旦返回成功才能发起下一个
     await mcp.ima.add_knowledge(
         media_id=media["media_id"],
@@ -242,6 +265,8 @@ for md in [/tmp/jq_uploads/*.md]:
 **为什么串行**: IMA 服务端 per-folder 有锁, 并发调 `add_knowledge` 时第二个会返回 `222000 文件夹不存在` (实际存在)。串行 + 0.5s sleep 稳过。
 
 **为什么不能用脚本**: `step6_upload.py` 用 `ima_api` (HTTPS/connector 模式), 不被 `WORKBUDDY_REQUIRE_CONNECTOR=1` 接受。WorkBuddy 内 agent 必须直接调 MCP。
+
+**为什么 upload_mode 必须分支**: 服务端返回 `upload_mode: 0` (走 cos_credential) 或 `upload_mode: 1` (预签名直传) 都出现过, 且 `apply_upload_mode` 参数**不能决定**服务端返回哪种。写死任何一种都会翻车 —— 见避雷点 #37。
 
 ### 防 cos_key 复制陷阱 (2026-07-31 修复)
 
