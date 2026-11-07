@@ -228,6 +228,9 @@ WorkBuddy 内调用方必须二选一:
 46. **`ima_fetch_titles.py` 依赖的 `/tmp/ima_mcp_client.py` 会被 macOS 清理 /tmp 时删掉 (2026-11-06 现身)**: 该脚本写死了 `subprocess.run(["python3", "/tmp/ima_mcp_client.py", ...])`, 但 `ima_mcp_client.py` 实际在 skill 目录 `scripts/` 下, `/tmp` 下的是拷贝。**修法**: 跑之前先 `cp ~/.workbuddy/skills/jq-daily-pipeline/scripts/ima_mcp_client.py /tmp/`。另外 `ima_decrypt.py` 需要 `cryptography` 模块, **系统 python3 没有**, 要用 managed python: `/Users/yangjingsong/.workbuddy/binaries/python/envs/default/bin/python3` (cryptography 49.0.0)。解密成功后令牌写在 `/tmp/ima_token.txt`, 用完记得删。
 47. **step4_poll.py 轮询期间 stdout 只有「✅」行才有增量输出 (2026-11-06 实测)**: 脚本每 60s 扫一轮, 但**只在某个策略 status=="done" 时才 print**。所以从启动到第一个策略完成之间, TaskOutput 的 delta 是空的 —— **看到「no new output」不代表卡死**。判断进度用 `Duration` 字段 + 已完成的 ✅ 行数, 不要因为几分钟没输出就以为挂了。
 48. **查重脚本可独立于 MCP 工具跑 (2026-11-06 实测)**: MCP 工具本次正常加载 (`mcp__ima-mcp__get_knowledge_list` 三页拿全 101 条), 但为了做**程序化**标题比对 (而不是肉眼扫), 用 `ima_fetch_titles.py` 直连同一个 MCP 端点把标题清单落到 `/tmp/ima_existing_titles.json` 再用 python 归一化比对更稳。**注意**: 这是 MCP 通道, 不是 OpenAPI 降级, 符合主人"严格模式必须走 MCP"的规则。
+49. **`RSI` 子串第四种误命中形态: 大写哈希变量名 (2026-11-07 现身)**: s1「多策略组合实践」(329KB / 364 函数) 的代码里 `RSI` 出现在 `cv_CODE_VERSION = "eb475e817cca"` 和 `xchk_EXPORT_VERSION = "1"` —— **`RSION` 里的 RSI**。这是 #30 (`VERSION` 变量名) 的同类变体, 但更隐蔽 (变量名首字母大写且嵌在长标识符中)。**判据不变: 关键词命中后必须 grep 出命中行看上下文**, 是变量名/注释/字符串 → 误判。同日还有「超卖」二字出自注释「执行层超卖 → 账本分摊抛 LedgerError」→ 叠加命中 T02。
+50. **`对冲` 在策略注释里也会误命中 T08 (2026-11-07 现身)**: s2「恐怖收割低开错杀」代码注释写「继续压回撤需对冲/波动率仓位等新机制」→ 决策树判 T08 统计套利, 实际是开盘跳空反转 (今开<昨低且低开>1.2% → 低吸, 11:30 破开盘价清仓) → T02 均值回归。**判据补充: T08 关键词除了「价差」要看上下文 (见 #41), 「对冲」「配对」同样要看** —— 代码里没有实际的配对交易/价差序列计算, 就不是统计套利。
+51. **决策树会整条漏判落到默认 T11 (2026-11-07 现身)**: s3「昨日首板盘中炸板回封」代码里 `set_benchmark` 存在但 `get_index_stocks` 不存在 → T04 的 AND 规则不满足, T09 关键词 (CDL/W底/旗形/吞没/锤子/jqmt) 又一个都没有 → 一路落到默认分支 **T11 波动率策略**。**判据: 落到默认分支时必须人工复核**, 尤其是涨停/首板/竞价类策略应归 T09。补一条 T09 关键词 `涨停`/`首板`/`炸板` 会提高命中率, 但仍需人工确认主信号。
 
 
 ## 关键约束 (主人规则 2026-07-28 / 2026-07-29)
@@ -274,6 +277,16 @@ for md in [/tmp/jq_uploads/*.md]:
 **为什么不能用脚本**: `step6_upload.py` 用 `ima_api` (HTTPS/connector 模式), 不被 `WORKBUDDY_REQUIRE_CONNECTOR=1` 接受。WorkBuddy 内 agent 必须直接调 MCP。
 
 **为什么 upload_mode 必须分支**: 服务端返回 `upload_mode: 0` (走 cos_credential) 或 `upload_mode: 1` (预签名直传) 都出现过, 且 `apply_upload_mode` 参数**不能决定**服务端返回哪种。写死任何一种都会翻车 —— 见避雷点 #37。
+
+**用 `scripts/jq_cos_upload.py` 做上传, 不要手写一次性脚本** (2026-11-07 补): 该脚本已同时支持两种 upload_mode (`upload_presigned` / `upload_credential`), 并自动兼容 create_media 响应的两种形态 (原始 JSON / MCP `result.content[].text` 包装)。用法:
+```bash
+# 1) 把 create_media 的完整返回 dump 到 /tmp/cos_resp_N.json
+# 2) 调用脚本 (managed python, 才有 qcloud_cos)
+/Users/yangjingsong/.workbuddy/binaries/python/envs/default/bin/python3 \
+  ~/.workbuddy/skills/jq-daily-pipeline/scripts/jq_cos_upload.py \
+  "/tmp/jq_uploads/xxx.md" /tmp/cos_resp_N.json
+```
+脚本内部会校验 `Content-Length == 实际文件大小`, 不一致直接抛错, 避免签名失败。
 
 ### 防 cos_key 复制陷阱 (2026-07-31 修复)
 
